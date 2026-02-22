@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧶 Crochet AI Generator</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FFFCF7;
+  --yarn:  #FF9E3D;
+  --dark:  #1C1020;
+  /* animal */
+  --a1:#FF7B54; --a2:#FFD6C0; --a3:#FFF5F0; --a4:#C0390A;
+  /* girl */
+  --g1:#FF85C2; --g2:#FFB3D9; --g3:#FFF0F8; --g4:#B5006F;
+  /* boy */
+  --b1:#5BBFFF; --b2:#A8DAFF; --b3:#F0F8FF; --b4:#0055A5;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Quicksand',sans-serif;background:var(--cream);min-height:100vh;overflow-x:hidden;}
+
+/* BG */
+.page-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    radial-gradient(circle at 10% 15%,rgba(255,123,84,.10) 0%,transparent 40%),
+    radial-gradient(circle at 90% 80%,rgba(91,191,255,.10) 0%,transparent 40%),
+    radial-gradient(circle at 55% 45%,rgba(255,133,194,.08) 0%,transparent 50%);}
+
+/* ── LANG SWITCH ── */
+.lang-bar{
+  position:fixed;top:14px;right:18px;z-index:100;
+  display:flex;gap:6px;
+  background:white;border-radius:999px;padding:5px;
+  box-shadow:0 4px 18px rgba(0,0,0,.12);border:2px solid #F0E8FF;
+}
+.lang-btn{
+  padding:7px 18px;border-radius:999px;border:none;
+  font-family:'Quicksand',sans-serif;font-weight:700;font-size:.82rem;
+  cursor:pointer;transition:all .25s ease;color:#AAA;background:transparent;
+}
+.lang-btn.on{background:linear-gradient(135deg,#FF9E3D,#FF6B35);color:white;box-shadow:0 4px 12px rgba(255,158,61,.4);}
+
+/* ── HEADER ── */
+header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
+.logo-wrap{
+  display:inline-flex;align-items:center;gap:14px;
+  background:white;border-radius:999px;padding:12px 32px;
+  box-shadow:0 4px 30px rgba(0,0,0,.08);margin-bottom:18px;
+  border:2.5px solid #FFE8D6;
+}
+.yarn-icon{font-size:2rem;animation:spin 4s linear infinite;display:inline-block;}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.logo-text{font-family:'Pacifico',cursive;font-size:1.7rem;
+  background:linear-gradient(135deg,#FF7B54,#FF9E3D,#FF85C2,#5BBFFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.header-tagline{font-size:1rem;color:#A07090;font-weight:600;max-width:500px;margin:0 auto 22px;line-height:1.6;}
+
+/* thread deco */
+.thread-row{display:flex;justify-content:center;gap:6px;margin-bottom:4px;}
+.thread{width:30px;height:6px;border-radius:999px;animation:tb 1.8s ease-in-out infinite;}
+.thread:nth-child(1){background:#FF7B54;animation-delay:0s}
+.thread:nth-child(2){background:#FF9E3D;animation-delay:.15s}
+.thread:nth-child(3){background:#FF85C2;animation-delay:.3s}
+.thread:nth-child(4){background:#C084FC;animation-delay:.45s}
+.thread:nth-child(5){background:#5BBFFF;animation-delay:.6s}
+.thread:nth-child(6){background:#4CAF50;animation-delay:.75s}
+.thread:nth-child(7){background:#FFD700;animation-delay:.9s}
+@keyframes tb{0%,100%{transform:scaleX(1)}50%{transform:scaleX(1.45)}}
+
+/* ── MAIN NAV TABS ── */
+.nav-row{position:relative;z-index:2;display:flex;justify-content:center;padding:22px 16px 0;}
+.nav-pill{
+  background:white;border-radius:999px;padding:6px;display:flex;gap:4px;
+  box-shadow:0 6px 32px rgba(0,0,0,.10);border:2px solid #F5E0FF;
+  flex-wrap:wrap;justify-content:center;
+}
+.nav-btn{
+  padding:13px 36px;border-radius:999px;border:none;
+  font-family:'Quicksand',sans-serif;font-size:1rem;font-weight:700;
+  cursor:pointer;transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  color:#BBB;background:transparent;display:flex;align-items:center;gap:8px;
+}
+.nav-btn.animal.on{background:linear-gradient(135deg,#FF7B54,#E64A19);color:white;box-shadow:0 8px 20px rgba(255,123,84,.45);transform:scale(1.06);}
+.nav-btn.girl.on  {background:linear-gradient(135deg,#FF85C2,#E91E8C);color:white;box-shadow:0 8px 20px rgba(255,133,194,.45);transform:scale(1.06);}
+.nav-btn.boy.on   {background:linear-gradient(135deg,#5BBFFF,#2196F3);color:white;box-shadow:0 8px 20px rgba(91,191,255,.45);transform:scale(1.06);}
+.nav-btn:not(.on):hover{color:#888;transform:scale(1.03);}
+
+/* ── CONTENT ── */
+.content{max-width:980px;margin:0 auto;padding:34px 20px 100px;position:relative;z-index:2;}
+.panel{display:none;}
+.panel.on{display:block;animation:panelIn .4s cubic-bezier(.34,1.56,.64,1);}
+@keyframes panelIn{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}
+
+/* ── STEP CARDS ── */
+.step{
+  background:white;border-radius:28px;padding:28px 30px;
+  margin-bottom:18px;border:2.5px solid;
+  box-shadow:0 4px 20px rgba(0,0,0,.06);transition:box-shadow .2s;
+}
+.step:hover{box-shadow:0 8px 32px rgba(0,0,0,.10);}
+.animal .step{border-color:var(--a2);}
+.girl   .step{border-color:var(--g2);}
+.boy    .step{border-color:var(--b2);}
+
+.step-label{font-size:.72rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;opacity:.6;}
+.animal .step-label{color:var(--a4);}
+.girl   .step-label{color:var(--g4);}
+.boy    .step-label{color:var(--b4);}
+
+.step-title{font-size:1.15rem;font-weight:700;margin-bottom:20px;display:flex;align-items:center;gap:10px;color:var(--dark);}
+
+/* ── PICK GRID ── */
+.pick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:10px;}
+.pick-card{
+  border:2.5px solid #F0EAF8;border-radius:18px;padding:14px 8px 12px;
+  text-align:center;cursor:pointer;background:#FAFAFA;
+  transition:all .22s ease;position:relative;
+}
+.pick-card:hover{transform:translateY(-4px);}
+.animal .pick-card.on{border-color:var(--a1);background:var(--a3);box-shadow:0 6px 18px rgba(255,123,84,.28);transform:translateY(-4px);}
+.girl   .pick-card.on{border-color:var(--g1);background:var(--g3);box-shadow:0 6px 18px rgba(255,133,194,.28);transform:translateY(-4px);}
+.boy    .pick-card.on{border-color:var(--b1);background:var(--b3);box-shadow:0 6px 18px rgba(91,191,255,.28);transform:translateY(-4px);}
+.pick-em{font-size:2.1rem;display:block;margin-bottom:6px;}
+.pick-name{font-size:.75rem;font-weight:700;color:#555;line-height:1.3;}
+.pick-sub{font-size:.64rem;color:#AAA;margin-top:3px;}
+.check-dot{position:absolute;top:7px;right:7px;width:19px;height:19px;border-radius:50%;font-size:.6rem;color:white;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s;}
+.animal .pick-card.on .check-dot{background:var(--a1);opacity:1;}
+.girl   .pick-card.on .check-dot{background:var(--g1);opacity:1;}
+.boy    .pick-card.on .check-dot{background:var(--b1);opacity:1;}
+
+/* ── SWATCHES ── */
+.swatch-row{display:flex;gap:8px;flex-wrap:wrap;}
+.swatch{width:38px;height:38px;border-radius:50%;border:3px solid transparent;cursor:pointer;transition:all .2s;box-shadow:0 2px 8px rgba(0,0,0,.1);position:relative;}
+.swatch:hover{transform:scale(1.18);}
+.swatch.on{border-color:var(--dark);transform:scale(1.22);box-shadow:0 4px 14px rgba(0,0,0,.25);}
+.swatch .tip{position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);font-size:.6rem;font-weight:700;color:#888;white-space:nowrap;opacity:0;transition:opacity .15s;pointer-events:none;}
+.swatch:hover .tip{opacity:1;}
+
+/* ── SELECTS ── */
+.selects-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+@media(max-width:560px){.selects-grid{grid-template-columns:1fr;}}
+.sel-group label{display:block;font-size:.8rem;font-weight:700;margin-bottom:7px;}
+.animal .sel-group label{color:var(--a4);}
+.girl   .sel-group label{color:var(--g4);}
+.boy    .sel-group label{color:var(--b4);}
+.sel-group select{
+  width:100%;padding:11px 16px;border-radius:14px;border:2.5px solid #EEE;
+  font-family:'Quicksand',sans-serif;font-size:.88rem;font-weight:600;
+  color:#333;background:#FAFAFA;cursor:pointer;appearance:none;outline:none;transition:border-color .2s;
+}
+.animal .sel-group select:focus{border-color:var(--a1);}
+.girl   .sel-group select:focus{border-color:var(--g1);}
+.boy    .sel-group select:focus{border-color:var(--b1);}
+
+/* ── BUTTON ROW ── */
+.btn-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;}
+@media(max-width:560px){.btn-row{grid-template-columns:1fr 1fr;}.btn-row .gen-btn{grid-column:1/-1;}}
+
+.rand-btn,.clear-btn{
+  padding:18px 10px;border:none;border-radius:18px;
+  font-family:'Quicksand',sans-serif;font-size:.95rem;font-weight:800;
+  cursor:pointer;transition:all .3s ease;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.rand-btn{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:white;box-shadow:0 8px 20px rgba(124,58,237,.35);}
+.clear-btn{background:linear-gradient(135deg,#94A3B8,#64748B);color:white;box-shadow:0 8px 20px rgba(100,116,139,.35);}
+.rand-btn:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(124,58,237,.45);}
+.clear-btn:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(100,116,139,.45);}
+.rand-btn:active,.clear-btn:active{transform:translateY(1px);}
+
+/* ── GEN BUTTON ── */
+.gen-btn{
+  width:100%;padding:22px;border:none;border-radius:22px;
+  font-family:'Pacifico',cursive;font-size:1.4rem;color:white;
+  cursor:pointer;transition:all .3s ease;position:relative;overflow:hidden;letter-spacing:.3px;
+}
+.animal .gen-btn{background:linear-gradient(135deg,#FF7B54,#E64A19);box-shadow:0 10px 28px rgba(255,123,84,.48);}
+.girl   .gen-btn{background:linear-gradient(135deg,#FF85C2,#E91E8C);box-shadow:0 10px 28px rgba(255,133,194,.48);}
+.boy    .gen-btn{background:linear-gradient(135deg,#5BBFFF,#1565C0);box-shadow:0 10px 28px rgba(91,191,255,.48);}
+.gen-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);transition:left .5s;}
+.gen-btn:hover::after{left:100%;}
+.gen-btn:hover{transform:translateY(-4px);}
+.gen-btn:active{transform:translateY(1px);}
+
+/* ── BOTTOM TIPS ── */
+.bottom-tips{
+  max-width:980px;margin:40px auto 0;padding:0 20px 80px;
+  position:relative;z-index:2;
+}
+.bottom-tips-title{
+  text-align:center;font-family:'Pacifico',cursive;font-size:1.3rem;
+  background:linear-gradient(135deg,#FF7B54,#FF85C2,#5BBFFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:20px;
+}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:640px){.tips-grid{grid-template-columns:1fr;}}
+.tip-card{
+  background:white;border-radius:22px;padding:22px 20px;
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+  border-top:4px solid;
+  transition:transform .2s;
+}
+.tip-card:hover{transform:translateY(-4px);}
+.tip-card:nth-child(1){border-color:#FF9E3D;}
+.tip-card:nth-child(2){border-color:#FF85C2;}
+.tip-card:nth-child(3){border-color:#5BBFFF;}
+.tip-icon{font-size:2rem;margin-bottom:10px;display:block;}
+.tip-card-title{font-weight:800;font-size:.95rem;color:var(--dark);margin-bottom:6px;}
+.tip-card-text{font-size:.82rem;color:#777;line-height:1.65;font-weight:600;}
+
+/* ── OUTPUT ── */
+.output{display:none;margin-top:18px;animation:panelIn .4s ease;}
+.output.show{display:block;}
+.out-card{border-radius:22px;padding:22px 24px;margin-bottom:12px;border:2.5px dashed;position:relative;background:white;}
+.animal .out-card{border-color:var(--a1);background:linear-gradient(135deg,#FFF5F0,#FFFAF0);}
+.girl   .out-card{border-color:var(--g1);background:linear-gradient(135deg,#FFF0F8,#F8F0FF);}
+.boy    .out-card{border-color:var(--b1);background:linear-gradient(135deg,#F0F8FF,#F0FAFF);}
+.out-label{font-size:.72rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.animal .out-label{color:var(--a1);}
+.girl   .out-label{color:var(--g1);}
+.boy    .out-label{color:var(--b1);}
+.out-text{font-size:.9rem;color:#333;line-height:1.85;font-weight:600;user-select:all;padding-right:76px;}
+.copy-btn{position:absolute;top:18px;right:18px;padding:8px 18px;border:none;border-radius:12px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:.8rem;cursor:pointer;transition:all .2s;color:white;}
+.animal .copy-btn{background:var(--a1);}
+.girl   .copy-btn{background:var(--g1);}
+.boy    .copy-btn{background:var(--b1);}
+.copy-btn:hover{opacity:.85;transform:scale(1.05);}
+.copy-btn.ok{background:#4CAF50!important;}
+
+.tips{border-radius:20px;padding:18px 22px;font-size:.86rem;line-height:1.75;font-weight:600;}
+.animal .tips{background:linear-gradient(135deg,#FFE0CC,#FFF0CC);color:#7A2800;}
+.girl   .tips{background:linear-gradient(135deg,#FFD6EC,#EED6FF);color:#8B0055;}
+.boy    .tips{background:linear-gradient(135deg,#C8E6FF,#C8F0FF);color:#003D80;}
+
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.chip{padding:7px 18px;border-radius:50px;font-size:.8rem;font-weight:700;color:white;}
+.chip.cv{background:#7C3AED;}.chip.mj{background:#111;}.chip.dl{background:#10A37F;}.chip.ff{background:#E9611A;}
+
+@media(max-width:560px){
+  .pick-grid{grid-template-columns:repeat(3,1fr);}
+  .nav-btn{padding:11px 22px;font-size:.88rem;}
+  .gen-btn{font-size:1.15rem;}
+  .lang-bar{top:10px;right:10px;}
+}
+</style>
+</head>
+<body>
+<div class="page-bg"></div>
+
+<!-- LANG SWITCH -->
+<div class="lang-bar">
+  <button class="lang-btn on" onclick="setLang('es')">🇪🇸 ES</button>
+  <button class="lang-btn"   onclick="setLang('en')">🇺🇸 EN</button>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo-wrap">
+    <span class="yarn-icon">🧶</span>
+    <span class="logo-text">Crochet AI Generator</span>
+    <span class="yarn-icon" style="animation-direction:reverse">🧶</span>
+  </div>
+  <p class="header-tagline" data-es="Genera prompts mágicos para amigurumis de animales, niñas y niños ✨ Listos para Canva AI, Midjourney y más" data-en="Generate magical prompts for animal, girl & boy amigurumis ✨ Ready for Canva AI, Midjourney & more"></p>
+  <div class="thread-row">
+    <div class="thread"></div><div class="thread"></div><div class="thread"></div>
+    <div class="thread"></div><div class="thread"></div><div class="thread"></div>
+    <div class="thread"></div>
+  </div>
+</header>
+
+<!-- MAIN NAV -->
+<div class="nav-row">
+  <div class="nav-pill">
+    <button class="nav-btn animal on" onclick="switchMain('animal')">🐻 <span data-es="Animales" data-en="Animals">Animales</span></button>
+    <button class="nav-btn girl"      onclick="switchMain('girl')">🎀 <span data-es="Niña" data-en="Girl">Niña</span></button>
+    <button class="nav-btn boy"       onclick="switchMain('boy')">🚀 <span data-es="Niño" data-en="Boy">Niño</span></button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ═══════════════════════════════ ANIMAL PANEL ═══════════════════════════════ -->
+<div class="panel animal on" id="panelAnimal">
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 1" data-en="Step 1">Paso 1</div>
+    <div class="step-title">🐾 <span data-es="Elige tu animal" data-en="Choose your animal">Elige tu animal</span></div>
+    <div class="pick-grid" id="aAnimals"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 2" data-en="Step 2">Paso 2</div>
+    <div class="step-title">🎨 <span data-es="Personaliza el estilo" data-en="Customize the style">Personaliza el estilo</span></div>
+    <div class="selects-grid">
+      <div class="sel-group">
+        <label data-es="🌿 Paleta de colores" data-en="🌿 Color palette">🌿 Paleta de colores</label>
+        <select id="aColor">
+          <option value="natural earth tones, beige, brown, cream" data-es="🌿 Tonos naturales (tierra)" data-en="🌿 Natural earth tones">🌿 Tonos naturales</option>
+          <option value="pastel rainbow colors, soft pink, mint, lavender, baby blue" data-es="🌈 Pastel arcoíris" data-en="🌈 Pastel rainbow">🌈 Pastel arcoíris</option>
+          <option value="warm autumn colors, orange, rust, golden yellow" data-es="🍂 Colores otoño" data-en="🍂 Autumn colors">🍂 Colores otoño</option>
+          <option value="cool gray and white tones, silver" data-es="❄️ Grises y blancos" data-en="❄️ Grays and whites">❄️ Grises y blancos</option>
+          <option value="vibrant tropical colors, turquoise, coral, yellow" data-es="🌺 Tropical vibrante" data-en="🌺 Vibrant tropical">🌺 Tropical vibrante</option>
+          <option value="soft pink and white, blush tones" data-es="🌸 Rosa suave" data-en="🌸 Soft pink">🌸 Rosa suave</option>
+        </select>
+      </div>
+      <div class="sel-group">
+        <label data-es="✨ Fondo" data-en="✨ Background">✨ Fondo</label>
+        <select id="aBg">
+          <option value="isolated on transparent background, PNG clipart" data-es="🔲 Sin fondo (PNG)" data-en="🔲 No background (PNG)">🔲 Sin fondo (PNG)</option>
+          <option value="on a soft white studio background" data-es="⬜ Fondo blanco" data-en="⬜ White background">⬜ Fondo blanco</option>
+          <option value="on a soft pastel gradient background" data-es="🌅 Gradiente pastel" data-en="🌅 Pastel gradient">🌅 Gradiente pastel</option>
+          <option value="in a cozy nursery scene" data-es="🏠 Escena nursery" data-en="🏠 Nursery scene">🏠 Escena nursery</option>
+          <option value="on a wooden surface with soft light" data-es="🪵 Madera" data-en="🪵 Wooden surface">🪵 Madera</option>
+          <option value="floating on a dreamy cloud background" data-es="☁️ Nubes mágicas" data-en="☁️ Dreamy clouds">☁️ Nubes mágicas</option>
+        </select>
+      </div>
+      <div class="sel-group">
+        <label data-es="😊 Expresión" data-en="😊 Expression">😊 Expresión</label>
+        <select id="aFace">
+          <option value="cute adorable face, big sparkling black button eyes, rosy cheeks">😊 <span data-es="Adorable clásico" data-en="Classic adorable">Adorable clásico</span></option>
+          <option value="happy smiling face, big eyes, blushing cheeks">😄</option>
+          <option value="sleepy dreamy expression, half-closed eyes">😴</option>
+          <option value="surprised wide eyes, tiny open mouth">😮</option>
+          <option value="winking playfully, cheeky expression">😉</option>
+        </select>
+      </div>
+      <div class="sel-group">
+        <label data-es="🗂️ Composición" data-en="🗂️ Composition">🗂️ Composición</label>
+        <select id="aComp">
+          <option value="single character, centered composition"></option>
+          <option value="set of 4 different poses, 2x2 grid layout"></option>
+          <option value="collection of 6 characters in a row"></option>
+          <option value="front view, side view, and back view trio"></option>
+          <option value="large group collection, 12+ characters"></option>
+        </select>
+      </div>
+      <div class="sel-group">
+        <label data-es="💎 Calidad" data-en="💎 Quality">💎 Calidad</label>
+        <select id="aQuality">
+          <option value="highly detailed crochet texture, visible yarn stitches, 3D render style"></option>
+          <option value="clean simple crochet style, smooth texture"></option>
+          <option value="hyper realistic crochet doll photography style"></option>
+        </select>
+      </div>
+      <div class="sel-group">
+        <label data-es="🎁 Accesorio" data-en="🎁 Accessory">🎁 Accesorio</label>
+        <select id="aAcc">
+          <option value=""></option>
+          <option value="wearing a tiny bow on head"></option>
+          <option value="holding a small heart"></option>
+          <option value="with a tiny flower crown"></option>
+          <option value="wearing a little scarf"></option>
+          <option value="with tiny star decorations"></option>
+          <option value="wearing a cute hat"></option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('animal')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('animal')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateAnimal()">🪄 <span data-es="Generar Prompt" data-en="Generate Prompt">Generar Prompt</span></button>
+    </div>
+  </div>
+
+  <div class="output" id="outAnimal">
+    <div class="out-card">
+      <div class="out-label">📋 <span data-es="Prompt principal" data-en="Main Prompt">Prompt principal</span></div>
+      <button class="copy-btn" onclick="cp('aMain',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="aMain"></div>
+    </div>
+    <div class="out-card">
+      <div class="out-label">🎨 <span data-es="Versión Canva AI" data-en="Canva AI Version">Versión Canva AI</span></div>
+      <button class="copy-btn" onclick="cp('aCanva',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="aCanva"></div>
+    </div>
+    <div class="out-card">
+      <div class="out-label">✦ Midjourney</div>
+      <button class="copy-btn" onclick="cp('aMJ',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="aMJ"></div>
+    </div>
+    <div class="tips">
+      <span data-es="💡 <strong>Canva AI:</strong> Usa el prompt corto. Para PNG transparente añade 'isolated transparent background'.<br>🎯 <strong>Midjourney:</strong> Copia el prompt completo con --style y --ar.<br>🌟 <strong>Truco:</strong> Para colecciones tipo Etsy usa 'set of 6 poses' con fondo transparente." data-en="💡 <strong>Canva AI:</strong> Use the short prompt. For transparent PNG add 'isolated transparent background'.<br>🎯 <strong>Midjourney:</strong> Copy the full prompt with --style and --ar.<br>🌟 <strong>Tip:</strong> For Etsy-style collections use 'set of 6 poses' with transparent background.">
+        💡 <strong>Canva AI:</strong> Usa el prompt corto. Para PNG transparente añade 'isolated transparent background'.<br>🎯 <strong>Midjourney:</strong> Copia el prompt completo con --style y --ar.
+      </span>
+      <div class="chips">
+        <span class="chip cv">🎨 Canva AI</span><span class="chip mj">✦ Midjourney</span><span class="chip dl">🤖 DALL-E 3</span><span class="chip ff">🔥 Adobe Firefly</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ GIRL PANEL ═══════════════════════════════ -->
+<div class="panel girl" id="panelGirl">
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 1" data-en="Step 1">Paso 1</div>
+    <div class="step-title">👗 <span data-es="Outfit de la muñequita crochet" data-en="Crochet girl doll outfit">Outfit de la muñequita crochet</span></div>
+    <div class="pick-grid" id="gOutfits"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 2" data-en="Step 2">Paso 2</div>
+    <div class="step-title">💇‍♀️ <span data-es="Peinado de hilo tejido" data-en="Crocheted yarn hairstyle">Peinado de hilo tejido</span></div>
+    <div class="pick-grid" id="gHairs"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 3" data-en="Step 3">Paso 3</div>
+    <div class="step-title">🎨 <span data-es="Color del cabello de lana" data-en="Yarn hair color">Color del cabello de lana</span></div>
+    <div class="swatch-row" id="gHairColors"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 4" data-en="Step 4">Paso 4</div>
+    <div class="step-title">✨ <span data-es="Detalles" data-en="Details">Detalles</span></div>
+    <div class="selects-grid">
+      <div class="sel-group"><label data-es="🧶 Textura crochet" data-en="🧶 Crochet texture">🧶 Textura crochet</label><select id="gTexture"></select></div>
+      <div class="sel-group"><label data-es="😊 Expresión" data-en="😊 Expression">😊 Expresión</label><select id="gFace"></select></div>
+      <div class="sel-group"><label data-es="🌸 Accesorio tejido" data-en="🌸 Crocheted accessory">🌸 Accesorio tejido</label><select id="gAcc"></select></div>
+      <div class="sel-group"><label data-es="🖼️ Fondo" data-en="🖼️ Background">🖼️ Fondo</label><select id="gBg"></select></div>
+    </div>
+    <div style="margin-top:18px;">
+      <div class="step-title" style="font-size:.95rem;margin-bottom:12px;">🎭 <span data-es="Tono de piel" data-en="Skin tone">Tono de piel</span></div>
+      <div class="swatch-row" id="gSkin"></div>
+    </div>
+    <div style="margin-top:18px;">
+      <div class="sel-group"><label data-es="🗂️ Composición" data-en="🗂️ Composition">🗂️ Composición</label><select id="gComp"></select></div>
+    </div>
+  </div>
+
+  <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('girl')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('girl')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateKid('girl')">🧶 <span data-es="Generar Niña ✨" data-en="Generate Girl ✨">Generar Niña ✨</span></button>
+    </div>
+  </div>
+
+  <div class="output" id="outGirl">
+    <div class="out-card"><div class="out-label">📋 <span data-es="Prompt principal" data-en="Main Prompt">Prompt principal</span></div><button class="copy-btn" onclick="cp('gMain',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="gMain"></div></div>
+    <div class="out-card"><div class="out-label">🎨 Canva AI</div><button class="copy-btn" onclick="cp('gCanva',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="gCanva"></div></div>
+    <div class="out-card"><div class="out-label">✦ Midjourney</div><button class="copy-btn" onclick="cp('gMJ',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="gMJ"></div></div>
+    <div class="tips">
+      <span data-es="💡 <strong>Canva AI:</strong> Usa el prompt corto. Agrega 'crochet amigurumi yarn texture' si la textura no aparece.<br>🌈 <strong>Truco cabello de colores:</strong> Especifica el color exacto + 'yarn braids in [color]' para resultados mágicos." data-en="💡 <strong>Canva AI:</strong> Use the short prompt. Add 'crochet amigurumi yarn texture' if texture doesn't show.<br>🌈 <strong>Colorful hair tip:</strong> Specify the exact color + 'yarn braids in [color]' for magical results.">
+        💡 <strong>Canva AI:</strong> Usa el prompt corto. Agrega 'crochet amigurumi yarn texture' si la textura no aparece.
+      </span>
+      <div class="chips"><span class="chip cv">🎨 Canva AI</span><span class="chip mj">✦ Midjourney</span><span class="chip dl">🤖 DALL-E 3</span><span class="chip ff">🔥 Adobe Firefly</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ BOY PANEL ═══════════════════════════════ -->
+<div class="panel boy" id="panelBoy">
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 1" data-en="Step 1">Paso 1</div>
+    <div class="step-title">👕 <span data-es="Outfit del muñequito crochet" data-en="Crochet boy doll outfit">Outfit del muñequito crochet</span></div>
+    <div class="pick-grid" id="bOutfits"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 2" data-en="Step 2">Paso 2</div>
+    <div class="step-title">💇‍♂️ <span data-es="Peinado de hilo tejido" data-en="Crocheted yarn hairstyle">Peinado de hilo tejido</span></div>
+    <div class="pick-grid" id="bHairs"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 3" data-en="Step 3">Paso 3</div>
+    <div class="step-title">🎨 <span data-es="Color del cabello de lana" data-en="Yarn hair color">Color del cabello de lana</span></div>
+    <div class="swatch-row" id="bHairColors"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 4" data-en="Step 4">Paso 4</div>
+    <div class="step-title">✨ <span data-es="Detalles" data-en="Details">Detalles</span></div>
+    <div class="selects-grid">
+      <div class="sel-group"><label data-es="🧶 Textura crochet" data-en="🧶 Crochet texture">🧶 Textura crochet</label><select id="bTexture"></select></div>
+      <div class="sel-group"><label data-es="😊 Expresión" data-en="😊 Expression">😊 Expresión</label><select id="bFace"></select></div>
+      <div class="sel-group"><label data-es="🎯 Accesorio tejido" data-en="🎯 Crocheted accessory">🎯 Accesorio tejido</label><select id="bAcc"></select></div>
+      <div class="sel-group"><label data-es="🖼️ Fondo" data-en="🖼️ Background">🖼️ Fondo</label><select id="bBg"></select></div>
+    </div>
+    <div style="margin-top:18px;">
+      <div class="step-title" style="font-size:.95rem;margin-bottom:12px;">🎭 <span data-es="Tono de piel" data-en="Skin tone">Tono de piel</span></div>
+      <div class="swatch-row" id="bSkin"></div>
+    </div>
+    <div style="margin-top:18px;">
+      <div class="sel-group"><label data-es="🗂️ Composición" data-en="🗂️ Composition">🗂️ Composición</label><select id="bComp"></select></div>
+    </div>
+  </div>
+
+  <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('boy')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('boy')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateKid('boy')">🧶 <span data-es="Generar Niño 🚀" data-en="Generate Boy 🚀">Generar Niño 🚀</span></button>
+    </div>
+  </div>
+
+  <div class="output" id="outBoy">
+    <div class="out-card"><div class="out-label">📋 <span data-es="Prompt principal" data-en="Main Prompt">Prompt principal</span></div><button class="copy-btn" onclick="cp('bMain',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="bMain"></div></div>
+    <div class="out-card"><div class="out-label">🎨 Canva AI</div><button class="copy-btn" onclick="cp('bCanva',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="bCanva"></div></div>
+    <div class="out-card"><div class="out-label">✦ Midjourney</div><button class="copy-btn" onclick="cp('bMJ',this)" data-es="Copiar" data-en="Copy">Copiar</button><div class="out-text" id="bMJ"></div></div>
+    <div class="tips">
+      <span data-es="💡 <strong>Canva AI:</strong> Usa el prompt corto. Agrega 'crochet amigurumi doll yarn' si la textura no aparece.<br>🚀 <strong>Truco Midjourney:</strong> Añade --niji 6 para el look más kawaii amigurumi." data-en="💡 <strong>Canva AI:</strong> Use the short prompt. Add 'crochet amigurumi doll yarn' if texture doesn't show.<br>🚀 <strong>Midjourney tip:</strong> Add --niji 6 for the most kawaii amigurumi look.">
+        💡 <strong>Canva AI:</strong> Usa el prompt corto. Agrega 'crochet amigurumi doll yarn' si la textura no aparece.
+      </span>
+      <div class="chips"><span class="chip cv">🎨 Canva AI</span><span class="chip mj">✦ Midjourney</span><span class="chip dl">🤖 DALL-E 3</span><span class="chip ff">🔥 Adobe Firefly</span></div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /content -->
+
+<!-- ═══════════════ BOTTOM TIPS ═══════════════ -->
+<div class="bottom-tips">
+  <div class="bottom-tips-title" data-es="💡 Tips para mejores resultados" data-en="💡 Tips for better results">💡 Tips para mejores resultados</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">🎨</span>
+      <div class="tip-card-title" data-es="Canva AI — Prompt corto" data-en="Canva AI — Short prompt">Canva AI — Prompt corto</div>
+      <div class="tip-card-text" data-es="Usa siempre la versión corta en Canva AI. Si no aparece la textura de crochet, añade al final: 'crochet amigurumi yarn knitted texture' y regenera." data-en="Always use the short version in Canva AI. If crochet texture doesn't appear, add at the end: 'crochet amigurumi yarn knitted texture' and regenerate.">Usa siempre la versión corta en Canva AI. Si no aparece la textura de crochet, añade al final: 'crochet amigurumi yarn knitted texture' y regenera.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔲</span>
+      <div class="tip-card-title" data-es="PNG sin fondo para Etsy" data-en="Transparent PNG for Etsy">PNG sin fondo para Etsy</div>
+      <div class="tip-card-text" data-es="Para vender cliparts en Etsy, siempre elige 'Sin fondo (PNG)' y composición 'Set 4 poses' o 'Colección 6'. Así obtienes packs listos para vender." data-en="To sell cliparts on Etsy, always choose 'No background (PNG)' and composition 'Set 4 poses' or 'Collection 6'. You'll get ready-to-sell packs.">Para vender cliparts en Etsy, siempre elige 'Sin fondo (PNG)' y composición 'Set 4 poses' o 'Colección 6'. Así obtienes packs listos para vender.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">✦</span>
+      <div class="tip-card-title" data-es="Midjourney — Máxima calidad" data-en="Midjourney — Max quality">Midjourney — Máxima calidad</div>
+      <div class="tip-card-text" data-es="Usa el prompt de Midjourney con --niji 6 para el estilo más kawaii. Agrega --ar 1:1 para cuadrado o --ar 2:3 para vertical. El botón 🎲 Aleatorio te da combinaciones sorpresa." data-en="Use the Midjourney prompt with --niji 6 for the most kawaii style. Add --ar 1:1 for square or --ar 2:3 for vertical. The 🎲 Random button gives you surprise combinations.">Usa el prompt de Midjourney con --niji 6 para el estilo más kawaii. Agrega --ar 1:1 para cuadrado o --ar 2:3 para vertical. El botón 🎲 Aleatorio te da combinaciones sorpresa.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// LANGUAGE DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+let lang = 'es';
+
+const T = {
+  // Animal select options
+  aColorOpts: {
+    es: ['🌿 Tonos naturales (tierra)','🌈 Pastel arcoíris','🍂 Colores otoño','❄️ Grises y blancos','🌺 Tropical vibrante','🌸 Rosa suave'],
+    en: ['🌿 Natural earth tones','🌈 Pastel rainbow','🍂 Autumn colors','❄️ Grays & whites','🌺 Vibrant tropical','🌸 Soft pink']
+  },
+  aBgOpts: {
+    es: ['🔲 Sin fondo (PNG)','⬜ Fondo blanco','🌅 Gradiente pastel','🏠 Escena nursery','🪵 Superficie madera','☁️ Nubes mágicas'],
+    en: ['🔲 No background (PNG)','⬜ White background','🌅 Pastel gradient','🏠 Nursery scene','🪵 Wooden surface','☁️ Dreamy clouds']
+  },
+  aFaceOpts: {
+    es: ['😊 Adorable clásico','😄 Feliz sonriente','😴 Soñoliento','😮 Sorprendido','😉 Juguetón'],
+    en: ['😊 Classic adorable','😄 Happy smiling','😴 Sleepy dreamy','😮 Surprised','😉 Playful winking']
+  },
+  aCompOpts: {
+    es: ['1️⃣ Personaje solo','4️⃣ Set de 4 poses','6️⃣ Colección de 6','3️⃣ 3 vistas','🔢 Colección 12+'],
+    en: ['1️⃣ Single character','4️⃣ Set of 4 poses','6️⃣ Collection of 6','3️⃣ 3 views','🔢 Collection 12+']
+  },
+  aQualityOpts: {
+    es: ['🔍 Ultra detallado','✨ Suave y limpio','📷 Fotorrealista'],
+    en: ['🔍 Ultra detailed','✨ Clean & smooth','📷 Hyper realistic']
+  },
+  aAccOpts: {
+    es: ['Sin accesorios','🎀 Moño/lazo','❤️ Corazón','🌸 Corona de flores','🧣 Bufanda','⭐ Estrellas','🎩 Sombrero'],
+    en: ['No accessories','🎀 Bow/ribbon','❤️ Heart','🌸 Flower crown','🧣 Scarf','⭐ Stars','🎩 Hat']
+  },
+  textureOpts: {
+    es: ['🔍 Ultra detallado con puntadas','✨ Suave y limpio','📷 Hiper realista fotográfico','🎨 Simple estilo sticker'],
+    en: ['🔍 Ultra detailed with stitches','✨ Clean & smooth','📷 Hyper realistic photo','🎨 Simple sticker style']
+  },
+  gFaceOpts: {
+    es: ['🪡 Clásico amigurumi (botones)','✨ Kawaii ojos brillantes','😴 Dormilona soñadora','😉 Pícara guiño','😮 Sorprendida adorable'],
+    en: ['🪡 Classic amigurumi (buttons)','✨ Kawaii sparkling eyes','😴 Sleepy dreamy','😉 Cheeky wink','😮 Cute surprised']
+  },
+  bFaceOpts: {
+    es: ['🪡 Clásico amigurumi (botones)','✨ Kawaii ojos brillantes','😎 Cool y seguro','😄 Emocionado y activo','😜 Pícaro travieso'],
+    en: ['🪡 Classic amigurumi (buttons)','✨ Kawaii sparkling eyes','😎 Cool & confident','😄 Excited & active','😜 Mischievous']
+  },
+  gAccOpts: {
+    es: ['🌸 Moño flor tejido','👑 Corona flores crochet','❤️ Corazón tejido','🌈 Cintas arcoíris en trenzas','🍓 Mochila fresa tejida','💐 Ramo mini crochet','⭐ Pasador estrella','🐰 Diadema orejas tejida'],
+    en: ['🌸 Crocheted flower bow','👑 Crochet flower crown','❤️ Crocheted heart','🌈 Rainbow ribbons in braids','🍓 Strawberry backpack','💐 Mini crochet bouquet','⭐ Star hair pin','🐰 Bunny ear headband']
+  },
+  bAccOpts: {
+    es: ['🧢 Gorra al revés tejida','🚀 Cohete crochet','🦸 Capa superhéroe tejida','🦖 Dino crochet en mano','⚽ Balón crochet','🤖 Mochila robot tejida','⭐ Varita estrella tejida','🎩 Sombrero explorador'],
+    en: ['🧢 Backwards cap crocheted','🚀 Crochet rocket','🦸 Superhero cape crocheted','🦖 Dino crochet in hand','⚽ Crochet ball','🤖 Robot backpack crocheted','⭐ Star wand crocheted','🎩 Explorer hat crocheted']
+  },
+  kidBgOpts: {
+    es: ['🔲 Sin fondo (PNG)','🌸 Fondo rosa pastel','⬜ Blanco limpio','🌈 Gradiente arcoíris','🏠 Cuarto bebé','🌷 Jardín mágico','☁️ Nubes y estrellas'],
+    en: ['🔲 No background (PNG)','🌸 Pastel pink background','⬜ Clean white','🌈 Rainbow gradient','🏠 Baby room','🌷 Magic garden','☁️ Clouds & stars']
+  },
+  boyBgOpts: {
+    es: ['🔲 Sin fondo (PNG)','💙 Fondo azul pastel','⬜ Blanco limpio','🚀 Espacio exterior','🌿 Jungla aventura','🏠 Cuarto bebé','🌿 Gradiente menta'],
+    en: ['🔲 No background (PNG)','💙 Pastel blue background','⬜ Clean white','🚀 Outer space','🌿 Adventure jungle','🏠 Baby room','🌿 Mint gradient']
+  },
+  compOpts: {
+    es: ['1️⃣ Personaje solo','4️⃣ Set 4 poses (clipart)','6️⃣ Colección 6 poses','📐 3 vistas','🔢 Colección grande 12+'],
+    en: ['1️⃣ Single character','4️⃣ Set 4 poses (clipart)','6️⃣ Collection 6 poses','📐 3 views','🔢 Large collection 12+']
+  },
+  copyBtn: { es:'Copiar', en:'Copy' },
+  copiedBtn: { es:'✅ Copiado', en:'✅ Copied' },
+  genAnimal: { es:'🪄 Generar Prompt Mágico', en:'🪄 Generate Magic Prompt' },
+  genGirl: { es:'🧶 Generar Prompt de Niña ✨', en:'🧶 Generate Girl Prompt ✨' },
+  genBoy: { es:'🧶 Generar Prompt de Niño 🚀', en:'🧶 Generate Boy Prompt 🚀' },
+  step: { es:'Paso', en:'Step' },
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// DATA TABLES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const animals = [
+  {em:'🐻',es:'Oso',     en:'Bear',     p:'bear'},
+  {em:'🦊',es:'Zorro',   en:'Fox',      p:'fox'},
+  {em:'🐱',es:'Gato',    en:'Cat',      p:'cat'},
+  {em:'🐶',es:'Perro',   en:'Dog',      p:'dog'},
+  {em:'🐰',es:'Conejo',  en:'Bunny',    p:'bunny'},
+  {em:'🐼',es:'Panda',   en:'Panda',    p:'panda'},
+  {em:'🦁',es:'León',    en:'Lion',     p:'lion'},
+  {em:'🐨',es:'Koala',   en:'Koala',    p:'koala'},
+  {em:'🐧',es:'Pingüino',en:'Penguin',  p:'penguin'},
+  {em:'🦦',es:'Nutria',  en:'Otter',    p:'otter'},
+  {em:'🦝',es:'Mapache', en:'Raccoon',  p:'raccoon'},
+  {em:'🐿️',es:'Ardilla', en:'Squirrel', p:'squirrel'},
+  {em:'🦄',es:'Unicornio',en:'Unicorn', p:'unicorn'},
+  {em:'🐸',es:'Rana',    en:'Frog',     p:'frog'},
+  {em:'🐯',es:'Tigre',   en:'Tiger',    p:'tiger'},
+  {em:'🦒',es:'Jirafa',  en:'Giraffe',  p:'giraffe'},
+  {em:'🐮',es:'Vaca',    en:'Cow',      p:'cow'},
+  {em:'🐙',es:'Pulpo',   en:'Octopus',  p:'octopus'},
+  {em:'🦕',es:'Dino',    en:'Dino',     p:'dinosaur'},
+  {em:'🦋',es:'Mariposa',en:'Butterfly',p:'butterfly'},
+];
+
+const gOutfitData = [
+  {em:'🌸',es:'Vestido Floral',en:'Floral Dress',s:{es:'Primavera',en:'Spring'},p:'wearing a crocheted floral dress, tiny yarn flowers pattern, puff yarn sleeves, pastel pink and white'},
+  {em:'🍓',es:'Vestido Fresa',en:'Strawberry Dress',s:{es:'Kawaii fruit',en:'Kawaii fruit'},p:'wearing a crocheted strawberry print dress, red and white knitted fabric, white yarn collar'},
+  {em:'🎀',es:'Lolita Dulce',en:'Sweet Lolita',s:{es:'Sweet lolita',en:'Sweet lolita'},p:'wearing a crocheted sweet lolita style dress, layered yarn petticoat, lavender and white knitted lace trim'},
+  {em:'🌈',es:'Overol Arcoíris',en:'Rainbow Overalls',s:{es:'Rainbow',en:'Rainbow'},p:'wearing crocheted colorful overalls, rainbow yarn patches, white knitted puff-sleeve shirt underneath'},
+  {em:'🦋',es:'Vestido Hada',en:'Fairy Dress',s:{es:'Hada con alas',en:'Fairy wings'},p:'wearing a crocheted fairy dress with tiny yarn butterfly wings, sparkling knitted tulle skirt, pastel blue and pink'},
+  {em:'🧁',es:'Outfit Pastelero',en:'Baker Outfit',s:{es:'Baker girl',en:'Baker girl'},p:'wearing a crocheted baker outfit, tiny yarn cupcake pattern apron, puff-sleeve knitted shirt'},
+  {em:'🩰',es:'Ballet',en:'Ballet',s:{es:'Prima ballerina',en:'Prima ballerina'},p:'wearing a crocheted ballet tutu dress, soft pink yarn leotard, layered knitted tulle skirt, yarn ballet shoes'},
+  {em:'🧸',es:'Teddy Cozy',en:'Teddy Cozy',s:{es:'Oso acogedor',en:'Bear cozy'},p:'wearing a crocheted teddy bear hoodie outfit, brown fluffy yarn with bear ears on hood, matching knitted shorts'},
+  {em:'🌙',es:'Pijama Estrellas',en:'Star Pajamas',s:{es:'Noche acogedora',en:'Cozy night'},p:'wearing crocheted star-printed pajamas, soft yarn fabric in pastel blue, tiny knitted moon and star details'},
+  {em:'🌺',es:'Hawaiana',en:'Hawaiian',s:{es:'Tropical',en:'Tropical'},p:'wearing a crocheted tropical dress, hibiscus yarn flower print, bright coral and turquoise knitted fabric'},
+  {em:'🩱',es:'Sporty Chic',en:'Sporty Chic',s:{es:'Deportiva',en:'Sporty'},p:'wearing a crocheted matching sporty set, pastel jogger yarn pants and crop knitted hoodie with cute embroidered print'},
+  {em:'🍄',es:'Mushroom Fairy',en:'Mushroom Fairy',s:{es:'Bosque mágico',en:'Forest magic'},p:'wearing a crocheted mushroom fairy outfit, red knitted cap with white yarn dots, green yarn dress with leaf details'},
+];
+
+const bOutfitData = [
+  {em:'🚀',es:'Astronauta',en:'Astronaut',s:{es:'Explorador espacial',en:'Space explorer'},p:'wearing a crocheted astronaut suit, white yarn space suit with knitted NASA-style patches, tiny yarn helmet'},
+  {em:'⚽',es:'Futbolista',en:'Soccer Player',s:{es:'Estrella del fútbol',en:'Soccer star'},p:'wearing a crocheted soccer uniform, colorful yarn jersey with knitted number, shorts and knitted shin guards'},
+  {em:'🦸',es:'Superhéroe',en:'Superhero',s:{es:'Capa y máscara',en:'Cape & mask'},p:'wearing a crocheted superhero costume, colorful yarn cape, knitted mask, bold embroidered emblem on chest'},
+  {em:'🎮',es:'Gamer',en:'Gamer',s:{es:'Player one',en:'Player one'},p:'wearing a crocheted gamer hoodie with pixel art yarn design, knitted gaming headphones detail around neck'},
+  {em:'🌿',es:'Explorer',en:'Explorer',s:{es:'Aventurero',en:'Adventure'},p:'wearing a crocheted explorer outfit, yarn khaki shorts, knitted vest with tiny pockets, yarn explorer hat'},
+  {em:'🎸',es:'Rockstar',en:'Rockstar',s:{es:'Músico',en:'Music boy'},p:'wearing a crocheted little rockstar outfit, tiny knitted leather jacket, yarn jeans, holding a mini crocheted guitar'},
+  {em:'🐉',es:'Ninja Dragón',en:'Dragon Ninja',s:{es:'Artes marciales',en:'Martial arts'},p:'wearing a crocheted ninja costume, dark yarn with red knitted dragon emblem, crocheted headband'},
+  {em:'🎩',es:'Gentleman',en:'Gentleman',s:{es:'Elegante',en:'Fancy lad'},p:'wearing a crocheted dapper suit, tiny knitted bow tie, yarn suspenders, crocheted dress shoes and vest'},
+  {em:'🦕',es:'Dino Fan',en:'Dino Fan',s:{es:'Amante de dinos',en:'Dino lover'},p:'wearing a crocheted dinosaur hoodie, dino print yarn with tiny knitted tail detail on back'},
+  {em:'🌊',es:'Surfer',en:'Surfer',s:{es:'Playa y olas',en:'Beach vibes'},p:'wearing crocheted surf boardshorts with yarn tropical print, knitted rash guard, holding a tiny crocheted surfboard'},
+  {em:'🤖',es:'Robotito',en:'Little Robot',s:{es:'Tech kid',en:'Tech kid'},p:'wearing a crocheted robot-themed outfit, silver yarn jacket with knitted gear patches, yarn goggles on head'},
+  {em:'🏕️',es:'Campista',en:'Camper',s:{es:'Amante de la naturaleza',en:'Nature lover'},p:'wearing a crocheted flannel shirt pattern, yarn cargo shorts, knitted hiking boots, tiny crocheted backpack'},
+];
+
+const gHairData = [
+  {em:'🎀',es:'Trenzas dobles',en:'Double braids',p:'two long crocheted yarn braids tied with tiny ribbon bows, hanging down both sides'},
+  {em:'🌈',es:'Trenza lateral',en:'Side braid',p:'crocheted side braid with colorful rainbow yarn ties, over one shoulder'},
+  {em:'👸',es:'Coleta alta',en:'High ponytail',p:'high ponytail made of crocheted yarn loops, secured with a big yarn bow scrunchie'},
+  {em:'🌀',es:'Rizos sueltos',en:'Loose curls',p:'bouncy curly crocheted yarn ringlets, loose and fluffy, falling around shoulders'},
+  {em:'✂️',es:'Bob corto',en:'Short bob',p:'short crocheted yarn bob haircut with straight yarn bangs'},
+  {em:'💫',es:'Half-up',en:'Half-up',p:'crocheted half-up half-down yarn hairstyle, butterfly yarn clips on sides'},
+  {em:'👑',es:'Moño alto',en:'High bun',p:'elegant high bun made of crocheted yarn loops, sparkly yarn pins and ribbon detail'},
+  {em:'🌸',es:'Cabello largo',en:'Long hair',p:'long flowing crocheted yarn hair with small yarn flower clips, slight waves'},
+];
+
+const bHairData = [
+  {em:'🌀',es:'Rizado natural',en:'Natural curls',p:'natural fluffy crocheted yarn curls, round and full afro-like yarn texture'},
+  {em:'⚡',es:'Despeinado cool',en:'Cool messy',p:'messy playful tousled crocheted yarn hair, natural uneven yarn texture'},
+  {em:'✂️',es:'Corte clásico',en:'Classic cut',p:'neat crocheted yarn classic boy haircut, side part with smooth yarn'},
+  {em:'🌊',es:'Ondas surf',en:'Surf waves',p:'wavy crocheted yarn hair, natural surf-style beach wave yarn texture'},
+  {em:'⬆️',es:'Spiky arriba',en:'Spiky up',p:'cute spiky crocheted yarn hair pointing upward, stiff fun yarn loops'},
+  {em:'🏔️',es:'Flequillo',en:'Bangs',p:'crocheted yarn hair with straight yarn bangs over forehead'},
+  {em:'🎯',es:'Mohawk suave',en:'Soft mohawk',p:'soft mini crocheted yarn mohawk, playful center yarn strip'},
+  {em:'🎩',es:'Undercut',en:'Undercut',p:'stylish crocheted yarn undercut hairstyle, short yarn sides long yarn top'},
+];
+
+const hairColorData = [
+  {c:'#1a1a2e',es:'Negro',    en:'Black',    p:'jet black yarn hair'},
+  {c:'#5C2E0A',es:'Castaño',  en:'Brown',    p:'warm chestnut brown yarn hair'},
+  {c:'#D4A017',es:'Rubio',    en:'Blonde',   p:'golden blonde yarn hair'},
+  {c:'#C0392B',es:'Rojo',     en:'Red',      p:'vibrant red yarn hair'},
+  {c:'#FF69B4',es:'Rosa',     en:'Pink',     p:'pastel pink cotton candy yarn hair'},
+  {c:'#FF9E3D',es:'Naranja',  en:'Orange',   p:'bright orange yarn hair'},
+  {c:'#4169E1',es:'Azul',     en:'Blue',     p:'electric blue yarn hair'},
+  {c:'#9B59B6',es:'Lila',     en:'Lilac',    p:'soft lavender purple yarn hair'},
+  {c:'#2ECC71',es:'Verde',    en:'Green',    p:'mint green yarn hair'},
+  {c:'multi',  es:'Arcoíris', en:'Rainbow',  p:'multicolor rainbow yarn hair, each strand a different color: pink, purple, blue, green, yellow'},
+];
+
+const skinData = [
+  {c:'#FDEBD0',es:'Muy clara',en:'Very light',p:'very pale cream yarn skin color'},
+  {c:'#FDBCB4',es:'Clara',    en:'Light',     p:'light peach yarn skin tone'},
+  {c:'#E8A87C',es:'Miel',     en:'Honey',     p:'warm honey tan yarn skin tone'},
+  {c:'#C68642',es:'Morena',   en:'Medium',    p:'medium brown yarn skin tone'},
+  {c:'#8D5524',es:'Canela',   en:'Caramel',   p:'rich caramel brown yarn skin tone'},
+  {c:'#4A2910',es:'Oscura',   en:'Dark',      p:'deep dark brown yarn skin tone'},
+];
+
+const textureValues = [
+  'ultra detailed crochet amigurumi texture, visible yarn stitches, soft fluffy knitted fabric',
+  'clean smooth crochet doll style, soft yarn texture, amigurumi',
+  'hyper realistic crochet photography style, macro yarn details',
+  'cute simple amigurumi flat design, minimal crochet style',
+];
+const gFaceValues = [
+  'cute button black eyes, rosy embroidered cheeks, tiny smile stitched mouth',
+  'big sparkling kawaii eyes, blushing cheeks, happy expression',
+  'sleepy half-closed embroidered eyes, dreamy expression',
+  'winking embroidered eye, cheeky stitched smile',
+  'wide surprised eyes, tiny round open mouth, cute shocked expression',
+];
+const bFaceValues = [
+  'cute button black eyes, rosy embroidered cheeks, tiny stitched smile',
+  'big sparkling kawaii eyes, blushing cheeks, happy expression',
+  'cool confident embroidered expression, slight smirk',
+  'excited wide embroidered eyes, open stitched smile, energetic',
+  'mischievous winking embroidered eye, cheeky grin stitches',
+];
+const gAccValues = [
+  'with a tiny crocheted flower bow on her head',
+  'wearing a small crocheted flower crown',
+  'holding a tiny crocheted heart',
+  'with crocheted rainbow ribbons in her braids',
+  'wearing a crocheted tiny backpack shaped like a strawberry',
+  'holding a crocheted mini bouquet of flowers',
+  'with a tiny crocheted star hair pin',
+  'wearing a crocheted bunny ear headband',
+];
+const bAccValues = [
+  'wearing a tiny crocheted backwards cap',
+  'holding a small crocheted rocket toy',
+  'wearing a crocheted tiny superhero cape',
+  'holding a mini crocheted dinosaur toy',
+  'with a crocheted tiny football at feet',
+  'wearing a crocheted backpack shaped like a robot',
+  'holding a crocheted star magic wand',
+  'wearing a crocheted tiny explorer hat',
+];
+const kidBgValues = [
+  'isolated on transparent background, PNG clipart style',
+  'soft pastel pink studio background',
+  'white studio background with soft shadows',
+  'pastel rainbow gradient background',
+  'cozy bedroom nursery background, soft warm tones',
+  'magical garden background, tiny flowers, soft light',
+  'dreamy cloud and stars background, pastel sky',
+];
+const boyBgValues = [
+  'isolated on transparent background, PNG clipart style',
+  'soft pastel blue studio background',
+  'white studio background with soft shadows',
+  'outer space background with crocheted planets and stars',
+  'adventure jungle background with crocheted trees',
+  'cozy bedroom nursery background, soft blue tones',
+  'pastel mint gradient background',
+];
+const compValues = [
+  'single character, centered, full body',
+  'set of 4 poses on transparent background, 2x2 grid layout clipart sheet',
+  'collection of 6 different poses in a row, clipart set',
+  'front view, side view and back view trio, product photography',
+  'large clipart collection sheet, 12 characters various poses',
+];
+const aColorValues = [
+  'natural earth tones, beige, brown, cream',
+  'pastel rainbow colors, soft pink, mint, lavender, baby blue',
+  'warm autumn colors, orange, rust, golden yellow',
+  'cool gray and white tones, silver',
+  'vibrant tropical colors, turquoise, coral, yellow',
+  'soft pink and white, blush tones',
+];
+const aBgValues = [
+  'isolated on transparent background, PNG clipart',
+  'on a soft white studio background',
+  'on a soft pastel gradient background',
+  'in a cozy nursery scene',
+  'on a wooden surface with soft light',
+  'floating on a dreamy cloud background',
+];
+const aFaceValues = [
+  'cute adorable face, big sparkling black button eyes, rosy cheeks',
+  'happy smiling face, big eyes, blushing cheeks',
+  'sleepy dreamy expression, half-closed eyes',
+  'surprised wide eyes, tiny open mouth',
+  'winking playfully, cheeky expression',
+];
+const aCompValues = [
+  'single character, centered composition',
+  'set of 4 different poses, 2x2 grid layout',
+  'collection of 6 characters in a row',
+  'front view, side view, and back view trio',
+  'large group collection, 12+ characters',
+];
+const aQualityValues = [
+  'highly detailed crochet texture, visible yarn stitches, 3D render style',
+  'clean simple crochet style, smooth texture',
+  'hyper realistic crochet doll photography style',
+];
+const aAccValues = [
+  '',
+  'wearing a tiny bow on head',
+  'holding a small heart',
+  'with a tiny flower crown',
+  'wearing a little scarf',
+  'with tiny star decorations',
+  'wearing a cute hat',
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// STATE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const st = {
+  animal: { animal: null },
+  girl:   { outfit:null, hair:null, hairCol:hairColorData[0], skin:skinData[1] },
+  boy:    { outfit:null, hair:null, hairCol:hairColorData[0], skin:skinData[1] },
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BUILD UI
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildPicks(cid, data, gender, key, nameKey) {
+  const c = document.getElementById(cid);
+  c.innerHTML = '';
+  data.forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'pick-card';
+    const name = d[nameKey] || d[lang] || d.es;
+    const sub  = d.s ? (d.s[lang]||d.s.es) : '';
+    el.innerHTML = `<span class="pick-em">${d.em}</span><div class="pick-name">${name}</div>${sub?`<div class="pick-sub">${sub}</div>`:''}<div class="check-dot">✓</div>`;
+    el.onclick = () => {
+      c.querySelectorAll('.pick-card').forEach(x=>x.classList.remove('on'));
+      el.classList.add('on');
+      st[gender][key] = d;
+    };
+    if (st[gender][key] && st[gender][key] === d) el.classList.add('on');
+    c.appendChild(el);
+  });
+}
+
+function buildSwatches(cid, data, gender, key, defIdx) {
+  const c = document.getElementById(cid);
+  c.innerHTML = '';
+  data.forEach((d,i) => {
+    const el = document.createElement('div');
+    el.className = 'swatch' + (st[gender][key]===d?' on':(i===defIdx&&!st[gender][key]?' on':''));
+    const isMulti = d.c === 'multi';
+    el.style.background = isMulti ? 'linear-gradient(135deg,#FF69B4,#9B59B6,#4169E1,#2ECC71,#D4A017)' : d.c;
+    el.innerHTML = `<span class="tip">${d[lang]||d.es}</span>`;
+    el.onclick = () => {
+      c.querySelectorAll('.swatch').forEach(x=>x.classList.remove('on'));
+      el.classList.add('on');
+      st[gender][key] = d;
+    };
+    c.appendChild(el);
+  });
+}
+
+function fillSelect(id, labels, values) {
+  const sel = document.getElementById(id);
+  if (!sel) return;
+  const prev = sel.selectedIndex;
+  sel.innerHTML = '';
+  labels.forEach((l,i) => {
+    const o = document.createElement('option');
+    o.value = values[i];
+    o.textContent = l;
+    sel.appendChild(o);
+  });
+  sel.selectedIndex = Math.min(prev, labels.length-1);
+}
+
+function buildAll() {
+  // Animal picks
+  buildPicks('aAnimals', animals, 'animal', 'animal', lang);
+
+  // Girl
+  buildPicks('gOutfits', gOutfitData, 'girl', 'outfit', lang);
+  buildPicks('gHairs',   gHairData,   'girl', 'hair',   lang);
+  buildSwatches('gHairColors', hairColorData, 'girl', 'hairCol', 0);
+  buildSwatches('gSkin',       skinData,      'girl', 'skin',    1);
+
+  // Boy
+  buildPicks('bOutfits', bOutfitData, 'boy', 'outfit', lang);
+  buildPicks('bHairs',   bHairData,   'boy', 'hair',   lang);
+  buildSwatches('bHairColors', hairColorData, 'boy', 'hairCol', 0);
+  buildSwatches('bSkin',       skinData,      'boy', 'skin',    1);
+
+  // Animal selects
+  fillSelect('aColor',   T.aColorOpts[lang],   aColorValues);
+  fillSelect('aBg',      T.aBgOpts[lang],       aBgValues);
+  fillSelect('aFace',    T.aFaceOpts[lang],     aFaceValues);
+  fillSelect('aComp',    T.aCompOpts[lang],     aCompValues);
+  fillSelect('aQuality', T.aQualityOpts[lang],  aQualityValues);
+  fillSelect('aAcc',     T.aAccOpts[lang],      aAccValues);
+
+  // Kid selects
+  fillSelect('gTexture', T.textureOpts[lang], textureValues);
+  fillSelect('gFace',    T.gFaceOpts[lang],   gFaceValues);
+  fillSelect('gAcc',     T.gAccOpts[lang],    gAccValues);
+  fillSelect('gBg',      T.kidBgOpts[lang],   kidBgValues);
+  fillSelect('gComp',    T.compOpts[lang],    compValues);
+
+  fillSelect('bTexture', T.textureOpts[lang], textureValues);
+  fillSelect('bFace',    T.bFaceOpts[lang],   bFaceValues);
+  fillSelect('bAcc',     T.bAccOpts[lang],    bAccValues);
+  fillSelect('bBg',      T.boyBgOpts[lang],   boyBgValues);
+  fillSelect('bComp',    T.compOpts[lang],    compValues);
+
+  // data-es/data-en text nodes
+  document.querySelectorAll('[data-es]').forEach(el => {
+    if (!el.dataset[lang]) return;
+    if (el.tagName === 'SPAN' || el.tagName === 'P' || el.tagName === 'DIV') {
+      el.innerHTML = el.dataset[lang];
+    } else {
+      el.textContent = el.dataset[lang];
+    }
+  });
+
+  // step labels
+  document.querySelectorAll('.step-label[data-es]').forEach(el => {
+    el.textContent = el.dataset[lang];
+  });
+
+  // copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    if (!btn.classList.contains('ok')) btn.textContent = T.copyBtn[lang];
+  });
+
+  // gen buttons
+  const genBtns = document.querySelectorAll('.gen-btn span[data-es]');
+  genBtns.forEach(sp => sp.innerHTML = sp.dataset[lang]);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// LANG SWITCH
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function setLang(l) {
+  lang = l;
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelector(`.lang-btn[onclick="setLang('${l}')"]`).classList.add('on');
+  buildAll();
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// MAIN TAB SWITCH
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function switchMain(tab) {
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelector(`.nav-btn.${tab}`).classList.add('on');
+  document.getElementById(`panel${tab[0].toUpperCase()+tab.slice(1)}`).classList.add('on');
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// GENERATE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function generateAnimal() {
+  const s = st.animal;
+  const animal = s.animal ? s.animal.p : 'bear';
+  const color   = document.getElementById('aColor').value;
+  const bg      = document.getElementById('aBg').value;
+  const face    = document.getElementById('aFace').value;
+  const comp    = document.getElementById('aComp').value;
+  const quality = document.getElementById('aQuality').value;
+  const acc     = document.getElementById('aAcc').value;
+  const accTxt  = acc ? `, ${acc}` : '';
+
+  const main  = `Cute crochet amigurumi ${animal} doll, ${face}, ${color}${accTxt}, ${comp}, ${quality}, handmade yarn toy, soft fluffy texture, visible knitting stitches, kawaii style, ${bg}, professional product photography lighting, high quality digital illustration`;
+  const short = `Crochet amigurumi ${animal}, ${color.split(',')[0]}, ${face.split(',')[0]}, kawaii style, ${bg.split(',')[0]}`;
+  const mj    = `${main} --ar 1:1 --style cute --q 2 --v 6`;
+
+  document.getElementById('aMain').textContent  = main;
+  document.getElementById('aCanva').textContent = short;
+  document.getElementById('aMJ').textContent    = mj;
+
+  const out = document.getElementById('outAnimal');
+  out.classList.add('show');
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+function generateKid(g) {
+  const s  = st[g];
+  const isG = g === 'girl';
+  const pfx = isG ? 'g' : 'b';
+
+  const subject  = isG ? 'cute crochet amigurumi little girl doll' : 'cute crochet amigurumi little boy doll';
+  const outfit   = s.outfit  ? s.outfit.p  : (isG ? 'wearing a crocheted pastel dress' : 'wearing a crocheted casual outfit');
+  const hair     = s.hair    ? s.hair.p    : (isG ? 'crocheted yarn pigtail braids'    : 'crocheted yarn messy hair');
+  const hairCol  = s.hairCol ? s.hairCol.p : 'warm chestnut brown yarn hair';
+  const skin     = s.skin    ? s.skin.p    : 'light peach yarn skin tone';
+
+  const texture  = document.getElementById(`${pfx}Texture`).value;
+  const face     = document.getElementById(`${pfx}Face`).value;
+  const acc      = document.getElementById(`${pfx}Acc`).value;
+  const bg       = document.getElementById(`${pfx}Bg`).value;
+  const comp     = document.getElementById(`${pfx}Comp`).value;
+
+  const shortHair   = s.hair   ? (s.hair[lang]   || s.hair.es)   : (isG?'braids':'messy hair');
+  const shortOutfit = s.outfit ? (s.outfit[lang]  || s.outfit.es) : 'outfit';
+  const shortCol    = s.hairCol? (s.hairCol[lang] || s.hairCol.es): 'brown';
+
+  const main  = `${subject}, ${outfit}, ${hair}, ${hairCol}, ${skin}, ${face}, ${acc}, ${texture}, ${comp}, handmade yarn toy aesthetic, kawaii style, soft fluffy knitted texture, visible crochet stitches, professional product illustration, ${bg}, high quality digital art`;
+  const short = `Crochet amigurumi ${isG?'girl':'boy'} doll, ${shortOutfit.toLowerCase()}, ${shortCol.toLowerCase()} ${shortHair.toLowerCase()}, ${face.split(',')[0]}, kawaii yarn texture, ${bg.split(',')[0]}`;
+  const mj    = `${main} --ar 1:1 --style cute --niji 6 --q 2`;
+
+  document.getElementById(`${pfx}Main`).textContent  = main;
+  document.getElementById(`${pfx}Canva`).textContent = short;
+  document.getElementById(`${pfx}MJ`).textContent    = mj;
+
+  const out = document.getElementById(`out${isG?'Girl':'Boy'}`);
+  out.classList.add('show');
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// COPY
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function cp(id, btn) {
+  navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{
+    btn.textContent = T.copiedBtn[lang];
+    btn.classList.add('ok');
+    setTimeout(()=>{ btn.textContent=T.copyBtn[lang]; btn.classList.remove('ok'); }, 2200);
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RANDOMIZE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function randomize(g) {
+  if (g === 'animal') {
+    // pick random animal
+    const a = rnd(animals);
+    st.animal.animal = a;
+    document.querySelectorAll('#aAnimals .pick-card').forEach((el,i)=>{
+      el.classList.toggle('on', animals[i]===a);
+    });
+    // random selects
+    const rndSel = id => {
+      const s = document.getElementById(id);
+      s.selectedIndex = Math.floor(Math.random()*s.options.length);
+    };
+    rndSel('aColor'); rndSel('aBg'); rndSel('aFace');
+    rndSel('aComp'); rndSel('aQuality'); rndSel('aAcc');
+  } else {
+    const outfitData = g==='girl' ? gOutfitData : bOutfitData;
+    const hairData   = g==='girl' ? gHairData   : bHairData;
+    const pfx = g==='girl'?'g':'b';
+
+    const o = rnd(outfitData);
+    const h = rnd(hairData);
+    const hc = rnd(hairColorData);
+    const sk = rnd(skinData);
+
+    st[g].outfit   = o;
+    st[g].hair     = h;
+    st[g].hairCol  = hc;
+    st[g].skin     = sk;
+
+    // update outfit picks
+    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach((el,i)=>{
+      el.classList.toggle('on', outfitData[i]===o);
+    });
+    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach((el,i)=>{
+      el.classList.toggle('on', hairData[i]===h);
+    });
+    // update swatches
+    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>{
+      el.classList.toggle('on', hairColorData[i]===hc);
+    });
+    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>{
+      el.classList.toggle('on', skinData[i]===sk);
+    });
+    // random selects
+    const rndSel = id => {
+      const s = document.getElementById(id);
+      if(s) s.selectedIndex = Math.floor(Math.random()*s.options.length);
+    };
+    rndSel(`${pfx}Texture`); rndSel(`${pfx}Face`);
+    rndSel(`${pfx}Acc`);     rndSel(`${pfx}Bg`); rndSel(`${pfx}Comp`);
+  }
+  // auto-scroll a tiny bit so user sees selections updated
+  const panel = document.getElementById(`panel${g[0].toUpperCase()+g.slice(1)}`);
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CLEAR ALL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function clearAll(g) {
+  if (g === 'animal') {
+    st.animal.animal = null;
+    document.querySelectorAll('#aAnimals .pick-card').forEach(el=>el.classList.remove('on'));
+    ['aColor','aBg','aFace','aComp','aQuality','aAcc'].forEach(id=>{
+      const s = document.getElementById(id); if(s) s.selectedIndex=0;
+    });
+    const out = document.getElementById('outAnimal');
+    out.classList.remove('show');
+  } else {
+    const pfx = g==='girl'?'g':'b';
+    st[g].outfit = null; st[g].hair = null;
+    st[g].hairCol = hairColorData[0]; st[g].skin = skinData[1];
+
+    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach(el=>el.classList.remove('on'));
+    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach(el=>el.classList.remove('on'));
+
+    // reset swatches to defaults
+    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>el.classList.toggle('on',i===0));
+    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>el.classList.toggle('on',i===1));
+
+    [`${pfx}Texture`,`${pfx}Face`,`${pfx}Acc`,`${pfx}Bg`,`${pfx}Comp`].forEach(id=>{
+      const s = document.getElementById(id); if(s) s.selectedIndex=0;
+    });
+    const isG = g==='girl';
+    document.getElementById(`out${isG?'Girl':'Boy'}`).classList.remove('show');
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// INIT
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+buildAll();
+</script>
+</body>
+</html>
