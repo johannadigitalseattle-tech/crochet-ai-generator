@@ -154,6 +154,22 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .girl   .sel-group select:focus{border-color:var(--g1);}
 .boy    .sel-group select:focus{border-color:var(--b1);}
 
+/* ── BUTTON ROW ── */
+.btn-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;}
+@media(max-width:560px){.btn-row{grid-template-columns:1fr 1fr;}.btn-row .gen-btn{grid-column:1/-1;}}
+
+.rand-btn,.clear-btn{
+  padding:18px 10px;border:none;border-radius:18px;
+  font-family:'Quicksand',sans-serif;font-size:.95rem;font-weight:800;
+  cursor:pointer;transition:all .3s ease;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.rand-btn{background:linear-gradient(135deg,#A78BFA,#7C3AED);color:white;box-shadow:0 8px 20px rgba(124,58,237,.35);}
+.clear-btn{background:linear-gradient(135deg,#94A3B8,#64748B);color:white;box-shadow:0 8px 20px rgba(100,116,139,.35);}
+.rand-btn:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(124,58,237,.45);}
+.clear-btn:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(100,116,139,.45);}
+.rand-btn:active,.clear-btn:active{transform:translateY(1px);}
+
 /* ── GEN BUTTON ── */
 .gen-btn{
   width:100%;padding:22px;border:none;border-radius:22px;
@@ -167,6 +183,33 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .gen-btn:hover::after{left:100%;}
 .gen-btn:hover{transform:translateY(-4px);}
 .gen-btn:active{transform:translateY(1px);}
+
+/* ── BOTTOM TIPS ── */
+.bottom-tips{
+  max-width:980px;margin:40px auto 0;padding:0 20px 80px;
+  position:relative;z-index:2;
+}
+.bottom-tips-title{
+  text-align:center;font-family:'Pacifico',cursive;font-size:1.3rem;
+  background:linear-gradient(135deg,#FF7B54,#FF85C2,#5BBFFF);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:20px;
+}
+.tips-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:640px){.tips-grid{grid-template-columns:1fr;}}
+.tip-card{
+  background:white;border-radius:22px;padding:22px 20px;
+  box-shadow:0 4px 20px rgba(0,0,0,.07);
+  border-top:4px solid;
+  transition:transform .2s;
+}
+.tip-card:hover{transform:translateY(-4px);}
+.tip-card:nth-child(1){border-color:#FF9E3D;}
+.tip-card:nth-child(2){border-color:#FF85C2;}
+.tip-card:nth-child(3){border-color:#5BBFFF;}
+.tip-icon{font-size:2rem;margin-bottom:10px;display:block;}
+.tip-card-title{font-weight:800;font-size:.95rem;color:var(--dark);margin-bottom:6px;}
+.tip-card-text{font-size:.82rem;color:#777;line-height:1.65;font-weight:600;}
 
 /* ── OUTPUT ── */
 .output{display:none;margin-top:18px;animation:panelIn .4s ease;}
@@ -318,7 +361,11 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
   </div>
 
   <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
-    <button class="gen-btn" onclick="generateAnimal()">🪄 <span data-es="Generar Prompt Mágico" data-en="Generate Magic Prompt">Generar Prompt Mágico</span></button>
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('animal')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('animal')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateAnimal()">🪄 <span data-es="Generar Prompt" data-en="Generate Prompt">Generar Prompt</span></button>
+    </div>
   </div>
 
   <div class="output" id="outAnimal">
@@ -388,7 +435,11 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
   </div>
 
   <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
-    <button class="gen-btn" onclick="generateKid('girl')">🧶 <span data-es="Generar Prompt de Niña ✨" data-en="Generate Girl Prompt ✨">Generar Prompt de Niña ✨</span></button>
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('girl')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('girl')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateKid('girl')">🧶 <span data-es="Generar Niña ✨" data-en="Generate Girl ✨">Generar Niña ✨</span></button>
+    </div>
   </div>
 
   <div class="output" id="outGirl">
@@ -444,7 +495,11 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
   </div>
 
   <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
-    <button class="gen-btn" onclick="generateKid('boy')">🧶 <span data-es="Generar Prompt de Niño 🚀" data-en="Generate Boy Prompt 🚀">Generar Prompt de Niño 🚀</span></button>
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('boy')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('boy')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateKid('boy')">🧶 <span data-es="Generar Niño 🚀" data-en="Generate Boy 🚀">Generar Niño 🚀</span></button>
+    </div>
   </div>
 
   <div class="output" id="outBoy">
@@ -461,6 +516,28 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 </div>
 
 </div><!-- /content -->
+
+<!-- ═══════════════ BOTTOM TIPS ═══════════════ -->
+<div class="bottom-tips">
+  <div class="bottom-tips-title" data-es="💡 Tips para mejores resultados" data-en="💡 Tips for better results">💡 Tips para mejores resultados</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <span class="tip-icon">🎨</span>
+      <div class="tip-card-title" data-es="Canva AI — Prompt corto" data-en="Canva AI — Short prompt">Canva AI — Prompt corto</div>
+      <div class="tip-card-text" data-es="Usa siempre la versión corta en Canva AI. Si no aparece la textura de crochet, añade al final: 'crochet amigurumi yarn knitted texture' y regenera." data-en="Always use the short version in Canva AI. If crochet texture doesn't appear, add at the end: 'crochet amigurumi yarn knitted texture' and regenerate.">Usa siempre la versión corta en Canva AI. Si no aparece la textura de crochet, añade al final: 'crochet amigurumi yarn knitted texture' y regenera.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">🔲</span>
+      <div class="tip-card-title" data-es="PNG sin fondo para Etsy" data-en="Transparent PNG for Etsy">PNG sin fondo para Etsy</div>
+      <div class="tip-card-text" data-es="Para vender cliparts en Etsy, siempre elige 'Sin fondo (PNG)' y composición 'Set 4 poses' o 'Colección 6'. Así obtienes packs listos para vender." data-en="To sell cliparts on Etsy, always choose 'No background (PNG)' and composition 'Set 4 poses' or 'Collection 6'. You'll get ready-to-sell packs.">Para vender cliparts en Etsy, siempre elige 'Sin fondo (PNG)' y composición 'Set 4 poses' o 'Colección 6'. Así obtienes packs listos para vender.</div>
+    </div>
+    <div class="tip-card">
+      <span class="tip-icon">✦</span>
+      <div class="tip-card-title" data-es="Midjourney — Máxima calidad" data-en="Midjourney — Max quality">Midjourney — Máxima calidad</div>
+      <div class="tip-card-text" data-es="Usa el prompt de Midjourney con --niji 6 para el estilo más kawaii. Agrega --ar 1:1 para cuadrado o --ar 2:3 para vertical. El botón 🎲 Aleatorio te da combinaciones sorpresa." data-en="Use the Midjourney prompt with --niji 6 for the most kawaii style. Add --ar 1:1 for square or --ar 2:3 for vertical. The 🎲 Random button gives you surprise combinations.">Usa el prompt de Midjourney con --niji 6 para el estilo más kawaii. Agrega --ar 1:1 para cuadrado o --ar 2:3 para vertical. El botón 🎲 Aleatorio te da combinaciones sorpresa.</div>
+    </div>
+  </div>
+</div>
 
 <script>
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -962,14 +1039,103 @@ function cp(id, btn) {
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RANDOMIZE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
+
+function randomize(g) {
+  if (g === 'animal') {
+    // pick random animal
+    const a = rnd(animals);
+    st.animal.animal = a;
+    document.querySelectorAll('#aAnimals .pick-card').forEach((el,i)=>{
+      el.classList.toggle('on', animals[i]===a);
+    });
+    // random selects
+    const rndSel = id => {
+      const s = document.getElementById(id);
+      s.selectedIndex = Math.floor(Math.random()*s.options.length);
+    };
+    rndSel('aColor'); rndSel('aBg'); rndSel('aFace');
+    rndSel('aComp'); rndSel('aQuality'); rndSel('aAcc');
+  } else {
+    const outfitData = g==='girl' ? gOutfitData : bOutfitData;
+    const hairData   = g==='girl' ? gHairData   : bHairData;
+    const pfx = g==='girl'?'g':'b';
+
+    const o = rnd(outfitData);
+    const h = rnd(hairData);
+    const hc = rnd(hairColorData);
+    const sk = rnd(skinData);
+
+    st[g].outfit   = o;
+    st[g].hair     = h;
+    st[g].hairCol  = hc;
+    st[g].skin     = sk;
+
+    // update outfit picks
+    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach((el,i)=>{
+      el.classList.toggle('on', outfitData[i]===o);
+    });
+    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach((el,i)=>{
+      el.classList.toggle('on', hairData[i]===h);
+    });
+    // update swatches
+    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>{
+      el.classList.toggle('on', hairColorData[i]===hc);
+    });
+    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>{
+      el.classList.toggle('on', skinData[i]===sk);
+    });
+    // random selects
+    const rndSel = id => {
+      const s = document.getElementById(id);
+      if(s) s.selectedIndex = Math.floor(Math.random()*s.options.length);
+    };
+    rndSel(`${pfx}Texture`); rndSel(`${pfx}Face`);
+    rndSel(`${pfx}Acc`);     rndSel(`${pfx}Bg`); rndSel(`${pfx}Comp`);
+  }
+  // auto-scroll a tiny bit so user sees selections updated
+  const panel = document.getElementById(`panel${g[0].toUpperCase()+g.slice(1)}`);
+  panel.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// CLEAR ALL
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function clearAll(g) {
+  if (g === 'animal') {
+    st.animal.animal = null;
+    document.querySelectorAll('#aAnimals .pick-card').forEach(el=>el.classList.remove('on'));
+    ['aColor','aBg','aFace','aComp','aQuality','aAcc'].forEach(id=>{
+      const s = document.getElementById(id); if(s) s.selectedIndex=0;
+    });
+    const out = document.getElementById('outAnimal');
+    out.classList.remove('show');
+  } else {
+    const pfx = g==='girl'?'g':'b';
+    st[g].outfit = null; st[g].hair = null;
+    st[g].hairCol = hairColorData[0]; st[g].skin = skinData[1];
+
+    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach(el=>el.classList.remove('on'));
+    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach(el=>el.classList.remove('on'));
+
+    // reset swatches to defaults
+    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>el.classList.toggle('on',i===0));
+    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>el.classList.toggle('on',i===1));
+
+    [`${pfx}Texture`,`${pfx}Face`,`${pfx}Acc`,`${pfx}Bg`,`${pfx}Comp`].forEach(id=>{
+      const s = document.getElementById(id); if(s) s.selectedIndex=0;
+    });
+    const isG = g==='girl';
+    document.getElementById(`out${isG?'Girl':'Boy'}`).classList.remove('show');
+  }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // INIT
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 buildAll();
 </script>
-  <footer style="text-align: center; padding: 24px 16px; margin-top: 8px; color: #c9a0b8; font-size: 13px; font-family: 'Quicksand', sans-serif; font-weight: 600;">
-    © 2026 All Rights Reserved · Made with ❤️ for 
-    <a href="https://johadigitalseattle.com" target="_blank" style="color: #ff88cc; text-decoration: none; font-weight: 700;">johadigitalseattle.com</a>
-  </footer>
-
 </body>
 </html>
