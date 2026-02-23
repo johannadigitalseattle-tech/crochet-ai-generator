@@ -16,6 +16,9 @@
   --g1:#FF85C2; --g2:#FFB3D9; --g3:#FFF0F8; --g4:#B5006F;
   /* boy */
   --b1:#5BBFFF; --b2:#A8DAFF; --b3:#F0F8FF; --b4:#0055A5;
+  /* bratz */
+  --br1:#C84B9E; --br2:#F0A0D8; --br3:#FFF0FA; --br4:#7B006E;
+  --br-gold:#D4A017; --br-glam:linear-gradient(135deg,#C84B9E,#7B2FBE,#C84B9E);
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -227,6 +230,7 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .animal .copy-btn{background:var(--a1);}
 .girl   .copy-btn{background:var(--g1);}
 .boy    .copy-btn{background:var(--b1);}
+.bratz  .copy-btn{background:var(--br1);}
 .copy-btn:hover{opacity:.85;transform:scale(1.05);}
 .copy-btn.ok{background:#4CAF50!important;}
 
@@ -234,6 +238,57 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .animal .tips{background:linear-gradient(135deg,#FFE0CC,#FFF0CC);color:#7A2800;}
 .girl   .tips{background:linear-gradient(135deg,#FFD6EC,#EED6FF);color:#8B0055;}
 .boy    .tips{background:linear-gradient(135deg,#C8E6FF,#C8F0FF);color:#003D80;}
+.bratz  .tips{background:linear-gradient(135deg,#F8D6FF,#FFD6F0);color:#7B006E;}
+
+/* ── BRATZ SPECIAL STYLES ── */
+.bratz .step { border-color: var(--br2); }
+.bratz .step-label { color: var(--br4); }
+.bratz .pick-card.on { border-color:var(--br1);background:var(--br3);box-shadow:0 6px 18px rgba(200,75,158,.28);transform:translateY(-4px); }
+.bratz .pick-card:hover { border-color:var(--br1);background:var(--br3);transform:translateY(-4px); }
+.bratz .sel-group label { color: var(--br4); }
+.bratz .sel-group select:focus { border-color: var(--br1); }
+.bratz .check-dot { background: var(--br1); }
+.bratz .pick-card.on .check-dot { opacity:1; }
+.bratz .out-card { border-color:var(--br1);background:linear-gradient(135deg,#FFF0FA,#F8F0FF); }
+.bratz .out-label { color: var(--br1); }
+.bratz .swatch.on { border-color: var(--dark); }
+.bratz .gen-btn { background:linear-gradient(135deg,#C84B9E,#7B2FBE);box-shadow:0 10px 28px rgba(200,75,158,.48); }
+.nav-btn.bratz.on { background:linear-gradient(135deg,#C84B9E,#7B2FBE);color:white;box-shadow:0 8px 20px rgba(200,75,158,.45);transform:scale(1.06); }
+
+/* glam badge */
+.glam-badge {
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#C84B9E,#7B2FBE);
+  color:white;border-radius:999px;padding:4px 14px;
+  font-size:.72rem;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;margin-bottom:14px;
+}
+
+/* chatgpt tip box */
+.chatgpt-box {
+  background: linear-gradient(135deg,#1a1a2e,#2d1b4e);
+  border-radius:22px;padding:22px 24px;margin-bottom:12px;
+  border:2px solid #7B2FBE;position:relative;
+}
+.chatgpt-box .out-label { color:#C084FC; }
+.chatgpt-box .out-text { color:#E8D5FF; }
+.chatgpt-box .copy-btn { background:#7B2FBE; }
+.chatgpt-tip {
+  background:linear-gradient(135deg,#0D1117,#1a1a2e);
+  border:2px solid #C84B9E;border-radius:20px;
+  padding:20px 24px;margin-bottom:12px;
+}
+.chatgpt-tip-title {
+  font-family:'Pacifico',cursive;font-size:1rem;
+  color:#FF85C2;margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.chatgpt-tip-text { font-size:.82rem;color:#C9B8EF;line-height:1.75;font-weight:600; }
+.chatgpt-tip-text strong { color:#FF85C2; }
+.chatgpt-tip-text code {
+  background:rgba(200,75,158,.2);color:#F0A0D8;
+  padding:2px 8px;border-radius:6px;font-size:.78rem;
+}
 
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
 .chip{padding:7px 18px;border-radius:50px;font-size:.8rem;font-weight:700;color:white;}
@@ -263,7 +318,7 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
     <span class="logo-text">Crochet AI Generator</span>
     <span class="yarn-icon" style="animation-direction:reverse">🧶</span>
   </div>
-  <p class="header-tagline" data-es="Genera prompts mágicos para amigurumis de animales, niñas y niños ✨ Listos para Canva AI, Midjourney y más" data-en="Generate magical prompts for animal, girl & boy amigurumis ✨ Ready for Canva AI, Midjourney & more"></p>
+  <p class="header-tagline" data-es="Genera prompts mágicos para amigurumis de animales, niñas, niños y Chibi Bratz ✨ Listos para Canva AI, Midjourney, ChatGPT y más" data-en="Generate magical prompts for animal, girl, boy & Chibi Bratz amigurumis ✨ Ready for Canva AI, Midjourney, ChatGPT & more"></p>
   <div class="thread-row">
     <div class="thread"></div><div class="thread"></div><div class="thread"></div>
     <div class="thread"></div><div class="thread"></div><div class="thread"></div>
@@ -277,6 +332,7 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
     <button class="nav-btn animal on" onclick="switchMain('animal')">🐻 <span data-es="Animales" data-en="Animals">Animales</span></button>
     <button class="nav-btn girl"      onclick="switchMain('girl')">🎀 <span data-es="Niña" data-en="Girl">Niña</span></button>
     <button class="nav-btn boy"       onclick="switchMain('boy')">🚀 <span data-es="Niño" data-en="Boy">Niño</span></button>
+    <button class="nav-btn bratz"     onclick="switchMain('bratz')">💅 <span data-es="Chibi Bratz" data-en="Chibi Bratz">Chibi Bratz</span></button>
   </div>
 </div>
 
@@ -511,6 +567,95 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
         💡 <strong>Canva AI:</strong> Usa el prompt corto. Agrega 'crochet amigurumi doll yarn' si la textura no aparece.
       </span>
       <div class="chips"><span class="chip cv">🎨 Canva AI</span><span class="chip mj">✦ Midjourney</span><span class="chip dl">🤖 DALL-E 3</span><span class="chip ff">🔥 Adobe Firefly</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ BRATZ PANEL ═══════════════════════════════ -->
+<div class="panel bratz" id="panelBratz">
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 1" data-en="Step 1">Paso 1</div>
+    <div class="step-title">👗 <span data-es="Elige el outfit de tu Chibi Bratz" data-en="Choose your Chibi Bratz outfit">Elige el outfit de tu Chibi Bratz</span></div>
+    <div class="glam-badge">✦ <span data-es="Todo crochet · Ojos glossy · Print ready" data-en="All crochet · Glossy eyes · Print ready">Todo crochet · Ojos glossy · Print ready</span></div>
+    <div class="pick-grid" id="brOutfits"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 2" data-en="Step 2">Paso 2</div>
+    <div class="step-title">💇‍♀️ <span data-es="Cabello de lana" data-en="Yarn hair">Cabello de lana</span></div>
+    <div class="pick-grid" id="brHairs"></div>
+    <div style="margin-top:16px">
+      <div class="step-title" style="font-size:.95rem;margin-bottom:12px">🎨 <span data-es="Color del cabello" data-en="Hair color">Color del cabello</span></div>
+      <div class="swatch-row" id="brHairColors"></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 3" data-en="Step 3">Paso 3</div>
+    <div class="step-title">✨ <span data-es="Detalles glam" data-en="Glam details">Detalles glam</span></div>
+    <div class="selects-grid">
+      <div class="sel-group"><label data-es="💄 Maquillaje" data-en="💄 Makeup">💄 Maquillaje</label><select id="brMakeup"></select></div>
+      <div class="sel-group"><label data-es="👓 Lentes / Gafas" data-en="👓 Glasses / Sunglasses">👓 Lentes / Gafas</label><select id="brGlasses"></select></div>
+      <div class="sel-group"><label data-es="💍 Joyería" data-en="💍 Jewelry">💍 Joyería</label><select id="brJewelry"></select></div>
+      <div class="sel-group"><label data-es="👜 Bolso" data-en="👜 Bag">👜 Bolso</label><select id="brBag"></select></div>
+    </div>
+    <div style="margin-top:18px">
+      <div class="step-title" style="font-size:.95rem;margin-bottom:12px">🌍 <span data-es="Tono de piel (lana)" data-en="Skin tone (yarn)">Tono de piel (lana)</span></div>
+      <div class="swatch-row" id="brSkin"></div>
+    </div>
+    <div style="margin-top:18px">
+      <div class="sel-group"><label data-es="🖼️ Fondo" data-en="🖼️ Background">🖼️ Fondo</label><select id="brBg"></select></div>
+    </div>
+  </div>
+
+  <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomize('bratz')">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearAll('bratz')">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateBratz()">💅 <span data-es="Generar Chibi Bratz ✨" data-en="Generate Chibi Bratz ✨">Generar Chibi Bratz ✨</span></button>
+    </div>
+  </div>
+
+  <div class="output" id="outBratz">
+    <div class="out-card">
+      <div class="out-label">📋 <span data-es="Prompt completo (Canva AI · DALL-E · Firefly)" data-en="Full Prompt (Canva AI · DALL-E · Firefly)">Prompt completo</span></div>
+      <button class="copy-btn" onclick="cp('brMain',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="brMain"></div>
+    </div>
+    <div class="chatgpt-box">
+      <div class="out-label">🤖 <span data-es="Versión optimizada para ChatGPT (DALL-E 3)" data-en="Optimized for ChatGPT (DALL-E 3)">Versión ChatGPT — DALL-E 3</span></div>
+      <button class="copy-btn" onclick="cp('brChatGPT',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="brChatGPT"></div>
+    </div>
+    <div class="out-card">
+      <div class="out-label">✦ <span data-es="Versión Midjourney" data-en="Midjourney version">Midjourney</span></div>
+      <button class="copy-btn" onclick="cp('brMJ',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="brMJ"></div>
+    </div>
+
+    <!-- CHATGPT BEST RESULTS TIP -->
+    <div class="chatgpt-tip">
+      <div class="chatgpt-tip-title">🤖 <span data-es="Para mejores resultados usa ChatGPT + DALL-E 3" data-en="For best results use ChatGPT + DALL-E 3">Para mejores resultados usa ChatGPT + DALL-E 3</span></div>
+      <div class="chatgpt-tip-text" data-es="1️⃣ Copia el prompt de <strong>Versión ChatGPT</strong> de arriba<br>2️⃣ Abre <strong>ChatGPT</strong> (necesitas cuenta Plus o Team)<br>3️⃣ Activa el modo <code>DALL-E 3</code> o escribe el prompt directamente en el chat<br>4️⃣ <strong>No cambies</strong> las anclas del prompt: <code>entire character fully made of crochet yarn</code> · <code>eyes NOT crocheted</code> · <code>flat even lighting</code> · <code>no blur</code><br>5️⃣ Solo modifica: color de piel, cabello, outfit y accesorios<br>⚠️ <strong>Truco clave:</strong> Si los ojos salen con textura de crochet, añade al final: <code>eyes must be smooth glossy glass, absolutely NOT yarn texture</code>" data-en="1️⃣ Copy the <strong>ChatGPT Version</strong> prompt above<br>2️⃣ Open <strong>ChatGPT</strong> (Plus or Team account needed)<br>3️⃣ Activate <code>DALL-E 3</code> mode or paste prompt directly in chat<br>4️⃣ <strong>Do NOT change</strong> the prompt anchors: <code>entire character fully made of crochet yarn</code> · <code>eyes NOT crocheted</code> · <code>flat even lighting</code> · <code>no blur</code><br>5️⃣ Only change: skin tone, hair, outfit and accessories<br>⚠️ <strong>Key trick:</strong> If eyes show crochet texture, add: <code>eyes must be smooth glossy glass, absolutely NOT yarn texture</code>">
+        1️⃣ Copia el prompt de <strong>Versión ChatGPT</strong> de arriba<br>
+        2️⃣ Abre <strong>ChatGPT</strong> (necesitas cuenta Plus o Team)<br>
+        3️⃣ Activa el modo <code>DALL-E 3</code> o escribe el prompt directamente<br>
+        4️⃣ <strong>No cambies</strong> las anclas del prompt<br>
+        5️⃣ Solo modifica: color de piel, cabello, outfit y accesorios
+      </div>
+    </div>
+
+    <div class="bratz tips">
+      <span data-es="💡 <strong>Canva AI:</strong> Usa el prompt completo. Si la textura de crochet no aparece añade 'consistent tight visible yarn stitch pattern'.<br>✦ <strong>Midjourney:</strong> Añade --niji 6 para el look más glam kawaii.<br>🎯 <strong>Anclas que NO debes cambiar:</strong> entire character fully made of crochet yarn · eyes NOT crocheted · flat even lighting · no blur." data-en="💡 <strong>Canva AI:</strong> Use the full prompt. If crochet texture doesn't show add 'consistent tight visible yarn stitch pattern'.<br>✦ <strong>Midjourney:</strong> Add --niji 6 for the most glam kawaii look.<br>🎯 <strong>Anchors you must NOT change:</strong> entire character fully made of crochet yarn · eyes NOT crocheted · flat even lighting · no blur.">
+        💡 <strong>Canva AI:</strong> Usa el prompt completo. Si la textura no aparece añade 'consistent tight visible yarn stitch pattern'.
+      </span>
+      <div class="chips">
+        <span class="chip" style="background:#10A37F">🤖 ChatGPT</span>
+        <span class="chip cv">🎨 Canva AI</span>
+        <span class="chip mj">✦ Midjourney</span>
+        <span class="chip ff">🔥 Adobe Firefly</span>
+      </div>
     </div>
   </div>
 </div>
@@ -828,6 +973,7 @@ const st = {
   animal: { animal: null },
   girl:   { outfit:null, hair:null, hairCol:hairColorData[0], skin:skinData[1] },
   boy:    { outfit:null, hair:null, hairCol:hairColorData[0], skin:skinData[1] },
+  bratz:  { outfit:null, hair:null, hairCol:hairColorData[1], skin:skinData[2] },
 };
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -900,6 +1046,8 @@ function buildAll() {
   buildSwatches('bHairColors', hairColorData, 'boy', 'hairCol', 0);
   buildSwatches('bSkin',       skinData,      'boy', 'skin',    1);
 
+  // Boy (called separately in buildBratz)
+
   // Animal selects
   fillSelect('aColor',   T.aColorOpts[lang],   aColorValues);
   fillSelect('aBg',      T.aBgOpts[lang],       aBgValues);
@@ -944,6 +1092,9 @@ function buildAll() {
   // gen buttons
   const genBtns = document.querySelectorAll('.gen-btn span[data-es]');
   genBtns.forEach(sp => sp.innerHTML = sp.dataset[lang]);
+
+  // Bratz section
+  if(typeof buildBratz === 'function') buildBratz();
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1045,57 +1196,43 @@ function rnd(arr){ return arr[Math.floor(Math.random()*arr.length)]; }
 
 function randomize(g) {
   if (g === 'animal') {
-    // pick random animal
     const a = rnd(animals);
     st.animal.animal = a;
     document.querySelectorAll('#aAnimals .pick-card').forEach((el,i)=>{
       el.classList.toggle('on', animals[i]===a);
     });
-    // random selects
     const rndSel = id => {
       const s = document.getElementById(id);
       s.selectedIndex = Math.floor(Math.random()*s.options.length);
     };
     rndSel('aColor'); rndSel('aBg'); rndSel('aFace');
     rndSel('aComp'); rndSel('aQuality'); rndSel('aAcc');
+  } else if (g === 'bratz') {
+    const o  = rnd(brOutfitData);
+    const h  = rnd(brHairData);
+    const hc = rnd(hairColorData);
+    const sk = rnd(skinData);
+    st.bratz.outfit=o; st.bratz.hair=h; st.bratz.hairCol=hc; st.bratz.skin=sk;
+    document.querySelectorAll('#brOutfits .pick-card').forEach((el,i)=>el.classList.toggle('on',brOutfitData[i]===o));
+    document.querySelectorAll('#brHairs .pick-card').forEach((el,i)=>el.classList.toggle('on',brHairData[i]===h));
+    document.querySelectorAll('#brHairColors .swatch').forEach((el,i)=>el.classList.toggle('on',hairColorData[i]===hc));
+    document.querySelectorAll('#brSkin .swatch').forEach((el,i)=>el.classList.toggle('on',skinData[i]===sk));
+    ['brMakeup','brGlasses','brJewelry','brBag','brBg'].forEach(id=>{
+      const s=document.getElementById(id); if(s) s.selectedIndex=Math.floor(Math.random()*s.options.length);
+    });
   } else {
     const outfitData = g==='girl' ? gOutfitData : bOutfitData;
     const hairData   = g==='girl' ? gHairData   : bHairData;
     const pfx = g==='girl'?'g':'b';
-
-    const o = rnd(outfitData);
-    const h = rnd(hairData);
-    const hc = rnd(hairColorData);
-    const sk = rnd(skinData);
-
-    st[g].outfit   = o;
-    st[g].hair     = h;
-    st[g].hairCol  = hc;
-    st[g].skin     = sk;
-
-    // update outfit picks
-    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach((el,i)=>{
-      el.classList.toggle('on', outfitData[i]===o);
-    });
-    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach((el,i)=>{
-      el.classList.toggle('on', hairData[i]===h);
-    });
-    // update swatches
-    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>{
-      el.classList.toggle('on', hairColorData[i]===hc);
-    });
-    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>{
-      el.classList.toggle('on', skinData[i]===sk);
-    });
-    // random selects
-    const rndSel = id => {
-      const s = document.getElementById(id);
-      if(s) s.selectedIndex = Math.floor(Math.random()*s.options.length);
-    };
-    rndSel(`${pfx}Texture`); rndSel(`${pfx}Face`);
-    rndSel(`${pfx}Acc`);     rndSel(`${pfx}Bg`); rndSel(`${pfx}Comp`);
+    const o=rnd(outfitData), h=rnd(hairData), hc=rnd(hairColorData), sk=rnd(skinData);
+    st[g].outfit=o; st[g].hair=h; st[g].hairCol=hc; st[g].skin=sk;
+    document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach((el,i)=>el.classList.toggle('on',outfitData[i]===o));
+    document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach((el,i)=>el.classList.toggle('on',hairData[i]===h));
+    document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>el.classList.toggle('on',hairColorData[i]===hc));
+    document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>el.classList.toggle('on',skinData[i]===sk));
+    const rndSel = id => { const s=document.getElementById(id); if(s) s.selectedIndex=Math.floor(Math.random()*s.options.length); };
+    rndSel(`${pfx}Texture`); rndSel(`${pfx}Face`); rndSel(`${pfx}Acc`); rndSel(`${pfx}Bg`); rndSel(`${pfx}Comp`);
   }
-  // auto-scroll a tiny bit so user sees selections updated
   const panel = document.getElementById(`panel${g[0].toUpperCase()+g.slice(1)}`);
   panel.scrollIntoView({behavior:'smooth', block:'start'});
 }
@@ -1110,26 +1247,166 @@ function clearAll(g) {
     ['aColor','aBg','aFace','aComp','aQuality','aAcc'].forEach(id=>{
       const s = document.getElementById(id); if(s) s.selectedIndex=0;
     });
-    const out = document.getElementById('outAnimal');
-    out.classList.remove('show');
+    document.getElementById('outAnimal').classList.remove('show');
+  } else if (g === 'bratz') {
+    st.bratz.outfit=null; st.bratz.hair=null;
+    st.bratz.hairCol=hairColorData[1]; st.bratz.skin=skinData[2];
+    document.querySelectorAll('#brOutfits .pick-card').forEach(el=>el.classList.remove('on'));
+    document.querySelectorAll('#brHairs .pick-card').forEach(el=>el.classList.remove('on'));
+    document.querySelectorAll('#brHairColors .swatch').forEach((el,i)=>el.classList.toggle('on',i===1));
+    document.querySelectorAll('#brSkin .swatch').forEach((el,i)=>el.classList.toggle('on',i===2));
+    ['brMakeup','brGlasses','brJewelry','brBag','brBg'].forEach(id=>{
+      const s=document.getElementById(id); if(s) s.selectedIndex=0;
+    });
+    document.getElementById('outBratz').classList.remove('show');
   } else {
     const pfx = g==='girl'?'g':'b';
-    st[g].outfit = null; st[g].hair = null;
-    st[g].hairCol = hairColorData[0]; st[g].skin = skinData[1];
-
+    st[g].outfit=null; st[g].hair=null;
+    st[g].hairCol=hairColorData[0]; st[g].skin=skinData[1];
     document.querySelectorAll(`#${pfx}Outfits .pick-card`).forEach(el=>el.classList.remove('on'));
     document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach(el=>el.classList.remove('on'));
-
-    // reset swatches to defaults
     document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>el.classList.toggle('on',i===0));
     document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>el.classList.toggle('on',i===1));
-
     [`${pfx}Texture`,`${pfx}Face`,`${pfx}Acc`,`${pfx}Bg`,`${pfx}Comp`].forEach(id=>{
-      const s = document.getElementById(id); if(s) s.selectedIndex=0;
+      const s=document.getElementById(id); if(s) s.selectedIndex=0;
     });
-    const isG = g==='girl';
-    document.getElementById(`out${isG?'Girl':'Boy'}`).classList.remove('show');
+    document.getElementById(`out${g==='girl'?'Girl':'Boy'}`).classList.remove('show');
   }
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BRATZ DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const brOutfitData = [
+  {em:'🧥',es:'Streetwear Glam',en:'Streetwear Glam',s:{es:'Hoodie & sweats',en:'Hoodie & sweats'},
+   p:'wearing a fully crocheted oversized hoodie with matching sweatpants, defined knit pattern, color-blocked design, crochet sneakers'},
+  {em:'👗',es:'Glamour Barbie',en:'Barbie Glamour',s:{es:'Pink perfection',en:'Pink perfection'},
+   p:'wearing a fully crocheted strapless mini dress in hot pink, ruffle knit details, crochet platform heels, Barbie-inspired glam'},
+  {em:'🌸',es:'Cute Kawaii',en:'Cute Kawaii',s:{es:'Sweet & adorable',en:'Sweet & adorable'},
+   p:'wearing a fully crocheted pastel babydoll dress with puffy yarn sleeves, crochet bow details, knitted mary jane shoes'},
+  {em:'🌙',es:'Y2K Aesthetic',en:'Y2K Aesthetic',s:{es:'2000s vibes',en:'2000s vibes'},
+   p:'wearing fully crocheted Y2K style low-rise flare pants and a tiny crop top with butterfly knit details, platform crochet boots'},
+  {em:'💜',es:'Aesthetic Soft',en:'Soft Aesthetic',s:{es:'Dreamy purple',en:'Dreamy purple'},
+   p:'wearing a fully crocheted soft aesthetic coord set, lavender knitted cardigan over matching crochet dress, cozy yarn boots'},
+  {em:'🏆',es:'Athleisure Chic',en:'Athleisure Chic',s:{es:'Sport glam',en:'Sport glam'},
+   p:'wearing fully crocheted athleisure set, fitted knitted sports bra and high-waist leggings with side stripe detail, crochet sneakers'},
+  {em:'🦋',es:'Boho Festival',en:'Boho Festival',s:{es:'Free spirit',en:'Free spirit'},
+   p:'wearing a fully crocheted boho festival outfit, fringe knitted top with crochet flared pants, yarn boots with tassel details'},
+];
+
+const brHairData = [
+  {em:'💛',es:'Lacio largo',en:'Long straight',p:'long straight honey blonde hair made of thick crocheted yarn strands with detailed knit texture, sleek and shiny'},
+  {em:'🌀',es:'Ondas glam',en:'Glam waves',p:'long glamorous wavy hair made of thick crocheted yarn strands, bouncy voluminous waves with knit texture'},
+  {em:'🎀',es:'Cola alta glam',en:'Glam high pony',p:'high dramatic ponytail made of crocheted yarn loops, sleek top with voluminous yarn tail, with ribbon'},
+  {em:'✂️',es:'Bob chic',en:'Chic bob',p:'sleek chin-length bob made of crocheted yarn, sharp cut with straight yarn bangs, very chic'},
+  {em:'🌸',es:'Trenzas largas',en:'Long braids',p:'two long thick crocheted yarn braids reaching waist, with yarn accessories woven in'},
+  {em:'👑',es:'Moño glam',en:'Glam bun',p:'dramatic high bun made of crocheted yarn loops, face-framing yarn tendrils, sparkly yarn pins'},
+  {em:'🔥',es:'Afro kurly',en:'Afro curly',p:'big voluminous afro made of tight crocheted yarn curls, perfectly rounded and full, natural yarn texture'},
+];
+
+const brMakeupValues = [
+  'dramatic lashes, bold eyebrows, full glossy lips, glamorous makeup, defined contour',
+  'soft glam makeup, dewy skin, glossy pink lips, fluttery lashes, subtle highlight',
+  'bold dramatic eye makeup, dark smoky eyes, deep red glossy lips, full glam',
+  'cute doll makeup, rosy cheeks, pastel pink glossy lips, big innocent lashes',
+  'Y2K makeup, glossy nude lips, graphic liner, frosted eyeshadow, barely-there brows',
+];
+const brMakeupOpts = {
+  es:['💄 Glamour clásico','✨ Soft glam dewy','🖤 Smoky bold','🌸 Cute doll','🌟 Y2K frosted'],
+  en:['💄 Classic glamour','✨ Soft glam dewy','🖤 Smoky bold','🌸 Cute doll','🌟 Y2K frosted']
+};
+
+const brGlassesValues = [
+  'no glasses',
+  'wearing small oval tinted sunglasses in gold frame',
+  'wearing oversized cat-eye sunglasses in black',
+  'wearing tiny heart-shaped pink tinted glasses',
+  'wearing futuristic Y2K shield sunglasses',
+  'wearing classic round tortoise shell glasses',
+];
+const brGlassesOpts = {
+  es:['Sin lentes','🕶️ Ovalados dorados','😎 Cat-eye negros','💗 Corazón rosados','🚀 Escudo Y2K','🔵 Redondos carey'],
+  en:['No glasses','🕶️ Gold oval tinted','😎 Black cat-eye','💗 Pink heart-shaped','🚀 Y2K shield','🔵 Round tortoise']
+};
+
+const brJewelryValues = [
+  'pearl choker necklace, gold hoop earrings, layered gold bracelets',
+  'chunky gold chain necklace, large gold hoop earrings, stacked gold rings',
+  'delicate diamond choker, tiny crystal earrings, dainty gold bracelet',
+  'colorful beaded necklace, mismatched fun earrings, friendship bracelets',
+  'layered pearl and gold necklaces, drop earrings, bangles and cuffs',
+];
+const brJewelryOpts = {
+  es:['🤍 Perlas & aros dorados','⛓️ Cadena chunky gold','💎 Diamante delicado','🌈 Beads coloridos','✨ Capas perlas & gold'],
+  en:['🤍 Pearls & gold hoops','⛓️ Chunky gold chain','💎 Delicate diamond','🌈 Colorful beads','✨ Layered pearls & gold']
+};
+
+const brBagValues = [
+  'holding a small black crochet designer handbag',
+  'holding a tiny crocheted quilted chain bag in beige',
+  'carrying a mini crocheted tote bag with logo detail',
+  'holding a small crocheted pink Y2K butterfly bag',
+  'carrying a crocheted mini backpack with gold zippers',
+  'holding a tiny crocheted clutch bag in metallic gold yarn',
+];
+const brBagOpts = {
+  es:['👜 Cartera negra designer','🤍 Quilted beige chain','🛍️ Mini tote logo','🦋 Pink Y2K butterfly','🎒 Mini mochila gold','✨ Clutch dorado metallic'],
+  en:['👜 Black designer bag','🤍 Beige quilted chain','🛍️ Mini logo tote','🦋 Pink Y2K butterfly','🎒 Gold mini backpack','✨ Metallic gold clutch']
+};
+
+const brBgValues = [
+  'clean solid white background, isolated character',
+  'isolated on transparent background, PNG clipart style',
+  'soft pastel pink gradient background',
+  'clean solid light lavender background',
+  'soft cream studio background with subtle shadow',
+];
+const brBgOpts = {
+  es:['⬜ Blanco limpio (print ready)','🔲 Sin fondo (PNG)','🌸 Gradiente rosa pastel','💜 Lavanda suave','🤍 Crema studio'],
+  en:['⬜ Clean white (print ready)','🔲 No background (PNG)','🌸 Pastel pink gradient','💜 Soft lavender','🤍 Cream studio']
+};
+
+// Build Bratz UI
+function buildBratz() {
+  buildPicks('brOutfits', brOutfitData, 'bratz', 'outfit', lang);
+  buildPicks('brHairs',   brHairData,   'bratz', 'hair',   lang);
+  buildSwatches('brHairColors', hairColorData, 'bratz', 'hairCol', 1);
+  buildSwatches('brSkin',       skinData,      'bratz', 'skin',    2);
+  fillSelect('brMakeup',  brMakeupOpts[lang],  brMakeupValues);
+  fillSelect('brGlasses', brGlassesOpts[lang], brGlassesValues);
+  fillSelect('brJewelry', brJewelryOpts[lang], brJewelryValues);
+  fillSelect('brBag',     brBagOpts[lang],     brBagValues);
+  fillSelect('brBg',      brBgOpts[lang],      brBgValues);
+}
+
+// Generate Bratz
+function generateBratz() {
+  const s = st.bratz;
+  const outfit  = s.outfit  ? s.outfit.p  : 'wearing a fully crocheted hoodie and matching sweatpants with defined knit pattern, crochet sneakers';
+  const hair    = s.hair    ? s.hair.p    : 'long straight honey blonde hair made of thick crocheted yarn strands with detailed knit texture';
+  const hairCol = s.hairCol ? s.hairCol.p : 'honey blonde yarn hair';
+  const skin    = s.skin    ? s.skin.p    : 'warm honey tan yarn skin tone';
+  const makeup  = document.getElementById('brMakeup').value;
+  const glasses = document.getElementById('brGlasses').value;
+  const jewelry = document.getElementById('brJewelry').value;
+  const bag     = document.getElementById('brBag').value;
+  const bg      = document.getElementById('brBg').value;
+
+  const glassesText = glasses === 'no glasses' ? '' : `, ${glasses}`;
+
+  const main = `Ultra detailed 3D amigurumi crochet fashion doll inspired by Bratz-style proportions, semi-chibi oversized head, entire character fully made of crochet yarn including skin, hair, clothing and accessories, consistent tight visible yarn stitch pattern across whole body, smooth ${skin}, ${hair} color: ${hairCol}, large glossy glass-like anime inspired eyes with deep layered reflections (eyes smooth and shiny, NOT crocheted), ${makeup}, ${outfit}, ${jewelry}${glassesText}, ${bag}, front facing centered composition, full body visible, symmetrical pose, flat even lighting, sharp focus everywhere, no blur, no depth of field, no cinematic lighting, ${bg}, high resolution, print ready, sticker ready, single subject only`;
+
+  const chatgpt = `Ultra detailed 3D amigurumi crochet fashion doll inspired by Bratz-style proportions, semi-chibi oversized head, entire character fully made of crochet yarn including skin, hair, clothing and accessories, consistent tight visible yarn stitch pattern across whole body, smooth ${skin}, ${hair}, large glossy glass-like anime inspired eyes with deep layered reflections (eyes smooth and shiny, NOT crocheted), ${makeup}, ${outfit}, ${jewelry}${glassesText}, ${bag}, front facing centered composition, full body visible, symmetrical pose, flat even lighting, sharp focus everywhere, no blur, no depth of field, no cinematic lighting, ${bg}, high resolution, print ready, sticker ready, single subject only`;
+
+  const mj = `${chatgpt} --ar 2:3 --niji 6 --style cute --q 2`;
+
+  document.getElementById('brMain').textContent    = main;
+  document.getElementById('brChatGPT').textContent = chatgpt;
+  document.getElementById('brMJ').textContent      = mj;
+
+  const out = document.getElementById('outBratz');
+  out.classList.add('show');
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}), 80);
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1137,5 +1414,9 @@ function clearAll(g) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 buildAll();
 </script>
+   <footer style="text-align: center; padding: 24px 16px; margin-top: 8px; color: #c9a0b8; font-size: 13px; font-family: 'Quicksand', sans-serif; font-weight: 600;">
+    © 2026 All Rights Reserved · Made with ❤️ for 
+    <a href="https://johadigitalseattle.com" target="_blank" style="color: #ff88cc; text-decoration: none; font-weight: 700;">johadigitalseattle.com</a>
+  </footer>
 </body>
 </html>
