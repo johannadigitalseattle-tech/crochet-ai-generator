@@ -373,15 +373,19 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
       <div class="login-thread"></div><div class="login-thread"></div><div class="login-thread"></div>
     </div>
     <span class="lock-anim">🔐</span>
-    <p class="login-subtitle" id="loginSubtitle">Acceso exclusivo para clientes ✨<br>Ingresa tu contraseña para continuar</p>
-    <label class="login-label" id="loginLabel">🔑 Contraseña</label>
+    <p class="login-subtitle" id="loginSubtitle" style="line-height:2;">
+      <span style="font-size:.95rem;font-weight:700;color:#C0390A;">✨ Acceso exclusivo para clientes ✨</span><br>
+      <span style="font-size:.95rem;font-weight:700;color:#C0390A;">✨ Exclusive client access ✨</span><br>
+      <span style="font-size:.78rem;color:#A07090;">Ingresa tu contraseña · Enter your password</span>
+    </p>
+    <label class="login-label" id="loginLabel">🔑 Contraseña / Password</label>
     <div class="pw-wrap">
       <input class="pw-input" type="password" id="pwInput" placeholder="••••••••••••"
         onkeydown="if(event.key==='Enter') checkPw()" autocomplete="off">
       <button class="pw-toggle" onclick="togglePw()" id="pwEye">👁️</button>
     </div>
-    <div class="login-error" id="loginError">❌ Contraseña incorrecta. Inténtalo de nuevo.</div>
-    <button class="enter-btn" onclick="checkPw()" id="enterBtn">🧶 Entrar al Generador</button>
+    <div class="login-error" id="loginError">❌ Contraseña incorrecta / Wrong password. Inténtalo de nuevo / Try again.</div>
+    <button class="enter-btn" onclick="checkPw()" id="enterBtn">🧶 Entrar / Enter</button>
     <p class="login-footer">🔒 Acceso privado · <span>Crochet AI Generator</span></p>
   </div>
 </div>
@@ -1535,5 +1539,9 @@ function updateLoginLang(l){
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 buildAll();
 </script>
+   <footer style="text-align: center; padding: 24px 16px; margin-top: 8px; color: #c9a0b8; font-size: 13px; font-family: 'Quicksand', sans-serif; font-weight: 600;">
+    © 2026 All Rights Reserved · Made with ❤️ for 
+    <a href="https://johadigitalseattle.com" target="_blank" style="color: #ff88cc; text-decoration: none; font-weight: 700;">johadigitalseattle.com</a>
+  </footer>
 </body>
 </html>
