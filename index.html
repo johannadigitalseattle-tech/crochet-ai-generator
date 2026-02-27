@@ -157,6 +157,17 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .girl   .sel-group select:focus{border-color:var(--g1);}
 .boy    .sel-group select:focus{border-color:var(--b1);}
 
+/* ── TREND STAR ── */
+.trend-star{
+  position:absolute;top:6px;right:6px;
+  font-size:.7rem;line-height:1;
+  background:linear-gradient(135deg,#FF9E3D,#FF6B35);
+  color:white;border-radius:999px;
+  padding:2px 5px;font-weight:700;
+  box-shadow:0 2px 6px rgba(255,158,61,.4);
+}
+.pick-card{position:relative;}
+
 /* ── BUTTON ROW ── */
 .btn-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;}
 @media(max-width:560px){.btn-row{grid-template-columns:1fr 1fr;}.btn-row .gen-btn{grid-column:1/-1;}}
@@ -770,6 +781,45 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
   </div>
 </div>
 
+<!-- ═══════════════ TREND TIPS ═══════════════ -->
+<div class="bottom-tips" style="padding-top:0;margin-top:0;">
+  <div class="bottom-tips-title" data-es="⭐ Lo que está en tendencia ahora en Etsy" data-en="⭐ What's trending right now on Etsy">⭐ Lo que está en tendencia ahora en Etsy</div>
+  <div style="background:white;border-radius:22px;padding:26px 28px;box-shadow:0 4px 20px rgba(0,0,0,.07);border-top:4px solid #FF9E3D;max-width:980px;margin:0 auto;">
+    <p style="font-size:.88rem;color:#666;font-weight:600;line-height:1.8;margin-bottom:18px;">
+      Los diseños marcados con ⭐ son los más buscados y vendidos ahorita mismo en Etsy, TikTok y Pinterest. Úsalos para crear cliparts que se venden solos 🔥
+    </p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="background:#FFF8F0;border-radius:16px;padding:18px 20px;border-left:4px solid #FF9E3D;">
+        <div style="font-weight:800;font-size:.9rem;color:#C0390A;margin-bottom:10px;">🐾 Animales en tendencia</div>
+        <div style="font-size:.83rem;color:#666;font-weight:600;line-height:1.9;">
+          ⭐ Capibara — viral en TikTok<br>
+          ⭐ Axolotl — muy buscado en Etsy<br>
+          ⭐ Flamenco — top en Pinterest<br>
+          ⭐ Pollito & Pato — temporada Pascua<br>
+          ⭐ Mono — kawaii top ventas<br>
+          ⭐ Cangrejo — tendencia costera<br>
+          ⭐ Hamster — viral en redes
+        </div>
+      </div>
+      <div style="background:#FFF0F8;border-radius:16px;padding:18px 20px;border-left:4px solid #FF85C2;">
+        <div style="font-weight:800;font-size:.9rem;color:#B5006F;margin-bottom:10px;">🎨 Paletas en tendencia</div>
+        <div style="font-size:.83rem;color:#666;font-weight:600;line-height:1.9;">
+          ⭐ Coquette — #1 en TikTok ahora<br>
+          ⭐ Pascua — temporada alta ventas<br>
+          ⭐ Cottagecore — viral en Pinterest<br>
+          ⭐ Ocean vibes — top verano<br>
+          ⭐ Aesthetic neutro — minimalista Etsy
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:16px;background:linear-gradient(135deg,#FFF5F0,#FFF0F8);border-radius:14px;padding:14px 18px;">
+      <div style="font-size:.82rem;color:#888;font-weight:700;line-height:1.8;">
+        💡 <strong>Tip pro:</strong> Combina un animal ⭐ + una paleta ⭐ para maximizar tus ventas. Ejemplo: <strong>Capibara + Coquette</strong> o <strong>Pollito + Pascua</strong> — son combinaciones que nadie puede resistir en Etsy 🛒
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // LANGUAGE DATA
@@ -779,8 +829,8 @@ let lang = 'es';
 const T = {
   // Animal select options
   aColorOpts: {
-    es: ['🌿 Tonos naturales (tierra)','🌈 Pastel arcoíris','🍂 Colores otoño','❄️ Grises y blancos','🌺 Tropical vibrante','🌸 Rosa suave'],
-    en: ['🌿 Natural earth tones','🌈 Pastel rainbow','🍂 Autumn colors','❄️ Grays & whites','🌺 Vibrant tropical','🌸 Soft pink']
+    es: ['🐾 Color natural del animal','🌿 Tonos naturales (tierra)','🌈 Pastel arcoíris','🍂 Colores otoño','❄️ Grises y blancos','🌺 Tropical vibrante','🌸 Rosa suave','🤍 Aesthetic neutro ⭐','🍓 Cottagecore ⭐','💙 Ocean vibes ⭐','🖤 Dark academia','🌷 Coquette ⭐','🐣 Pascua ⭐'],
+    en: ['🐾 Natural animal color','🌿 Natural earth tones','🌈 Pastel rainbow','🍂 Autumn colors','❄️ Grays & whites','🌺 Vibrant tropical','🌸 Soft pink','🤍 Neutral aesthetic ⭐','🍓 Cottagecore ⭐','💙 Ocean vibes ⭐','🖤 Dark academia','🌷 Coquette ⭐','🐣 Easter ⭐']
   },
   aBgOpts: {
     es: ['🔲 Sin fondo (PNG)','⬜ Fondo blanco','🌅 Gradiente pastel','🏠 Escena nursery','🪵 Superficie madera','☁️ Nubes mágicas'],
@@ -799,8 +849,8 @@ const T = {
     en: ['🔍 Ultra detailed','✨ Clean & smooth','📷 Hyper realistic']
   },
   aAccOpts: {
-    es: ['Sin accesorios','🎀 Moño/lazo','❤️ Corazón','🌸 Corona de flores','🧣 Bufanda','⭐ Estrellas','🎩 Sombrero'],
-    en: ['No accessories','🎀 Bow/ribbon','❤️ Heart','🌸 Flower crown','🧣 Scarf','⭐ Stars','🎩 Hat']
+    es: ['Sin accesorios','🎀 Moño/lazo','❤️ Corazón','🌸 Corona de flores','🧣 Bufanda','⭐ Estrellas','🎩 Sombrero cute','🌹 Rosa roja','🌸 Rosa rosa','🌺 Dreadlocks boho','🎀 Lazo coquette gigante','📿 Collar de perlas','💕 Collar corazón rojo','🌸 Collar de flores','🕶️ Lentes retro redondos','🕶️ Lentes corazón rosa','👑 Tiara de princesa','🍓 Canasta de fresas','🎀 Vestido con volantes','🦋 Outfit boho con flecos','🌙 Luna y estrellas','🦷 Collar dientes de tiburón','📿 Pulsera de cuentas','🎩 Sombrero de paja','🎒 Mochilita de aventura','🎸 Guitarra mini','🥁 Tambor pequeño','📷 Cámara vintage','🐰 Orejas conejito pascua','🥚 Huevito de pascua','🌷 Tulipán primavera','🐣 Pollito bebé al lado','🧺 Canastita de pascua','🎀 Lazo pastel pascua'],
+    en: ['No accessories','🎀 Bow/ribbon','❤️ Heart','🌸 Flower crown','🧣 Scarf','⭐ Stars','🎩 Cute hat','🌹 Red rose','🌸 Pink rose','🌺 Boho dreadlocks','🎀 Giant coquette bow','📿 Pearl necklace','💕 Red heart necklace','🌸 Flower necklace','🕶️ Retro round glasses','🕶️ Heart glasses pink','👑 Princess tiara','🍓 Strawberry basket','🎀 Ruffled dress','🦋 Boho fringe outfit','🌙 Moon and stars','🦷 Shark tooth necklace','📿 Beaded bracelet','🎩 Straw hat','🎒 Mini adventure backpack','🎸 Mini guitar','🥁 Small drum','📷 Vintage camera','🐰 Easter bunny ears','🥚 Easter egg','🌷 Spring tulip','🐣 Baby chick beside','🧺 Easter basket','🎀 Pastel easter bow']
   },
   textureOpts: {
     es: ['🔍 Ultra detallado con puntadas','✨ Suave y limpio','📷 Hiper realista fotográfico','🎨 Simple estilo sticker'],
@@ -846,26 +896,36 @@ const T = {
 // DATA TABLES
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const animals = [
-  {em:'🐻',es:'Oso',     en:'Bear',     p:'bear'},
-  {em:'🦊',es:'Zorro',   en:'Fox',      p:'fox'},
-  {em:'🐱',es:'Gato',    en:'Cat',      p:'cat'},
-  {em:'🐶',es:'Perro',   en:'Dog',      p:'dog'},
-  {em:'🐰',es:'Conejo',  en:'Bunny',    p:'bunny'},
-  {em:'🐼',es:'Panda',   en:'Panda',    p:'panda'},
-  {em:'🦁',es:'León',    en:'Lion',     p:'lion'},
-  {em:'🐨',es:'Koala',   en:'Koala',    p:'koala'},
-  {em:'🐧',es:'Pingüino',en:'Penguin',  p:'penguin'},
-  {em:'🦦',es:'Nutria',  en:'Otter',    p:'otter'},
-  {em:'🦝',es:'Mapache', en:'Raccoon',  p:'raccoon'},
-  {em:'🐿️',es:'Ardilla', en:'Squirrel', p:'squirrel'},
-  {em:'🦄',es:'Unicornio',en:'Unicorn', p:'unicorn'},
-  {em:'🐸',es:'Rana',    en:'Frog',     p:'frog'},
-  {em:'🐯',es:'Tigre',   en:'Tiger',    p:'tiger'},
-  {em:'🦒',es:'Jirafa',  en:'Giraffe',  p:'giraffe'},
-  {em:'🐮',es:'Vaca',    en:'Cow',      p:'cow'},
-  {em:'🐙',es:'Pulpo',   en:'Octopus',  p:'octopus'},
-  {em:'🦕',es:'Dino',    en:'Dino',     p:'dinosaur'},
-  {em:'🦋',es:'Mariposa',en:'Butterfly',p:'butterfly'},
+  {em:'🐻',es:'Oso',      en:'Bear',      p:'bear'},
+  {em:'🦊',es:'Zorro',    en:'Fox',       p:'fox'},
+  {em:'🐱',es:'Gato',     en:'Cat',       p:'cat'},
+  {em:'🐶',es:'Perro',    en:'Dog',       p:'dog'},
+  {em:'🐰',es:'Conejo',   en:'Bunny',     p:'bunny'},
+  {em:'🐼',es:'Panda',    en:'Panda',     p:'panda'},
+  {em:'🦁',es:'León',     en:'Lion',      p:'lion'},
+  {em:'🐨',es:'Koala',    en:'Koala',     p:'koala'},
+  {em:'🐧',es:'Pingüino', en:'Penguin',   p:'penguin'},
+  {em:'🦦',es:'Nutria',   en:'Otter',     p:'otter'},
+  {em:'🦝',es:'Mapache',  en:'Raccoon',   p:'raccoon'},
+  {em:'🐿️',es:'Ardilla',  en:'Squirrel',  p:'squirrel'},
+  {em:'🦄',es:'Unicornio',en:'Unicorn',   p:'unicorn'},
+  {em:'🐸',es:'Rana',     en:'Frog',      p:'frog'},
+  {em:'🐯',es:'Tigre',    en:'Tiger',     p:'tiger'},
+  {em:'🦒',es:'Jirafa',   en:'Giraffe',   p:'giraffe'},
+  {em:'🐮',es:'Vaca',     en:'Cow',       p:'cow'},
+  {em:'🐙',es:'Pulpo',    en:'Octopus',   p:'octopus'},
+  {em:'🦕',es:'Dino',     en:'Dino',      p:'dinosaur'},
+  {em:'🦋',es:'Mariposa', en:'Butterfly', p:'butterfly'},
+  {em:'🐥',es:'Pollito',  en:'Chick',     p:'baby chick',    trend:true},
+  {em:'🦆',es:'Pato',     en:'Duck',      p:'duck',          trend:true},
+  {em:'🐒',es:'Mono',     en:'Monkey',    p:'monkey',        trend:true},
+  {em:'🐊',es:'Cocodrilo',en:'Crocodile', p:'crocodile'},
+  {em:'🦎',es:'Axolotl',  en:'Axolotl',   p:'axolotl',       trend:true},
+  {em:'🐾',es:'Capibara', en:'Capybara',  p:'capybara',      trend:true},
+  {em:'🐢',es:'Tortuga',  en:'Turtle',    p:'turtle'},
+  {em:'🦩',es:'Flamenco', en:'Flamingo',  p:'flamingo',      trend:true},
+  {em:'🦀',es:'Cangrejo', en:'Crab',      p:'crab',          trend:true},
+  {em:'🐹',es:'Hamster',  en:'Hamster',   p:'hamster',       trend:true},
 ];
 
 const gOutfitData = [
@@ -1008,12 +1068,19 @@ const compValues = [
   'large clipart collection sheet, 12 characters various poses',
 ];
 const aColorValues = [
+  'in its natural realistic animal colors, true to life coloring',
   'natural earth tones, beige, brown, cream',
   'pastel rainbow colors, soft pink, mint, lavender, baby blue',
   'warm autumn colors, orange, rust, golden yellow',
   'cool gray and white tones, silver',
   'vibrant tropical colors, turquoise, coral, yellow',
   'soft pink and white, blush tones',
+  'neutral aesthetic palette, beige, ivory, oat, warm white',
+  'cottagecore palette, dusty rose, sage green, warm cream, soft red',
+  'ocean vibes palette, aqua blue, seafoam, sandy beige, coral',
+  'dark academia palette, deep burgundy, forest green, black, gold',
+  'coquette palette, baby pink, lilac, white, soft mauve',
+  'easter palette, pastel yellow, baby blue, mint green, lilac, pale pink',
 ];
 const aBgValues = [
   'isolated on transparent background, PNG clipart',
@@ -1050,6 +1117,33 @@ const aAccValues = [
   'wearing a little scarf',
   'with tiny star decorations',
   'wearing a cute hat',
+  'holding a beautiful red rose',
+  'holding a delicate pink rose',
+  'with boho dreadlocks yarn locs hairstyle',
+  'wearing a giant coquette ribbon bow on head',
+  'wearing a pearl necklace',
+  'wearing a red heart necklace',
+  'wearing a delicate flower necklace',
+  'wearing retro round tinted glasses',
+  'wearing cute pink heart-shaped glasses',
+  'wearing a sparkly princess tiara',
+  'holding a tiny strawberry basket',
+  'wearing a cute ruffled dress with bow details',
+  'wearing a boho fringe outfit with tassel details',
+  'with tiny moon and stars decorations',
+  'wearing a shark tooth necklace',
+  'wearing a colorful beaded bracelet',
+  'wearing a cute straw hat',
+  'carrying a mini adventure backpack',
+  'holding a tiny mini guitar',
+  'holding a small drum',
+  'holding a vintage mini camera',
+  'wearing adorable easter bunny ears',
+  'holding a decorated easter egg',
+  'holding a fresh spring tulip flower',
+  'with a tiny baby chick sitting beside',
+  'holding a cute little easter basket with eggs',
+  'wearing a soft pastel easter bow',
 ];
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1539,9 +1633,5 @@ function updateLoginLang(l){
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 buildAll();
 </script>
-   <footer style="text-align: center; padding: 24px 16px; margin-top: 8px; color: #c9a0b8; font-size: 13px; font-family: 'Quicksand', sans-serif; font-weight: 600;">
-    © 2026 All Rights Reserved · Made with ❤️ for 
-    <a href="https://johadigitalseattle.com" target="_blank" style="color: #ff88cc; text-decoration: none; font-weight: 700;">johadigitalseattle.com</a>
-  </footer>
 </body>
 </html>
