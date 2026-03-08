@@ -168,6 +168,38 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 }
 .pick-card{position:relative;}
 
+/* ── ACCESSORY CHECKBOXES ── */
+.acc-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+  gap:8px;
+  margin-top:8px;
+}
+.acc-chip{
+  display:flex;align-items:center;gap:7px;
+  padding:8px 12px;border-radius:12px;
+  border:2px solid #EEE;background:white;
+  cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:.78rem;font-weight:700;color:#666;
+  transition:all .2s ease;user-select:none;
+}
+.acc-chip:hover{border-color:#FF9E3D;background:#FFF8F0;color:#C0390A;}
+.acc-chip.on{border-color:#FF7B54;background:#FFF0E8;color:#C0390A;
+  box-shadow:0 3px 10px rgba(255,123,84,.25);}
+.acc-chip.disabled{opacity:.4;cursor:not-allowed;}
+.acc-chip .acc-em{font-size:1rem;}
+.acc-limit{font-size:.75rem;color:#AAA;font-weight:700;margin-top:6px;text-align:right;}
+.acc-limit.warn{color:#FF7B54;}
+/* St Patrick group */
+.acc-group-title{
+  font-size:.75rem;font-weight:800;letter-spacing:1.2px;
+  text-transform:uppercase;color:#2D8A4E;
+  margin:14px 0 6px;display:flex;align-items:center;gap:6px;
+}
+.acc-group-title::before,.acc-group-title::after{content:'';flex:1;height:1.5px;background:#D4EED9;}
+.acc-group-title.easter{color:#C97B84;}
+.acc-group-title.easter::before,.acc-group-title.easter::after{background:#F9D5D8;}
+
 /* ── BUTTON ROW ── */
 .btn-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;}
 @media(max-width:560px){.btn-row{grid-template-columns:1fr 1fr;}.btn-row .gen-btn{grid-column:1/-1;}}
@@ -498,17 +530,10 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
           <option value="hyper realistic crochet doll photography style"></option>
         </select>
       </div>
-      <div class="sel-group">
-        <label data-es="🎁 Accesorio" data-en="🎁 Accessory">🎁 Accesorio</label>
-        <select id="aAcc">
-          <option value=""></option>
-          <option value="wearing a tiny bow on head"></option>
-          <option value="holding a small heart"></option>
-          <option value="with a tiny flower crown"></option>
-          <option value="wearing a little scarf"></option>
-          <option value="with tiny star decorations"></option>
-          <option value="wearing a cute hat"></option>
-        </select>
+      <div class="sel-group" style="grid-column:1/-1;">
+        <label data-es="🎁 Accesorios (máx. 3)" data-en="🎁 Accessories (max 3)">🎁 Accesorios (máx. 3)</label>
+        <div class="acc-grid" id="aAccGrid"></div>
+        <div class="acc-limit" id="aAccLimit">0 / 3 seleccionados</div>
       </div>
     </div>
   </div>
@@ -575,8 +600,12 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
     <div class="selects-grid">
       <div class="sel-group"><label data-es="🧶 Textura crochet" data-en="🧶 Crochet texture">🧶 Textura crochet</label><select id="gTexture"></select></div>
       <div class="sel-group"><label data-es="😊 Expresión" data-en="😊 Expression">😊 Expresión</label><select id="gFace"></select></div>
-      <div class="sel-group"><label data-es="🌸 Accesorio tejido" data-en="🌸 Crocheted accessory">🌸 Accesorio tejido</label><select id="gAcc"></select></div>
       <div class="sel-group"><label data-es="🖼️ Fondo" data-en="🖼️ Background">🖼️ Fondo</label><select id="gBg"></select></div>
+      <div class="sel-group" style="grid-column:1/-1;">
+        <label data-es="🌸 Accesorios (máx. 3)" data-en="🌸 Accessories (max 3)">🌸 Accesorios (máx. 3)</label>
+        <div class="acc-grid" id="gAccGrid"></div>
+        <div class="acc-limit" id="gAccLimit">0 / 3 seleccionados</div>
+      </div>
     </div>
     <div style="margin-top:18px;">
       <div class="step-title" style="font-size:.95rem;margin-bottom:12px;">🎭 <span data-es="Tono de piel" data-en="Skin tone">Tono de piel</span></div>
@@ -635,8 +664,12 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
     <div class="selects-grid">
       <div class="sel-group"><label data-es="🧶 Textura crochet" data-en="🧶 Crochet texture">🧶 Textura crochet</label><select id="bTexture"></select></div>
       <div class="sel-group"><label data-es="😊 Expresión" data-en="😊 Expression">😊 Expresión</label><select id="bFace"></select></div>
-      <div class="sel-group"><label data-es="🎯 Accesorio tejido" data-en="🎯 Crocheted accessory">🎯 Accesorio tejido</label><select id="bAcc"></select></div>
       <div class="sel-group"><label data-es="🖼️ Fondo" data-en="🖼️ Background">🖼️ Fondo</label><select id="bBg"></select></div>
+      <div class="sel-group" style="grid-column:1/-1;">
+        <label data-es="🎯 Accesorios (máx. 3)" data-en="🎯 Accessories (max 3)">🎯 Accesorios (máx. 3)</label>
+        <div class="acc-grid" id="bAccGrid"></div>
+        <div class="acc-limit" id="bAccLimit">0 / 3 seleccionados</div>
+      </div>
     </div>
     <div style="margin-top:18px;">
       <div class="step-title" style="font-size:.95rem;margin-bottom:12px;">🎭 <span data-es="Tono de piel" data-en="Skin tone">Tono de piel</span></div>
@@ -696,6 +729,11 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
       <div class="sel-group"><label data-es="👓 Lentes / Gafas" data-en="👓 Glasses / Sunglasses">👓 Lentes / Gafas</label><select id="brGlasses"></select></div>
       <div class="sel-group"><label data-es="💍 Joyería" data-en="💍 Jewelry">💍 Joyería</label><select id="brJewelry"></select></div>
       <div class="sel-group"><label data-es="👜 Bolso" data-en="👜 Bag">👜 Bolso</label><select id="brBag"></select></div>
+      <div class="sel-group" style="grid-column:1/-1;">
+        <label data-es="☘️ Accesorios extra (máx. 3)" data-en="☘️ Extra accessories (max 3)">☘️ Accesorios extra (máx. 3)</label>
+        <div class="acc-grid" id="brAccGrid"></div>
+        <div class="acc-limit" id="brAccLimit">0 / 3 seleccionados</div>
+      </div>
     </div>
     <div style="margin-top:18px">
       <div class="step-title" style="font-size:.95rem;margin-bottom:12px">🌍 <span data-es="Tono de piel (lana)" data-en="Skin tone (yarn)">Tono de piel (lana)</span></div>
@@ -841,8 +879,8 @@ const T = {
     en: ['😊 Classic adorable','😄 Happy smiling','😴 Sleepy dreamy','😮 Surprised','😉 Playful winking']
   },
   aCompOpts: {
-    es: ['1️⃣ Personaje solo','4️⃣ Set de 4 poses','6️⃣ Colección de 6','3️⃣ 3 vistas','🔢 Colección 12+'],
-    en: ['1️⃣ Single character','4️⃣ Set of 4 poses','6️⃣ Collection of 6','3️⃣ 3 views','🔢 Collection 12+']
+    es: ['1️⃣ 1 personaje solo','2️⃣ 2 personajes juntos','3️⃣ 3 personajes apilados'],
+    en: ['1️⃣ 1 single character','2️⃣ 2 characters together','3️⃣ 3 stacked characters']
   },
   aQualityOpts: {
     es: ['🔍 Ultra detallado','✨ Suave y limpio','📷 Fotorrealista'],
@@ -881,8 +919,8 @@ const T = {
     en: ['🔲 No background (PNG)','💙 Pastel blue background','⬜ Clean white','🚀 Outer space','🌿 Adventure jungle','🏠 Baby room','🌿 Mint gradient']
   },
   compOpts: {
-    es: ['1️⃣ Personaje solo','4️⃣ Set 4 poses (clipart)','6️⃣ Colección 6 poses','📐 3 vistas','🔢 Colección grande 12+'],
-    en: ['1️⃣ Single character','4️⃣ Set 4 poses (clipart)','6️⃣ Collection 6 poses','📐 3 views','🔢 Large collection 12+']
+    es: ['1️⃣ 1 personaje solo','2️⃣ 2 personajes juntos','3️⃣ 3 personajes apilados'],
+    en: ['1️⃣ 1 single character','2️⃣ 2 characters together','3️⃣ 3 stacked characters']
   },
   copyBtn: { es:'Copiar', en:'Copy' },
   copiedBtn: { es:'✅ Copiado', en:'✅ Copied' },
@@ -926,6 +964,7 @@ const animals = [
   {em:'🦩',es:'Flamenco', en:'Flamingo',  p:'flamingo',      trend:true},
   {em:'🦀',es:'Cangrejo', en:'Crab',      p:'crab',          trend:true},
   {em:'🐹',es:'Hamster',  en:'Hamster',   p:'hamster',       trend:true},
+  {em:'🐄',es:'Vaca Highland',en:'Highland Cow',p:'highland cow with fluffy long fur and small horns', trend:true},
 ];
 
 const gOutfitData = [
@@ -1061,11 +1100,9 @@ const boyBgValues = [
   'pastel mint gradient background',
 ];
 const compValues = [
-  'single character, centered, full body',
-  'set of 4 poses on transparent background, 2x2 grid layout clipart sheet',
-  'collection of 6 different poses in a row, clipart set',
-  'front view, side view and back view trio, product photography',
-  'large clipart collection sheet, 12 characters various poses',
+  'single character, centered, full body visible',
+  'two characters side by side, matching style, front facing, centered composition',
+  'three characters stacked vertically like a totem pole, one on top of the other, front facing, same style',
 ];
 const aColorValues = [
   'in its natural realistic animal colors, true to life coloring',
@@ -1091,23 +1128,21 @@ const aBgValues = [
   'floating on a dreamy cloud background',
 ];
 const aFaceValues = [
-  'cute adorable face, big sparkling black button eyes, rosy cheeks',
-  'happy smiling face, big eyes, blushing cheeks',
-  'sleepy dreamy expression, half-closed eyes',
-  'surprised wide eyes, tiny open mouth',
-  'winking playfully, cheeky expression',
+  'adorable kawaii face, big round glossy eyes, rosy cheeks, tiny smile',
+  'happy smiling face, large shiny eyes, blushing cheeks, cheerful expression',
+  'sleepy dreamy expression, soft half-closed eyes, peaceful face',
+  'surprised wide eyes, tiny open mouth, cute shocked expression',
+  'playful winking face, cheeky grin',
 ];
 const aCompValues = [
-  'single character, centered composition',
-  'set of 4 different poses, 2x2 grid layout',
-  'collection of 6 characters in a row',
-  'front view, side view, and back view trio',
-  'large group collection, 12+ characters',
+  'single character, centered composition, full body visible',
+  'two characters side by side, matching style, front facing, centered composition',
+  'three characters stacked vertically like a totem pole, one on top of the other, front facing, same style',
 ];
 const aQualityValues = [
-  'highly detailed crochet texture, visible yarn stitches, 3D render style',
-  'clean simple crochet style, smooth texture',
-  'hyper realistic crochet doll photography style',
+  'hyper detailed yarn stitches, 3D render, soft shadows, photorealistic yarn material',
+  'clean smooth crochet style, neat stitches, soft even lighting',
+  'realistic crochet doll photo style, sharp crisp yarn detail, studio lighting',
 ];
 const aAccValues = [
   '',
@@ -1145,6 +1180,167 @@ const aAccValues = [
   'holding a cute little easter basket with eggs',
   'wearing a soft pastel easter bow',
 ];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// ACCESSORIES DATA (all sections share same pool + St Patrick)
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const accData = {
+  animal: [
+    {em:'🎀',es:'Moño/lazo',      en:'Bow/ribbon',        p:'wearing a tiny bow on head'},
+    {em:'❤️',es:'Corazón',         en:'Heart',             p:'holding a small heart'},
+    {em:'🌸',es:'Corona flores',   en:'Flower crown',      p:'with a tiny flower crown'},
+    {em:'🧣',es:'Bufanda',         en:'Scarf',             p:'wearing a little scarf'},
+    {em:'⭐',es:'Estrellas',        en:'Stars',             p:'with tiny star decorations'},
+    {em:'🎩',es:'Sombrero cute',   en:'Cute hat',          p:'wearing a cute hat'},
+    {em:'🌹',es:'Rosa roja',       en:'Red rose',          p:'holding a beautiful red rose'},
+    {em:'🌸',es:'Rosa rosa',       en:'Pink rose',         p:'holding a delicate pink rose'},
+    {em:'🌺',es:'Dreadlocks boho', en:'Boho locs',         p:'with boho dreadlocks yarn locs'},
+    {em:'🎀',es:'Lazo coquette',   en:'Coquette bow',      p:'wearing a giant coquette ribbon bow on head'},
+    {em:'📿',es:'Collar perlas',   en:'Pearl necklace',    p:'wearing a pearl necklace'},
+    {em:'💕',es:'Collar corazón',  en:'Heart necklace',    p:'wearing a red heart necklace'},
+    {em:'🕶️',es:'Lentes retro',    en:'Retro glasses',     p:'wearing retro round tinted glasses'},
+    {em:'🕶️',es:'Lentes corazón',  en:'Heart glasses',     p:'wearing cute pink heart-shaped glasses'},
+    {em:'👑',es:'Tiara',           en:'Princess tiara',    p:'wearing a sparkly princess tiara'},
+    {em:'🍓',es:'Canasta fresas',  en:'Strawberry basket', p:'holding a tiny strawberry basket'},
+    {em:'🦋',es:'Outfit boho',     en:'Boho outfit',       p:'wearing a boho fringe outfit with tassel details'},
+    {em:'🌙',es:'Luna & estrellas',en:'Moon & stars',      p:'with tiny moon and stars decorations'},
+    {em:'🦷',es:'Collar tiburón',  en:'Shark necklace',    p:'wearing a shark tooth necklace'},
+    {em:'📿',es:'Pulsera cuentas', en:'Beaded bracelet',   p:'wearing a colorful beaded bracelet'},
+    {em:'🎩',es:'Sombrero paja',   en:'Straw hat',         p:'wearing a cute straw hat'},
+    {em:'🎒',es:'Mochilita',       en:'Mini backpack',     p:'carrying a mini adventure backpack'},
+    {em:'🎸',es:'Guitarra mini',   en:'Mini guitar',       p:'holding a tiny mini guitar'},
+    {em:'🥁',es:'Tambor',          en:'Drum',              p:'holding a small drum'},
+    {em:'📷',es:'Cámara vintage',  en:'Vintage camera',    p:'holding a vintage mini camera'},
+  ],
+  kids: [
+    {em:'🌸',es:'Moño flor',       en:'Flower bow',        p:'with a tiny crocheted flower bow on head'},
+    {em:'👑',es:'Corona flores',   en:'Flower crown',      p:'wearing a small crocheted flower crown'},
+    {em:'❤️',es:'Corazón',         en:'Heart',             p:'holding a tiny crocheted heart'},
+    {em:'🌈',es:'Cintas arcoíris', en:'Rainbow ribbons',   p:'with crocheted rainbow ribbons in braids'},
+    {em:'🍓',es:'Mochila fresa',   en:'Strawberry bag',    p:'wearing a crocheted backpack shaped like a strawberry'},
+    {em:'💐',es:'Ramo mini',       en:'Mini bouquet',      p:'holding a crocheted mini bouquet'},
+    {em:'⭐',es:'Pasador estrella', en:'Star pin',          p:'with a tiny crocheted star hair pin'},
+    {em:'🧢',es:'Gorra al revés',  en:'Backwards cap',     p:'wearing a tiny crocheted backwards cap'},
+    {em:'🚀',es:'Cohete crochet',  en:'Crochet rocket',    p:'holding a small crocheted rocket toy'},
+    {em:'🦸',es:'Capa superhéroe', en:'Superhero cape',    p:'wearing a crocheted tiny superhero cape'},
+    {em:'🦖',es:'Dino en mano',    en:'Dino toy',          p:'holding a mini crocheted dinosaur toy'},
+    {em:'⚽',es:'Balón crochet',   en:'Crochet ball',      p:'with a crocheted tiny football at feet'},
+    {em:'⭐',es:'Varita estrella',  en:'Star wand',         p:'holding a crocheted star magic wand'},
+    {em:'🦷',es:'Collar tiburón',  en:'Shark necklace',    p:'wearing a crocheted shark tooth necklace'},
+    {em:'📿',es:'Pulsera cuentas', en:'Beaded bracelet',   p:'wearing colorful beaded bracelet'},
+    {em:'🎩',es:'Sombrero paja',   en:'Straw hat',         p:'wearing a cute crocheted straw hat'},
+    {em:'🎒',es:'Mochilita',       en:'Mini backpack',     p:'carrying a mini crocheted adventure backpack'},
+    {em:'🎸',es:'Guitarra mini',   en:'Mini guitar',       p:'holding a tiny crocheted mini guitar'},
+    {em:'🥁',es:'Tambor',          en:'Drum',              p:'holding a small crocheted drum'},
+    {em:'📷',es:'Cámara vintage',  en:'Vintage camera',    p:'holding a crocheted vintage mini camera'},
+  ],
+  stpatrick: [
+    {em:'🎩',es:'Sombrero leprechaun',en:'Leprechaun hat',   p:'wearing a green leprechaun top hat with gold buckle', sp:true},
+    {em:'🍀',es:'Corona tréboles',    en:'Shamrock crown',   p:'wearing a crown of green shamrocks and clovers', sp:true},
+    {em:'🎀',es:'Moño verde trébol',  en:'Green clover bow', p:'wearing a green bow with tiny shamrock detail', sp:true},
+    {em:'🤵',es:'Corbatín verde',     en:'Green bow tie',    p:'wearing a crocheted green bow tie with gold detail', sp:true},
+    {em:'🌈',es:'Arcoíris fondo',     en:'Rainbow prop',     p:'with a tiny crocheted rainbow prop', sp:true},
+    {em:'🍺',es:'Jarra dorada',       en:'Pot of gold',      p:'holding a tiny crocheted pot of gold coins', sp:true},
+    {em:'☘️',es:'Trébol en mano',     en:'Shamrock in hand', p:'holding a lucky green shamrock clover', sp:true},
+  ],
+  easter: [
+    {em:'🐰',es:'Orejas conejito',   en:'Bunny ears',        p:'wearing adorable easter bunny ears headband', ea:true},
+    {em:'🥚',es:'Huevito pascua',    en:'Easter egg',        p:'holding a decorated colorful easter egg', ea:true},
+    {em:'🌷',es:'Tulipán',           en:'Tulip',             p:'holding a fresh spring tulip flower', ea:true},
+    {em:'🐣',es:'Pollito bebé',      en:'Baby chick',        p:'with a tiny baby chick sitting beside', ea:true},
+    {em:'🧺',es:'Canasta pascua',    en:'Easter basket',     p:'holding a cute easter basket filled with eggs', ea:true},
+    {em:'🎀',es:'Lazo pastel',       en:'Pastel bow',        p:'wearing a soft pastel easter bow on head', ea:true},
+    {em:'🌸',es:'Corona primavera',  en:'Spring crown',      p:'wearing a spring flower crown with tiny pastel blooms', ea:true},
+    {em:'🍫',es:'Huevo chocolate',   en:'Chocolate egg',     p:'holding a crocheted chocolate easter egg', ea:true},
+  ]
+};
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// BUILD ACCESSORY CHECKBOXES
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+function buildAccGrid(gridId, limitId, section) {
+  const grid = document.getElementById(gridId);
+  const limitEl = document.getElementById(limitId);
+  if (!grid) return;
+  grid.innerHTML = '';
+
+  let allItems;
+  if (section === 'bratz') {
+    // Bratz: only seasonal accessories — St Patrick + Easter (no general pool)
+    allItems = [...accData.stpatrick, ...accData.easter];
+  } else {
+    const pool = section === 'animal' ? accData.animal : accData.kids;
+    allItems = [...pool, ...accData.stpatrick, ...accData.easter];
+  }
+
+  let spDividerAdded = false;
+  let eaDividerAdded = false;
+
+  allItems.forEach(item => {
+    if (item.sp && !spDividerAdded) {
+      const div = document.createElement('div');
+      div.className = 'acc-group-title';
+      div.style.gridColumn = '1/-1';
+      div.innerHTML = `☘️ ${lang==='es'?'San Patrick Day':'St Patrick Day'}`;
+      grid.appendChild(div);
+      spDividerAdded = true;
+    }
+    if (item.ea && !eaDividerAdded) {
+      const div = document.createElement('div');
+      div.className = 'acc-group-title easter';
+      div.style.gridColumn = '1/-1';
+      div.innerHTML = `🐣 ${lang==='es'?'Pascua / Easter':'Easter / Pascua'}`;
+      grid.appendChild(div);
+      eaDividerAdded = true;
+    }
+    const chip = document.createElement('div');
+    chip.className = 'acc-chip';
+    if (item.sp) { chip.style.borderColor='#C5E8C5'; chip.style.background='#F0FFF0'; }
+    if (item.ea) { chip.style.borderColor='#F9D5D8'; chip.style.background='#FFF5F6'; }
+    chip.dataset.value = item.p;
+    chip.innerHTML = `<span class="acc-em">${item.em}</span><span>${item[lang]||item.es}</span>`;
+    chip.onclick = () => toggleAcc(chip, gridId, limitId);
+    grid.appendChild(chip);
+  });
+
+  updateAccLimit(gridId, limitId);
+}
+
+function toggleAcc(chip, gridId, limitId) {
+  const grid = document.getElementById(gridId);
+  const selected = grid.querySelectorAll('.acc-chip.on');
+  if (chip.classList.contains('on')) {
+    chip.classList.remove('on');
+  } else {
+    if (selected.length >= 3) return;
+    chip.classList.add('on');
+  }
+  updateAccLimit(gridId, limitId);
+}
+
+function updateAccLimit(gridId, limitId) {
+  const grid = document.getElementById(gridId);
+  const limitEl = document.getElementById(limitId);
+  if (!grid || !limitEl) return;
+  const count = grid.querySelectorAll('.acc-chip.on').length;
+  const txt = lang==='es' ? `${count} / 3 seleccionados` : `${count} / 3 selected`;
+  limitEl.textContent = txt;
+  limitEl.classList.toggle('warn', count >= 3);
+}
+
+function getAccValues(gridId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return '';
+  const vals = [...grid.querySelectorAll('.acc-chip.on')].map(c => c.dataset.value);
+  return vals.join(', ');
+}
+
+function clearAccGrid(gridId, limitId) {
+  const grid = document.getElementById(gridId);
+  if (!grid) return;
+  grid.querySelectorAll('.acc-chip.on').forEach(c => c.classList.remove('on'));
+  updateAccLimit(gridId, limitId);
+}
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 // STATE
@@ -1234,18 +1430,15 @@ function buildAll() {
   fillSelect('aFace',    T.aFaceOpts[lang],     aFaceValues);
   fillSelect('aComp',    T.aCompOpts[lang],     aCompValues);
   fillSelect('aQuality', T.aQualityOpts[lang],  aQualityValues);
-  fillSelect('aAcc',     T.aAccOpts[lang],      aAccValues);
 
   // Kid selects
   fillSelect('gTexture', T.textureOpts[lang], textureValues);
   fillSelect('gFace',    T.gFaceOpts[lang],   gFaceValues);
-  fillSelect('gAcc',     T.gAccOpts[lang],    gAccValues);
   fillSelect('gBg',      T.kidBgOpts[lang],   kidBgValues);
   fillSelect('gComp',    T.compOpts[lang],    compValues);
 
   fillSelect('bTexture', T.textureOpts[lang], textureValues);
   fillSelect('bFace',    T.bFaceOpts[lang],   bFaceValues);
-  fillSelect('bAcc',     T.bAccOpts[lang],    bAccValues);
   fillSelect('bBg',      T.boyBgOpts[lang],   boyBgValues);
   fillSelect('bComp',    T.compOpts[lang],    compValues);
 
@@ -1275,6 +1468,11 @@ function buildAll() {
 
   // Bratz section
   if(typeof buildBratz === 'function') buildBratz();
+
+  // Accessory checkboxes (animal + kids)
+  buildAccGrid('aAccGrid','aAccLimit','animal');
+  buildAccGrid('gAccGrid','gAccLimit','kids');
+  buildAccGrid('bAccGrid','bAccLimit','kids');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1303,18 +1501,28 @@ function switchMain(tab) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 function generateAnimal() {
   const s = st.animal;
-  const animal = s.animal ? s.animal.p : 'bear';
+  const animal  = s.animal ? s.animal.p : 'bear';
   const color   = document.getElementById('aColor').value;
   const bg      = document.getElementById('aBg').value;
   const face    = document.getElementById('aFace').value;
   const comp    = document.getElementById('aComp').value;
   const quality = document.getElementById('aQuality').value;
-  const acc     = document.getElementById('aAcc').value;
+  const acc     = getAccValues('aAccGrid');
   const accTxt  = acc ? `, ${acc}` : '';
 
-  const main  = `Cute crochet amigurumi ${animal} doll, ${face}, ${color}${accTxt}, ${comp}, ${quality}, handmade yarn toy, soft fluffy texture, visible knitting stitches, kawaii style, ${bg}, professional product photography lighting, high quality digital illustration`;
-  const short = `Crochet amigurumi ${animal}, ${color.split(',')[0]}, ${face.split(',')[0]}, kawaii style, ${bg.split(',')[0]}`;
-  const mj    = `${main} --ar 1:1 --style cute --q 2 --v 6`;
+  const main =
+    `3D kawaii crochet amigurumi ${animal}, ` +
+    `knitted yarn body with visible stitch texture, ${color}, ` +
+    `${face}, large glossy shiny eyes with light reflections, rosy cheeks, ` +
+    `${quality}${accTxt}, ${comp}, ${bg}`;
+
+  const short =
+    `Crochet amigurumi ${animal}, ${color.split(',')[0]}, kawaii, glossy eyes, yarn texture, ${bg.split(',')[0]}`;
+
+  const mj =
+    `3D kawaii crochet amigurumi ${animal}, knitted yarn body visible stitches, ${color}, ` +
+    `${face}, big glossy eyes, rosy cheeks, ${quality}${accTxt}, ${comp}, ${bg}, ` +
+    `soft studio lighting, sharp focus --ar 1:1 --niji 6 --q 2`;
 
   document.getElementById('aMain').textContent  = main;
   document.getElementById('aCanva').textContent = short;
@@ -1338,7 +1546,7 @@ function generateKid(g) {
 
   const texture  = document.getElementById(`${pfx}Texture`).value;
   const face     = document.getElementById(`${pfx}Face`).value;
-  const acc      = document.getElementById(`${pfx}Acc`).value;
+  const acc      = getAccValues(`${pfx}AccGrid`);
   const bg       = document.getElementById(`${pfx}Bg`).value;
   const comp     = document.getElementById(`${pfx}Comp`).value;
 
@@ -1346,7 +1554,8 @@ function generateKid(g) {
   const shortOutfit = s.outfit ? (s.outfit[lang]  || s.outfit.es) : 'outfit';
   const shortCol    = s.hairCol? (s.hairCol[lang] || s.hairCol.es): 'brown';
 
-  const main  = `${subject}, ${outfit}, ${hair}, ${hairCol}, ${skin}, ${face}, ${acc}, ${texture}, ${comp}, handmade yarn toy aesthetic, kawaii style, soft fluffy knitted texture, visible crochet stitches, professional product illustration, ${bg}, high quality digital art`;
+  const accTxt = acc ? `, ${acc}` : '';
+  const main  = `${subject}, ${outfit}, ${hair}, ${hairCol}, ${skin}, ${face}${accTxt}, ${texture}, ${comp}, handmade yarn toy aesthetic, kawaii style, soft fluffy knitted texture, visible crochet stitches, professional product illustration, ${bg}, high quality digital art`;
   const short = `Crochet amigurumi ${isG?'girl':'boy'} doll, ${shortOutfit.toLowerCase()}, ${shortCol.toLowerCase()} ${shortHair.toLowerCase()}, ${face.split(',')[0]}, kawaii yarn texture, ${bg.split(',')[0]}`;
   const mj    = `${main} --ar 1:1 --style cute --niji 6 --q 2`;
 
@@ -1425,9 +1634,10 @@ function clearAll(g) {
   if (g === 'animal') {
     st.animal.animal = null;
     document.querySelectorAll('#aAnimals .pick-card').forEach(el=>el.classList.remove('on'));
-    ['aColor','aBg','aFace','aComp','aQuality','aAcc'].forEach(id=>{
+    ['aColor','aBg','aFace','aComp','aQuality'].forEach(id=>{
       const s = document.getElementById(id); if(s) s.selectedIndex=0;
     });
+    clearAccGrid('aAccGrid','aAccLimit');
     document.getElementById('outAnimal').classList.remove('show');
   } else if (g === 'bratz') {
     st.bratz.outfit=null; st.bratz.hair=null;
@@ -1439,6 +1649,7 @@ function clearAll(g) {
     ['brMakeup','brGlasses','brJewelry','brBag','brBg'].forEach(id=>{
       const s=document.getElementById(id); if(s) s.selectedIndex=0;
     });
+    clearAccGrid('brAccGrid','brAccLimit');
     document.getElementById('outBratz').classList.remove('show');
   } else {
     const pfx = g==='girl'?'g':'b';
@@ -1448,9 +1659,10 @@ function clearAll(g) {
     document.querySelectorAll(`#${pfx}Hairs .pick-card`).forEach(el=>el.classList.remove('on'));
     document.querySelectorAll(`#${pfx}HairColors .swatch`).forEach((el,i)=>el.classList.toggle('on',i===0));
     document.querySelectorAll(`#${pfx}Skin .swatch`).forEach((el,i)=>el.classList.toggle('on',i===1));
-    [`${pfx}Texture`,`${pfx}Face`,`${pfx}Acc`,`${pfx}Bg`,`${pfx}Comp`].forEach(id=>{
+    [`${pfx}Texture`,`${pfx}Face`,`${pfx}Bg`,`${pfx}Comp`].forEach(id=>{
       const s=document.getElementById(id); if(s) s.selectedIndex=0;
     });
+    clearAccGrid(`${pfx}AccGrid`,`${pfx}AccLimit`);
     document.getElementById(`out${g==='girl'?'Girl':'Boy'}`).classList.remove('show');
   }
 }
@@ -1460,19 +1672,21 @@ function clearAll(g) {
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const brOutfitData = [
   {em:'🧥',es:'Streetwear Glam',en:'Streetwear Glam',s:{es:'Hoodie & sweats',en:'Hoodie & sweats'},
-   p:'wearing a fully crocheted oversized hoodie with matching sweatpants, defined knit pattern, color-blocked design, crochet sneakers'},
+   p:'wearing a fully crocheted oversized hoodie with matching high-waist sweatpants, color-blocked knit pattern, chunky yarn detail, crochet sneakers with defined sole stitches'},
   {em:'👗',es:'Glamour Barbie',en:'Barbie Glamour',s:{es:'Pink perfection',en:'Pink perfection'},
-   p:'wearing a fully crocheted strapless mini dress in hot pink, ruffle knit details, crochet platform heels, Barbie-inspired glam'},
-  {em:'🌸',es:'Cute Kawaii',en:'Cute Kawaii',s:{es:'Sweet & adorable',en:'Sweet & adorable'},
-   p:'wearing a fully crocheted pastel babydoll dress with puffy yarn sleeves, crochet bow details, knitted mary jane shoes'},
-  {em:'🌙',es:'Y2K Aesthetic',en:'Y2K Aesthetic',s:{es:'2000s vibes',en:'2000s vibes'},
-   p:'wearing fully crocheted Y2K style low-rise flare pants and a tiny crop top with butterfly knit details, platform crochet boots'},
+   p:'wearing a fully crocheted strapless fitted mini dress in hot pink with feather trim knit detail at neckline and hem, crochet platform heels with ankle straps'},
   {em:'💜',es:'Aesthetic Soft',en:'Soft Aesthetic',s:{es:'Dreamy purple',en:'Dreamy purple'},
-   p:'wearing a fully crocheted soft aesthetic coord set, lavender knitted cardigan over matching crochet dress, cozy yarn boots'},
+   p:'wearing a fully crocheted oversized lavender cardigan with button knit detail over a matching mini crochet dress, cozy yarn UGG-style boots'},
+  {em:'🌙',es:'Y2K Aesthetic',en:'Y2K Aesthetic',s:{es:'2000s vibes',en:'2000s vibes'},
+   p:'wearing fully crocheted Y2K low-rise flare pants with butterfly knit patches and a tiny fitted crop top, crochet platform boots with defined sole'},
+  {em:'🔥',es:'Bodycon Queen',en:'Bodycon Queen',s:{es:'Fitted & fierce',en:'Fitted & fierce'},
+   p:'wearing a fully crocheted sleek bodycon mini dress with ribbed knit texture, crochet strappy heels, figure-hugging silhouette with defined stitch lines'},
   {em:'🏆',es:'Athleisure Chic',en:'Athleisure Chic',s:{es:'Sport glam',en:'Sport glam'},
-   p:'wearing fully crocheted athleisure set, fitted knitted sports bra and high-waist leggings with side stripe detail, crochet sneakers'},
+   p:'wearing a fully crocheted athleisure set with fitted ribbed sports bra and high-waist leggings with side stripe knit detail, crochet sneakers with lace detail'},
   {em:'🦋',es:'Boho Festival',en:'Boho Festival',s:{es:'Free spirit',en:'Free spirit'},
-   p:'wearing a fully crocheted boho festival outfit, fringe knitted top with crochet flared pants, yarn boots with tassel details'},
+   p:'wearing a fully crocheted boho festival outfit with fringe knit top and crochet flared wide-leg pants, yarn platform boots with tassel detail'},
+  {em:'✨',es:'Luxury Gown',en:'Luxury Gown',s:{es:'Red carpet',en:'Red carpet'},
+   p:'wearing a fully crocheted floor-length luxury gown with delicate lace knit pattern, elegant drape detail, crochet strappy heels'},
 ];
 
 const brHairData = [
@@ -1558,30 +1772,56 @@ function buildBratz() {
   fillSelect('brJewelry', brJewelryOpts[lang], brJewelryValues);
   fillSelect('brBag',     brBagOpts[lang],     brBagValues);
   fillSelect('brBg',      brBgOpts[lang],      brBgValues);
+  buildAccGrid('brAccGrid','brAccLimit','bratz');
 }
 
-// Generate Bratz
+// Generate Bratz — Estructura Maestra ChatGPT (DALL-E 3)
 function generateBratz() {
   const s = st.bratz;
-  const outfit  = s.outfit  ? s.outfit.p  : 'wearing a fully crocheted hoodie and matching sweatpants with defined knit pattern, crochet sneakers';
-  const hair    = s.hair    ? s.hair.p    : 'long straight honey blonde hair made of thick crocheted yarn strands with detailed knit texture';
-  const hairCol = s.hairCol ? s.hairCol.p : 'honey blonde yarn hair';
-  const skin    = s.skin    ? s.skin.p    : 'warm honey tan yarn skin tone';
-  const makeup  = document.getElementById('brMakeup').value;
-  const glasses = document.getElementById('brGlasses').value;
-  const jewelry = document.getElementById('brJewelry').value;
-  const bag     = document.getElementById('brBag').value;
-  const bg      = document.getElementById('brBg').value;
 
+  // 1️⃣ ESTILO BASE
+  const base = `Ultra detailed 3D amigurumi crochet fashion doll inspired by Bratz-style proportions, semi-chibi oversized head, confident glamorous pose`;
+
+  // 2️⃣ MATERIAL CONTROL — nunca cambiar
+  const material = `entire character fully made of crochet yarn including skin, hair, clothing and accessories, consistent tight visible yarn stitch pattern across whole body`;
+
+  // 3️⃣ PIEL
+  const skin = s.skin ? s.skin.p : 'smooth caramel yarn skin tone';
+
+  // 4️⃣ CABELLO — siempre crochet explícito
+  const hairBase = s.hair    ? s.hair.p    : 'honey blonde hair made of thick crocheted yarn strands with detailed knit texture';
+  const hairCol  = s.hairCol ? s.hairCol.p : 'honey blonde yarn';
+  const hair = `${hairBase}, color ${hairCol}`;
+
+  // 5️⃣ OJOS — nunca crochet
+  const eyes = `large glossy glass-like anime inspired eyes with deep layered reflections (eyes smooth and shiny, NOT crocheted)`;
+
+  // 6️⃣ ROSTRO
+  const makeup = document.getElementById('brMakeup').value;
+  const face = `dramatic lashes, bold arched eyebrows, full plump glossy lips, ${makeup}`;
+
+  // 7️⃣ OUTFIT
+  const outfit = s.outfit ? s.outfit.p : 'wearing a fully crocheted fitted mini dress with defined knit pattern, crochet heels';
+
+  // 8️⃣ ACCESORIOS
+  const glasses  = document.getElementById('brGlasses').value;
+  const jewelry  = document.getElementById('brJewelry').value;
+  const bag      = document.getElementById('brBag').value;
+  const extraAcc = getAccValues('brAccGrid');
   const glassesText = glasses === 'no glasses' ? '' : `, ${glasses}`;
+  const extraTxt    = extraAcc ? `, ${extraAcc}` : '';
+  const accessories = `${jewelry}${glassesText}, ${bag}${extraTxt}`;
 
-  const main = `Ultra detailed 3D amigurumi crochet fashion doll inspired by Bratz-style proportions, semi-chibi oversized head, entire character fully made of crochet yarn including skin, hair, clothing and accessories, consistent tight visible yarn stitch pattern across whole body, smooth ${skin}, ${hair} color: ${hairCol}, large glossy glass-like anime inspired eyes with deep layered reflections (eyes smooth and shiny, NOT crocheted), ${makeup}, ${outfit}, ${jewelry}${glassesText}, ${bag}, front facing centered composition, full body visible, symmetrical pose, flat even lighting, sharp focus everywhere, no blur, no depth of field, no cinematic lighting, ${bg}, high resolution, print ready, sticker ready, single subject only`;
+  // 9️⃣ COMPOSICIÓN PRINT READY — nunca cambiar
+  const bg   = document.getElementById('brBg').value;
+  const comp = `front facing centered composition, full body visible, symmetrical pose, flat even lighting, sharp focus everywhere, no blur, no depth of field, no cinematic lighting, ${bg}, high resolution, print ready, sticker ready, single subject only`;
 
-  const chatgpt = `Ultra detailed 3D amigurumi crochet fashion doll inspired by Bratz-style proportions, semi-chibi oversized head, entire character fully made of crochet yarn including skin, hair, clothing and accessories, consistent tight visible yarn stitch pattern across whole body, smooth ${skin}, ${hair}, large glossy glass-like anime inspired eyes with deep layered reflections (eyes smooth and shiny, NOT crocheted), ${makeup}, ${outfit}, ${jewelry}${glassesText}, ${bag}, front facing centered composition, full body visible, symmetrical pose, flat even lighting, sharp focus everywhere, no blur, no depth of field, no cinematic lighting, ${bg}, high resolution, print ready, sticker ready, single subject only`;
+  // PROMPT FINAL
+  const chatgpt = `${base}, ${material}, ${skin}, ${hair}, ${eyes}, ${face}, ${outfit}, ${accessories}, ${comp}`;
 
-  const mj = `${chatgpt} --ar 2:3 --niji 6 --style cute --q 2`;
+  const mj = `${chatgpt} --ar 2:3 --niji 6 --q 2`;
 
-  document.getElementById('brMain').textContent    = main;
+  document.getElementById('brMain').textContent    = chatgpt;
   document.getElementById('brChatGPT').textContent = chatgpt;
   document.getElementById('brMJ').textContent      = mj;
 
