@@ -19,6 +19,8 @@
   /* bratz */
   --br1:#C84B9E; --br2:#F0A0D8; --br3:#FFF0FA; --br4:#7B006E;
   --br-gold:#D4A017; --br-glam:linear-gradient(135deg,#C84B9E,#7B2FBE,#C84B9E);
+  /* text crochet */
+  --t1:#7C3AED; --t2:#C4B5FD; --t3:#F5F3FF; --t4:#4C1D95;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -199,6 +201,65 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 .acc-group-title::before,.acc-group-title::after{content:'';flex:1;height:1.5px;background:#D4EED9;}
 .acc-group-title.easter{color:#C97B84;}
 .acc-group-title.easter::before,.acc-group-title.easter::after{background:#F9D5D8;}
+.acc-group-title.hand{color:#D97706;}
+.acc-group-title.hand::before,.acc-group-title.hand::after{background:#FFE4B5;}
+.acc-group-title.birthday{color:#C026D3;}
+.acc-group-title.birthday::before,.acc-group-title.birthday::after{background:#F5D0FE;}
+
+/* ── TEXT CROCHET SECTION ── */
+.panel.textcrochet{--p1:var(--t1);--p2:var(--t2);--p3:var(--t3);--p4:var(--t4);}
+.text-input-wrap{position:relative;margin-bottom:6px;}
+.text-crochet-input{
+  width:100%;padding:18px 22px;
+  font-family:'Quicksand',sans-serif;font-size:1.6rem;font-weight:800;
+  text-transform:uppercase;letter-spacing:4px;text-align:center;
+  border:3px solid #E9D8FD;border-radius:20px;
+  background:white;color:#4C1D95;
+  outline:none;transition:all .3s ease;
+}
+.text-crochet-input:focus{border-color:#7C3AED;box-shadow:0 0 0 4px rgba(124,58,237,.12);}
+.text-crochet-input::placeholder{color:#C4B5FD;font-size:1.1rem;letter-spacing:2px;}
+.style-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:4px;}
+.style-card{
+  border:3px solid #EEE;border-radius:20px;padding:18px 14px;
+  text-align:center;cursor:pointer;transition:all .25s ease;
+  background:white;position:relative;overflow:hidden;
+}
+.style-card:hover{border-color:#7C3AED;transform:translateY(-2px);}
+.style-card.on{border-color:#7C3AED;background:#F5F3FF;box-shadow:0 6px 20px rgba(124,58,237,.2);}
+.style-card.multipat{border-color:#FF9E3D;}
+.style-card.multipat.on{border-color:#FF6B35;background:#FFF5F0;box-shadow:0 6px 20px rgba(255,107,53,.25);}
+.style-card.multipat .style-badge{
+  position:absolute;top:8px;right:8px;
+  background:linear-gradient(135deg,#FF9E3D,#FF6B35);
+  color:white;font-size:.62rem;font-weight:800;
+  padding:2px 7px;border-radius:999px;letter-spacing:.5px;
+}
+.style-em{font-size:2rem;display:block;margin-bottom:6px;}
+.style-name{font-weight:800;font-size:.88rem;color:#4C1D95;}
+.style-desc{font-size:.72rem;color:#888;font-weight:600;margin-top:3px;}
+.style-card.multipat .style-name{color:#C0390A;}
+.deco-chips{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;}
+.deco-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:10px 16px;border-radius:14px;border:2px solid #EEE;
+  background:white;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:.8rem;font-weight:700;color:#666;transition:all .2s ease;
+}
+.deco-chip:hover{border-color:#7C3AED;background:#F5F3FF;}
+.deco-chip.on{border-color:#7C3AED;background:#F5F3FF;color:#4C1D95;
+  box-shadow:0 3px 10px rgba(124,58,237,.2);}
+.palette-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+.palette-chip{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 14px;border-radius:14px;border:2px solid #EEE;
+  background:white;cursor:pointer;font-family:'Quicksand',sans-serif;
+  font-size:.78rem;font-weight:700;color:#666;transition:all .2s ease;
+}
+.palette-chip:hover{border-color:#7C3AED;background:#F5F3FF;}
+.palette-chip.on{border-color:#7C3AED;background:#F5F3FF;color:#4C1D95;
+  box-shadow:0 3px 10px rgba(124,58,237,.2);}
+.palette-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(0,0,0,.1);}
 
 /* ── BUTTON ROW ── */
 .btn-row{display:grid;grid-template-columns:1fr 1fr 2fr;gap:10px;}
@@ -459,6 +520,7 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
 <div class="nav-row">
   <div class="nav-pill">
     <button class="nav-btn animal on" onclick="switchMain('animal')">🐻 <span data-es="Animales" data-en="Animals">Animales</span></button>
+    <button class="nav-btn textcrochet" onclick="switchMain('textcrochet')" style="background:linear-gradient(135deg,#7C3AED,#4C1D95);color:white;">🔤 <span data-es="Texto" data-en="Text">Texto</span></button>
     <button class="nav-btn girl"      onclick="switchMain('girl')">🎀 <span data-es="Niña" data-en="Girl">Niña</span></button>
     <button class="nav-btn boy"       onclick="switchMain('boy')">🚀 <span data-es="Niño" data-en="Boy">Niño</span></button>
     <button class="nav-btn bratz"     onclick="switchMain('bratz')">💅 <span data-es="Chibi Bratz" data-en="Chibi Bratz">Chibi Bratz</span></button>
@@ -530,6 +592,14 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
           <option value="hyper realistic crochet doll photography style"></option>
         </select>
       </div>
+      <div class="sel-group">
+        <label data-es="👗 Outfit del animal" data-en="👗 Animal outfit">👗 Outfit del animal</label>
+        <select id="aOutfit"></select>
+      </div>
+      <div class="sel-group">
+        <label data-es="✨ Elementos flotantes" data-en="✨ Floating elements">✨ Elementos flotantes</label>
+        <select id="aFloat"></select>
+      </div>
       <div class="sel-group" style="grid-column:1/-1;">
         <label data-es="🎁 Accesorios (máx. 3)" data-en="🎁 Accessories (max 3)">🎁 Accesorios (máx. 3)</label>
         <div class="acc-grid" id="aAccGrid"></div>
@@ -569,6 +639,93 @@ header{position:relative;z-index:2;text-align:center;padding:52px 24px 30px;}
       <div class="chips">
         <span class="chip cv">🎨 Canva AI</span><span class="chip mj">✦ Midjourney</span><span class="chip dl">🤖 DALL-E 3</span><span class="chip ff">🔥 Adobe Firefly</span>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ TEXT CROCHET PANEL ═══════════════════════════════ -->
+<div class="panel textcrochet" id="panelTextcrochet">
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 1" data-en="Step 1">Paso 1</div>
+    <div class="step-title">✏️ <span data-es="Escribe tu texto" data-en="Write your text">Escribe tu texto</span></div>
+    <div class="text-input-wrap">
+      <input class="text-crochet-input" id="tcWord" type="text" maxlength="12"
+        placeholder="MAMA · NANA · LOVE"
+        oninput="this.value=this.value.toUpperCase()">
+    </div>
+    <div style="font-size:.75rem;color:#A78BFA;font-weight:700;text-align:center;">
+      <span data-es="Máx. 12 caracteres · Se convierte a mayúsculas automáticamente" data-en="Max 12 characters · Auto uppercase">Máx. 12 caracteres · Automáticamente en mayúsculas</span>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 2" data-en="Step 2">Paso 2</div>
+    <div class="step-title">🎨 <span data-es="Estilo de letra" data-en="Letter style">Estilo de letra</span></div>
+    <div class="style-cards">
+      <div class="style-card on" id="styleClassic" onclick="selectStyle('classic')">
+        <span class="style-em">🧶</span>
+        <div class="style-name" data-es="Clásico 3D" data-en="Classic 3D">Clásico 3D</div>
+        <div class="style-desc" data-es="Un solo patrón, súper realista" data-en="Single pattern, ultra realistic">Un solo patrón, súper realista</div>
+      </div>
+      <div class="style-card multipat" id="styleMulti" onclick="selectStyle('multi')">
+        <span class="style-badge">⭐ TRENDING</span>
+        <span class="style-em">🧩</span>
+        <div class="style-name" data-es="Multipatrón" data-en="Multi-pattern">Multipatrón</div>
+        <div class="style-desc" data-es="Cada letra con textura diferente" data-en="Each letter different texture">Cada letra diferente</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 3" data-en="Step 3">Paso 3</div>
+    <div class="step-title">🌈 <span data-es="Paleta de colores" data-en="Color palette">Paleta de colores</span></div>
+    <div class="palette-chips" id="tcPalettes"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 4" data-en="Step 4">Paso 4</div>
+    <div class="step-title">🎀 <span data-es="Accesorio decorativo (opcional)" data-en="Decorative accessory (optional)">Accesorio decorativo</span></div>
+    <div class="deco-chips" id="tcDecos"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 5" data-en="Step 5">Paso 5</div>
+    <div class="step-title">🪡 <span data-es="Borde cosido (opcional)" data-en="Stitched border (optional)">Borde cosido</span></div>
+    <div class="deco-chips" id="tcBorders"></div>
+  </div>
+
+  <div class="step">
+    <div class="step-label" data-es="Paso 6" data-en="Step 6">Paso 6</div>
+    <div class="step-title">🖼️ <span data-es="Fondo" data-en="Background">Fondo</span></div>
+    <div class="sel-group">
+      <select id="tcBg"></select>
+    </div>
+  </div>
+
+  <div class="step" style="border:none;background:transparent;box-shadow:none;padding:0;">
+    <div class="btn-row">
+      <button class="rand-btn" onclick="randomizeText()">🎲 <span data-es="Aleatorio" data-en="Random">Aleatorio</span></button>
+      <button class="clear-btn" onclick="clearText()">🗑️ <span data-es="Limpiar" data-en="Clear">Limpiar</span></button>
+      <button class="gen-btn" onclick="generateText()" style="background:linear-gradient(135deg,#7C3AED,#4C1D95);">🪄 <span data-es="Generar Prompt" data-en="Generate Prompt">Generar Prompt</span></button>
+    </div>
+  </div>
+
+  <div class="output" id="outText">
+    <div class="out-card">
+      <div class="out-label">📋 <span data-es="Prompt principal (ChatGPT)" data-en="Main Prompt (ChatGPT)">Prompt principal (ChatGPT)</span></div>
+      <button class="copy-btn" onclick="cp('tMain',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="tMain"></div>
+    </div>
+    <div class="out-card">
+      <div class="out-label">🎨 <span data-es="Versión Canva AI" data-en="Canva AI Version">Versión Canva AI</span></div>
+      <button class="copy-btn" onclick="cp('tCanva',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="tCanva"></div>
+    </div>
+    <div class="out-card">
+      <div class="out-label">✦ Midjourney</div>
+      <button class="copy-btn" onclick="cp('tMJ',this)" data-es="Copiar" data-en="Copy">Copiar</button>
+      <div class="out-text" id="tMJ"></div>
     </div>
   </div>
 </div>
@@ -882,6 +1039,14 @@ const T = {
     es: ['1️⃣ 1 personaje solo','2️⃣ 2 personajes juntos','3️⃣ 3 personajes apilados'],
     en: ['1️⃣ 1 single character','2️⃣ 2 characters together','3️⃣ 3 stacked characters']
   },
+  aOutfitOpts: {
+    es: ['👕 Sin outfit','🧥 Cardigan acogedor','🪝 Hoodie crochet','👗 Vestidito con lazo','🎀 Delantal kawaii','🧤 Suéter oversized','🧥 Abrigo con botones'],
+    en: ['👕 No outfit','🧥 Cozy cardigan','🪝 Crochet hoodie','👗 Little dress with bow','🎀 Kawaii apron','🧤 Oversized sweater','🧥 Button knit coat']
+  },
+  aFloatOpts: {
+    es: ['✨ Sin elementos','💖 Corazones pastel flotantes','🍃 Hojitas crochet flotantes','❄️ Copos de nieve','⭐ Estrellas brillantes','🐟 Peces pequeños','🌸 Pétalos de flores','🫧 Burbujas pastel'],
+    en: ['✨ No elements','💖 Floating pastel hearts','🍃 Floating crochet leaves','❄️ Snowflakes','⭐ Sparkling stars','🐟 Tiny fish','🌸 Flower petals','🫧 Pastel bubbles']
+  },
   aQualityOpts: {
     es: ['🔍 Ultra detallado','✨ Suave y limpio','📷 Fotorrealista'],
     en: ['🔍 Ultra detailed','✨ Clean & smooth','📷 Hyper realistic']
@@ -964,7 +1129,14 @@ const animals = [
   {em:'🦩',es:'Flamenco', en:'Flamingo',  p:'flamingo',      trend:true},
   {em:'🦀',es:'Cangrejo', en:'Crab',      p:'crab',          trend:true},
   {em:'🐹',es:'Hamster',  en:'Hamster',   p:'hamster',       trend:true},
-  {em:'🐄',es:'Vaca Highland',en:'Highland Cow',p:'highland cow with fluffy long fur and small horns', trend:true},
+  {em:'🐄',es:'Vaca Highland',en:'Highland Cow',  p:'highland cow with fluffy long fur and small horns', trend:true},
+  {em:'🐑',es:'Oveja',       en:'Sheep',          p:'fluffy sheep'},
+  {em:'🐭',es:'Ratón',       en:'Mouse',          p:'cute little mouse'},
+  {em:'🫏',es:'Burro',       en:'Donkey',         p:'cute donkey'},
+  {em:'🐷',es:'Cerdo',       en:'Pig',            p:'cute pig'},
+  {em:'🦉',es:'Búho',        en:'Owl',            p:'wise owl'},
+  {em:'🦥',es:'Perezosa',    en:'Sloth',          p:'sleepy sloth', trend:true},
+  {em:'🐻‍❄️',es:'Oso Polar',  en:'Polar Bear',     p:'polar bear'},
 ];
 
 const gOutfitData = [
@@ -1139,6 +1311,25 @@ const aCompValues = [
   'two characters side by side, matching style, front facing, centered composition',
   'three characters stacked vertically like a totem pole, one on top of the other, front facing, same style',
 ];
+const aOutfitValues = [
+  '',
+  'wearing a cozy knitted cardigan with small buttons',
+  'wearing a cute crochet hoodie',
+  'wearing a tiny knitted dress with bow detail',
+  'wearing a kawaii knitted apron',
+  'wearing an oversized cozy knitted sweater',
+  'wearing a tiny knitted coat with buttons',
+];
+const aFloatValues = [
+  '',
+  'surrounded by small floating pastel hearts, some solid and some line art style, yarn-like texture, whimsical atmosphere',
+  'surrounded by tiny floating crochet leaves in harmonious tones, whimsical cozy atmosphere',
+  'surrounded by tiny floating snowflakes and ice crystals, magical winter atmosphere',
+  'surrounded by small sparkling stars and tiny light sparkles, magical atmosphere',
+  'surrounded by tiny floating fish in harmonious pastel colors matching the palette',
+  'surrounded by small floating flower petals in soft tones matching the color palette',
+  'surrounded by small floating pastel bubbles, dreamy soft atmosphere',
+];
 const aQualityValues = [
   'hyper detailed yarn stitches, 3D render, soft shadows, photorealistic yarn material',
   'clean smooth crochet style, neat stitches, soft even lighting',
@@ -1186,31 +1377,33 @@ const aAccValues = [
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 const accData = {
   animal: [
-    {em:'🎀',es:'Moño/lazo',      en:'Bow/ribbon',        p:'wearing a tiny bow on head'},
-    {em:'❤️',es:'Corazón',         en:'Heart',             p:'holding a small heart'},
-    {em:'🌸',es:'Corona flores',   en:'Flower crown',      p:'with a tiny flower crown'},
-    {em:'🧣',es:'Bufanda',         en:'Scarf',             p:'wearing a little scarf'},
-    {em:'⭐',es:'Estrellas',        en:'Stars',             p:'with tiny star decorations'},
-    {em:'🎩',es:'Sombrero cute',   en:'Cute hat',          p:'wearing a cute hat'},
-    {em:'🌹',es:'Rosa roja',       en:'Red rose',          p:'holding a beautiful red rose'},
-    {em:'🌸',es:'Rosa rosa',       en:'Pink rose',         p:'holding a delicate pink rose'},
-    {em:'🌺',es:'Dreadlocks boho', en:'Boho locs',         p:'with boho dreadlocks yarn locs'},
-    {em:'🎀',es:'Lazo coquette',   en:'Coquette bow',      p:'wearing a giant coquette ribbon bow on head'},
-    {em:'📿',es:'Collar perlas',   en:'Pearl necklace',    p:'wearing a pearl necklace'},
-    {em:'💕',es:'Collar corazón',  en:'Heart necklace',    p:'wearing a red heart necklace'},
-    {em:'🕶️',es:'Lentes retro',    en:'Retro glasses',     p:'wearing retro round tinted glasses'},
-    {em:'🕶️',es:'Lentes corazón',  en:'Heart glasses',     p:'wearing cute pink heart-shaped glasses'},
-    {em:'👑',es:'Tiara',           en:'Princess tiara',    p:'wearing a sparkly princess tiara'},
-    {em:'🍓',es:'Canasta fresas',  en:'Strawberry basket', p:'holding a tiny strawberry basket'},
-    {em:'🦋',es:'Outfit boho',     en:'Boho outfit',       p:'wearing a boho fringe outfit with tassel details'},
-    {em:'🌙',es:'Luna & estrellas',en:'Moon & stars',      p:'with tiny moon and stars decorations'},
-    {em:'🦷',es:'Collar tiburón',  en:'Shark necklace',    p:'wearing a shark tooth necklace'},
-    {em:'📿',es:'Pulsera cuentas', en:'Beaded bracelet',   p:'wearing a colorful beaded bracelet'},
-    {em:'🎩',es:'Sombrero paja',   en:'Straw hat',         p:'wearing a cute straw hat'},
-    {em:'🎒',es:'Mochilita',       en:'Mini backpack',     p:'carrying a mini adventure backpack'},
-    {em:'🎸',es:'Guitarra mini',   en:'Mini guitar',       p:'holding a tiny mini guitar'},
-    {em:'🥁',es:'Tambor',          en:'Drum',              p:'holding a small drum'},
-    {em:'📷',es:'Cámara vintage',  en:'Vintage camera',    p:'holding a vintage mini camera'},
+    // 🤲 EN LA MANO
+    {em:'☕',es:'Café',            en:'Coffee cup',     p:'holding a tiny crochet coffee cup with both hands', hand:true},
+    {em:'💌',es:'Sobre corazón',   en:'Heart envelope', p:'holding a tiny crochet heart envelope with both hands', hand:true},
+    {em:'🫖',es:'Tetera',          en:'Teapot',         p:'holding a tiny crochet teapot with both hands', hand:true},
+    {em:'📚',es:'Libro',           en:'Book',           p:'holding a tiny crochet book with both hands', hand:true},
+    {em:'🥪',es:'Sándwich',        en:'Sandwich',       p:'holding a tiny crochet sandwich with both hands', hand:true},
+    {em:'🎸',es:'Guitarra rock',   en:'Rock guitar',    p:'holding a tiny crochet electric guitar with both hands', hand:true},
+    {em:'🪕',es:'Ukulele',         en:'Ukulele',        p:'holding a tiny crochet ukulele with both hands', hand:true},
+    {em:'🌹',es:'Rosa',            en:'Rose',           p:'holding a beautiful crochet rose', hand:true},
+    {em:'🍦',es:'Cono de nieve',   en:'Ice cream',      p:'holding a tiny crochet ice cream cone with both hands', hand:true},
+    {em:'🥁',es:'Tambor',          en:'Drum',           p:'holding a small crochet drum with both hands', hand:true},
+    {em:'📷',es:'Cámara vintage',  en:'Vintage camera', p:'holding a tiny crochet vintage camera with both hands', hand:true},
+    // 🎀 ACCESORIOS (lo que lleva puesto)
+    {em:'🎀',es:'Moño/lazo',       en:'Bow',            p:'wearing a tiny bow on head'},
+    {em:'🌸',es:'Corona flores',   en:'Flower crown',   p:'wearing a tiny flower crown on head'},
+    {em:'⭐',es:'Deco estrellas',   en:'Star deco',      p:'with tiny star decorations'},
+    {em:'🎩',es:'Sombrero cute',   en:'Cute hat',       p:'wearing a cute hat'},
+    {em:'🎩',es:'Sombrero paja',   en:'Straw hat',      p:'wearing a cute straw hat'},
+    {em:'🎀',es:'Lazo coquette',   en:'Coquette bow',   p:'wearing a giant coquette ribbon bow on head'},
+    {em:'📿',es:'Collar perlas',   en:'Pearl necklace', p:'wearing a pearl necklace'},
+    {em:'💕',es:'Collar corazón',  en:'Heart necklace', p:'wearing a red heart necklace'},
+    {em:'🕶️',es:'Lentes retro',    en:'Retro glasses',  p:'wearing retro round tinted glasses'},
+    {em:'🕶️',es:'Lentes corazón',  en:'Heart glasses',  p:'wearing cute pink heart-shaped glasses'},
+    {em:'👑',es:'Tiara',           en:'Tiara',          p:'wearing a sparkly princess tiara'},
+    {em:'🌙',es:'Luna & estrellas',en:'Moon & stars',   p:'with tiny moon and stars hair decorations'},
+    {em:'📿',es:'Pulsera cuentas', en:'Bracelet',       p:'wearing a colorful beaded bracelet'},
+    {em:'🎒',es:'Mochilita',       en:'Mini backpack',  p:'wearing a mini adventure backpack'},
   ],
   kids: [
     {em:'🌸',es:'Moño flor',       en:'Flower bow',        p:'with a tiny crocheted flower bow on head'},
@@ -1252,6 +1445,15 @@ const accData = {
     {em:'🎀',es:'Lazo pastel',       en:'Pastel bow',        p:'wearing a soft pastel easter bow on head', ea:true},
     {em:'🌸',es:'Corona primavera',  en:'Spring crown',      p:'wearing a spring flower crown with tiny pastel blooms', ea:true},
     {em:'🍫',es:'Huevo chocolate',   en:'Chocolate egg',     p:'holding a crocheted chocolate easter egg', ea:true},
+  ],
+  birthday: [
+    {em:'🎈',es:'Globo',             en:'Balloon',           p:'holding a colorful crochet birthday balloon', bday:true},
+    {em:'🎁',es:'Caja regalo',       en:'Gift box',          p:'holding a tiny crochet gift box with ribbon bow', bday:true},
+    {em:'🧁',es:'Cupcake velita',    en:'Birthday cupcake',  p:'holding a tiny crochet cupcake with birthday candle', bday:true},
+    {em:'🎉',es:'Gorro fiesta',      en:'Party hat',         p:'wearing a crochet party hat with pompom on top', bday:true},
+    {em:'🎀',es:'Lazo regalo gigante',en:'Giant gift bow',   p:'wearing a giant crochet gift bow on head', bday:true},
+    {em:'👑',es:'Corona cumpleaños', en:'Birthday crown',    p:'wearing a crochet birthday crown with star details', bday:true},
+    {em:'🍭',es:'Paleta dulce',      en:'Lollipop',          p:'holding a tiny crochet colorful lollipop', bday:true},
   ]
 };
 
@@ -1267,16 +1469,38 @@ function buildAccGrid(gridId, limitId, section) {
   let allItems;
   if (section === 'bratz') {
     // Bratz: only seasonal accessories — St Patrick + Easter (no general pool)
-    allItems = [...accData.stpatrick, ...accData.easter];
+    allItems = [...accData.stpatrick, ...accData.easter, ...accData.birthday];
   } else {
     const pool = section === 'animal' ? accData.animal : accData.kids;
-    allItems = [...pool, ...accData.stpatrick, ...accData.easter];
+    allItems = [...pool, ...accData.stpatrick, ...accData.easter, ...accData.birthday];
   }
 
-  let spDividerAdded = false;
-  let eaDividerAdded = false;
+  let handDividerAdded = false;
+  let accDividerAdded  = false;
+  let spDividerAdded   = false;
+  let eaDividerAdded   = false;
+  let bdayDividerAdded = false;
 
   allItems.forEach(item => {
+    // 🤲 En la mano
+    if (item.hand && !handDividerAdded) {
+      const div = document.createElement('div');
+      div.className = 'acc-group-title hand';
+      div.style.gridColumn = '1/-1';
+      div.innerHTML = `🤲 ${lang==='es'?'En la mano':'Holding'}`;
+      grid.appendChild(div);
+      handDividerAdded = true;
+    }
+    // 🎀 Accesorios normales
+    if (!item.hand && !item.sp && !item.ea && !accDividerAdded && section !== 'bratz') {
+      const div = document.createElement('div');
+      div.className = 'acc-group-title';
+      div.style.gridColumn = '1/-1';
+      div.innerHTML = `🎀 ${lang==='es'?'Accesorios':'Accessories'}`;
+      grid.appendChild(div);
+      accDividerAdded = true;
+    }
+    // ☘️ San Patrick
     if (item.sp && !spDividerAdded) {
       const div = document.createElement('div');
       div.className = 'acc-group-title';
@@ -1285,6 +1509,7 @@ function buildAccGrid(gridId, limitId, section) {
       grid.appendChild(div);
       spDividerAdded = true;
     }
+    // 🐣 Pascua
     if (item.ea && !eaDividerAdded) {
       const div = document.createElement('div');
       div.className = 'acc-group-title easter';
@@ -1293,10 +1518,21 @@ function buildAccGrid(gridId, limitId, section) {
       grid.appendChild(div);
       eaDividerAdded = true;
     }
+    // 🎂 Cumpleaños
+    if (item.bday && !bdayDividerAdded) {
+      const div = document.createElement('div');
+      div.className = 'acc-group-title birthday';
+      div.style.gridColumn = '1/-1';
+      div.innerHTML = `🎂 ${lang==='es'?'Cumpleaños':'Birthday'}`;
+      grid.appendChild(div);
+      bdayDividerAdded = true;
+    }
     const chip = document.createElement('div');
     chip.className = 'acc-chip';
-    if (item.sp) { chip.style.borderColor='#C5E8C5'; chip.style.background='#F0FFF0'; }
-    if (item.ea) { chip.style.borderColor='#F9D5D8'; chip.style.background='#FFF5F6'; }
+    if (item.hand) { chip.style.borderColor='#FFD6A5'; chip.style.background='#FFF8F0'; }
+    if (item.sp)   { chip.style.borderColor='#C5E8C5'; chip.style.background='#F0FFF0'; }
+    if (item.ea)   { chip.style.borderColor='#F9D5D8'; chip.style.background='#FFF5F6'; }
+    if (item.bday) { chip.style.borderColor='#F5D0FE'; chip.style.background='#FDF4FF'; }
     chip.dataset.value = item.p;
     chip.innerHTML = `<span class="acc-em">${item.em}</span><span>${item[lang]||item.es}</span>`;
     chip.onclick = () => toggleAcc(chip, gridId, limitId);
@@ -1430,6 +1666,8 @@ function buildAll() {
   fillSelect('aFace',    T.aFaceOpts[lang],     aFaceValues);
   fillSelect('aComp',    T.aCompOpts[lang],     aCompValues);
   fillSelect('aQuality', T.aQualityOpts[lang],  aQualityValues);
+  fillSelect('aOutfit',  T.aOutfitOpts[lang],   aOutfitValues);
+  fillSelect('aFloat',   T.aFloatOpts[lang],    aFloatValues);
 
   // Kid selects
   fillSelect('gTexture', T.textureOpts[lang], textureValues);
@@ -1473,6 +1711,9 @@ function buildAll() {
   buildAccGrid('aAccGrid','aAccLimit','animal');
   buildAccGrid('gAccGrid','gAccLimit','kids');
   buildAccGrid('bAccGrid','bAccLimit','kids');
+
+  // Text crochet section
+  buildTextSection();
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1493,7 +1734,10 @@ function switchMain(tab) {
   document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('on'));
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelector(`.nav-btn.${tab}`).classList.add('on');
-  document.getElementById(`panel${tab[0].toUpperCase()+tab.slice(1)}`).classList.add('on');
+  // Handle camelCase panel IDs
+  const panelId = tab === 'textcrochet' ? 'panelTextcrochet' :
+    `panel${tab[0].toUpperCase()+tab.slice(1)}`;
+  document.getElementById(panelId).classList.add('on');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1510,19 +1754,29 @@ function generateAnimal() {
   const acc     = getAccValues('aAccGrid');
   const accTxt  = acc ? `, ${acc}` : '';
 
+  const outfit  = document.getElementById('aOutfit').value;
+  const floatEl = document.getElementById('aFloat').value;
+  const outfitTxt = outfit ? `, ${outfit}` : '';
+  const floatTxt  = floatEl ? `, ${floatEl}` : '';
+
   const main =
-    `3D kawaii crochet amigurumi ${animal}, ` +
-    `knitted yarn body with visible stitch texture, ${color}, ` +
-    `${face}, large glossy shiny eyes with light reflections, rosy cheeks, ` +
-    `${quality}${accTxt}, ${comp}, ${bg}`;
+    `cute crochet amigurumi ${animal}, highly detailed yarn texture, visible stitches, ` +
+    `${face}, large glossy shiny eyes with light reflections, rosy cheeks, kawaii expression, ` +
+    `full body, centered composition, ` +
+    `${color}${outfitTxt}${accTxt}, ` +
+    `${quality}, ${comp}, ` +
+    `${floatTxt ? floatTxt + ', ' : ''}` +
+    `soft studio lighting, ${bg}, ` +
+    `in a consistent crochet kawaii style, matching the same aesthetic and color palette`;
 
   const short =
     `Crochet amigurumi ${animal}, ${color.split(',')[0]}, kawaii, glossy eyes, yarn texture, ${bg.split(',')[0]}`;
 
   const mj =
-    `3D kawaii crochet amigurumi ${animal}, knitted yarn body visible stitches, ${color}, ` +
-    `${face}, big glossy eyes, rosy cheeks, ${quality}${accTxt}, ${comp}, ${bg}, ` +
-    `soft studio lighting, sharp focus --ar 1:1 --niji 6 --q 2`;
+    `cute crochet amigurumi ${animal}, detailed yarn stitches, ${color}, ` +
+    `${face}, big glossy eyes, rosy cheeks${outfitTxt}${accTxt}, ` +
+    `${quality}, ${comp}${floatTxt}, ${bg}, ` +
+    `consistent kawaii crochet style --ar 1:1 --niji 6 --q 2`;
 
   document.getElementById('aMain').textContent  = main;
   document.getElementById('aCanva').textContent = short;
@@ -1634,7 +1888,7 @@ function clearAll(g) {
   if (g === 'animal') {
     st.animal.animal = null;
     document.querySelectorAll('#aAnimals .pick-card').forEach(el=>el.classList.remove('on'));
-    ['aColor','aBg','aFace','aComp','aQuality'].forEach(id=>{
+    ['aColor','aBg','aFace','aComp','aQuality','aOutfit','aFloat'].forEach(id=>{
       const s = document.getElementById(id); if(s) s.selectedIndex=0;
     });
     clearAccGrid('aAccGrid','aAccLimit');
@@ -1828,6 +2082,222 @@ function generateBratz() {
   const out = document.getElementById('outBratz');
   out.classList.add('show');
   setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// TEXT CROCHET DATA
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+const tcPaletteData = [
+  {id:'neutral',   dot:'linear-gradient(135deg,#D4C5A9,#8B7355)',
+    es:'🤍 Neutro tierra',      en:'🤍 Earthy neutral',
+    p:'beige, warm ivory, oat and soft brown tones, earthy neutral palette'},
+  {id:'bw',        dot:'linear-gradient(135deg,#1a1a1a,#EEEEEE)',
+    es:'🖤 Negro & blanco',     en:'🖤 Black & white',
+    p:'charcoal black and clean white, high contrast monochrome palette'},
+  {id:'blackonly',  dot:'linear-gradient(135deg,#111111,#333333)',
+    es:'🖤 Solo negro',         en:'🖤 All black',
+    p:'deep solid black, rich dark charcoal tones, bold monochrome'},
+  {id:'pinknegro', dot:'linear-gradient(135deg,#FF1493,#111111)',
+    es:'🩷🖤 Pink & negro',     en:'🩷🖤 Pink & black',
+    p:'hot pink and deep black, bold high contrast glamour palette'},
+  {id:'goldblack',  dot:'linear-gradient(135deg,#D4A017,#111111)',
+    es:'✨🖤 Dorado & negro',   en:'✨🖤 Gold & black',
+    p:'metallic gold and deep black, luxury glamour palette'},
+  {id:'sage',      dot:'linear-gradient(135deg,#6B8F71,#C8D5B9)',
+    es:'🌿 Verde sage',         en:'🌿 Sage green',
+    p:'sage green, olive and soft moss tones, botanical palette'},
+  {id:'pink',      dot:'linear-gradient(135deg,#E8A0BF,#F7CAD0)',
+    es:'🌸 Rosa coquette',      en:'🌸 Coquette pink',
+    p:'soft blush pink, dusty rose and mauve tones, coquette palette'},
+  {id:'hotpink',   dot:'linear-gradient(135deg,#FF1493,#FF69B4)',
+    es:'🩷 Hot pink glam',      en:'🩷 Hot pink glam',
+    p:'vibrant hot pink, fuchsia and deep rose tones, bold glamour palette'},
+  {id:'lavender',  dot:'linear-gradient(135deg,#9B87CC,#D4C5F9)',
+    es:'💜 Lavanda',            en:'💜 Lavender',
+    p:'lavender purple, soft lilac and periwinkle tones'},
+  {id:'autumn',    dot:'linear-gradient(135deg,#D4651A,#F4A261)',
+    es:'🍂 Otoño',              en:'🍂 Autumn',
+    p:'burnt orange, rust, golden yellow and warm terracotta tones'},
+  {id:'latte',     dot:'linear-gradient(135deg,#8B5E3C,#D4A276)',
+    es:'☕ Café latte',         en:'☕ Café latte',
+    p:'warm caramel, creamy latte, mocha brown and soft ivory tones, cozy coffee palette'},
+  {id:'strawberry',dot:'linear-gradient(135deg,#E63946,#FFB3C1)',
+    es:'🍓 Strawberry',         en:'🍓 Strawberry',
+    p:'vibrant strawberry red, soft pink and clean white tones, fresh berry palette'},
+  {id:'sunflower', dot:'linear-gradient(135deg,#FFD700,#F4A261)',
+    es:'🌻 Sunflower',          en:'🌻 Sunflower',
+    p:'golden yellow, warm orange and soft green tones, sunny sunflower palette'},
+  {id:'mint',      dot:'linear-gradient(135deg,#3EB489,#FFFFFF)',
+    es:'💚 Menta & blanco',     en:'💚 Mint & white',
+    p:'fresh mint green and clean white, soft cool tones, fresh palette'},
+  {id:'ocean',     dot:'linear-gradient(135deg,#0EA5E9,#7DD3FC)',
+    es:'💙 Ocean vibes',        en:'💙 Ocean vibes',
+    p:'aqua blue, seafoam teal and sandy beige tones, ocean palette'},
+  {id:'multi',     dot:'linear-gradient(135deg,#FF6B6B,#FFD93D,#6BCB77,#4D96FF)',
+    es:'🌈 Multicolor arco',    en:'🌈 Rainbow multicolor',
+    p:'vibrant multicolor rainbow palette, each letter a different harmonious color'},
+];
+
+const tcDecoData = [
+  {id:'none',  em:'✨', es:'Sin accesorio', en:'No accessory',  p:''},
+  {id:'bow',   em:'🎀', es:'Lazo crochet',  en:'Crochet bow',   p:'with a large decorative crochet bow centered below the text, detailed knitted bow with ribbon tails'},
+  {id:'heart', em:'❤️', es:'Corazón crochet',en:'Crochet heart',p:'with a large decorative crochet heart centered below the text, chunky knitted heart shape'},
+  {id:'flower',em:'🌸', es:'Flor crochet',  en:'Crochet flower', p:'with a large decorative crochet flower centered below the text, detailed yarn petals'},
+];
+
+const tcBorderData = [
+  {id:'none',    es:'Sin borde',           en:'No border',          p:''},
+  {id:'match',   es:'Borde que combina',   en:'Matching border',    p:'each letter outlined with a thin stitched border in a complementary color that harmonizes with the palette'},
+  {id:'contrast',es:'Borde de contraste',  en:'Contrast border',    p:'each letter with a bold contrasting stitched outline border for extra definition and depth'},
+  {id:'dark',    es:'Borde oscuro',        en:'Dark border',        p:'each letter with a clean dark charcoal stitched outline border, sharp and defined'},
+  {id:'gold',    es:'Borde dorado',        en:'Gold border',        p:'each letter with a thin elegant metallic gold stitched outline border, luxurious finish'},
+];
+
+let tcBorder = tcBorderData[0];
+
+const tcBgValues = [
+  'clean solid white background, isolated design',
+  'isolated on transparent background, PNG clipart style',
+  'soft cream warm white background',
+];
+const tcBgOpts = {
+  es:['⬜ Blanco limpio (sublimación)','🔲 Sin fondo (PNG)','🤍 Crema suave'],
+  en:['⬜ Clean white (sublimation)','🔲 No background (PNG)','🤍 Soft cream']
+};
+
+let tcStyle = 'classic';
+let tcPalette = tcPaletteData[0];
+let tcDeco = tcDecoData[0];
+
+function buildTextSection() {
+  // Palettes
+  const pc = document.getElementById('tcPalettes');
+  if (!pc) return;
+  pc.innerHTML = '';
+  tcPaletteData.forEach(p => {
+    const chip = document.createElement('div');
+    chip.className = 'palette-chip' + (tcPalette.id === p.id ? ' on' : '');
+    chip.innerHTML = `<span class="palette-dot" style="background:${p.dot}"></span><span>${p[lang]||p.es}</span>`;
+    chip.onclick = () => {
+      tcPalette = p;
+      pc.querySelectorAll('.palette-chip').forEach(c=>c.classList.remove('on'));
+      chip.classList.add('on');
+    };
+    pc.appendChild(chip);
+  });
+
+  // Decos
+  const dc = document.getElementById('tcDecos');
+  dc.innerHTML = '';
+  tcDecoData.forEach(d => {
+    const chip = document.createElement('div');
+    chip.className = 'deco-chip' + (tcDeco.id === d.id ? ' on' : '');
+    chip.innerHTML = `<span>${d.em}</span><span>${d[lang]||d.es}</span>`;
+    chip.onclick = () => {
+      tcDeco = d;
+      dc.querySelectorAll('.deco-chip').forEach(c=>c.classList.remove('on'));
+      chip.classList.add('on');
+    };
+    dc.appendChild(chip);
+  });
+
+  // Borders
+  const bc = document.getElementById('tcBorders');
+  bc.innerHTML = '';
+  tcBorderData.forEach(b => {
+    const chip = document.createElement('div');
+    chip.className = 'deco-chip' + (tcBorder.id === b.id ? ' on' : '');
+    chip.innerHTML = `<span>${b[lang]||b.es}</span>`;
+    chip.onclick = () => {
+      tcBorder = b;
+      bc.querySelectorAll('.deco-chip').forEach(c=>c.classList.remove('on'));
+      chip.classList.add('on');
+    };
+    bc.appendChild(chip);
+  });
+
+  // Background select
+  fillSelect('tcBg', tcBgOpts[lang], tcBgValues);
+}
+
+function selectStyle(s) {
+  tcStyle = s;
+  document.getElementById('styleClassic').classList.toggle('on', s==='classic');
+  document.getElementById('styleMulti').classList.toggle('on', s==='multi');
+}
+
+function generateText() {
+  const word = document.getElementById('tcWord').value.trim().toUpperCase();
+  if (!word) {
+    document.getElementById('tcWord').focus();
+    return;
+  }
+  const bg   = document.getElementById('tcBg').value;
+  const deco = tcDeco.p ? `, ${tcDeco.p}` : '';
+  const palette = tcPalette.p;
+
+  let main, short, mj;
+
+  const border = tcBorder.p ? `, ${tcBorder.p}` : '';
+
+  if (tcStyle === 'classic') {
+    main =
+      `bold chunky 3D text "${word}", letters made of realistic knitted yarn texture, ` +
+      `highly detailed fabric stitches, single consistent knit pattern across all letters, ` +
+      `strong 3D depth with soft realistic shadows, ${palette}${border}, ` +
+      `soft studio lighting, subtle depth${deco}, ` +
+      `centered composition, ${bg}, high resolution, sublimation PNG, cozy aesthetic, premium quality`;
+    short =
+      `3D chunky knit text "${word}", yarn texture letters, ${palette.split(',')[0]}, ` +
+      `cozy aesthetic, white background, sublimation`;
+    mj =
+      `bold chunky 3D knitted yarn text "${word}", realistic fabric stitch texture, ` +
+      `${palette}, soft shadows, 3D depth${deco}, ` +
+      `centered, ${bg} --ar 1:1 --q 2 --v 6`;
+  } else {
+    main =
+      `bold chunky 3D text "${word}", each letter with a different fabric pattern, ` +
+      `mix of patterns including ribbed knit, crochet yarn stitch, checkered fabric and chunky wool knit, ` +
+      `realistic soft textile material, highly detailed stitches, ${palette}, ` +
+      `each letter complementing the others in a harmonious color palette${border}, ` +
+      `subtle shadows, soft 3D depth${deco}, ` +
+      `centered composition, ${bg}, high resolution, sublimation PNG, cozy aesthetic, premium quality`;
+    short =
+      `3D multi-pattern knit text "${word}", each letter different texture, ${palette.split(',')[0]}, ` +
+      `cozy aesthetic, white background, sublimation`;
+    mj =
+      `bold chunky 3D text "${word}" each letter different knit pattern (ribbed, crochet, checker, chunky), ` +
+      `${palette}, harmonious colors, soft shadows${deco}, ` +
+      `centered, ${bg} --ar 1:1 --q 2 --v 6`;
+  }
+
+  document.getElementById('tMain').textContent  = main;
+  document.getElementById('tCanva').textContent = short;
+  document.getElementById('tMJ').textContent    = mj;
+
+  const out = document.getElementById('outText');
+  out.classList.add('show');
+  setTimeout(()=>out.scrollIntoView({behavior:'smooth',block:'start'}), 80);
+}
+
+function randomizeText() {
+  tcPalette = tcPaletteData[Math.floor(Math.random()*tcPaletteData.length)];
+  tcDeco    = tcDecoData[Math.floor(Math.random()*tcDecoData.length)];
+  tcBorder  = tcBorderData[Math.floor(Math.random()*tcBorderData.length)];
+  tcStyle   = Math.random() > .5 ? 'classic' : 'multi';
+  buildTextSection();
+  selectStyle(tcStyle);
+}
+
+function clearText() {
+  document.getElementById('tcWord').value = '';
+  tcPalette = tcPaletteData[0];
+  tcDeco    = tcDecoData[0];
+  tcBorder  = tcBorderData[0];
+  tcStyle   = 'classic';
+  buildTextSection();
+  selectStyle('classic');
+  document.getElementById('outText').classList.remove('show');
 }
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
